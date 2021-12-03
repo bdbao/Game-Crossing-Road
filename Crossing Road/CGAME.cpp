@@ -15,30 +15,36 @@ void CGAME::pollEvents() {
     {
         if (event.type == sf::Event::Closed)
             window.close();
-
-        if (event.type == sf::Event::KeyPressed && event.key.code == Keyboard::Up)
-            player.moveUp();
-
-        if (event.type == sf::Event::KeyPressed && event.key.code == Keyboard::Down)
-            player.moveDown(); 
-
-        if (event.type == sf::Event::KeyPressed && event.key.code == Keyboard::Left)
-            player.moveLeft();
-
-        if (event.type == sf::Event::KeyPressed && event.key.code == Keyboard::Right)
-            player.moveRight();
     }
 }
 
 void CGAME::update() {
     pollEvents();
+
+ 
+    if (Keyboard::isKeyPressed(Keyboard::Up)) {
+        player.moveUp();
+        player.setIsAnimating(true);
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::Down)) {
+        player.moveDown();
+        player.setIsAnimating(true);
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::Left)) {
+        player.moveLeft();
+        player.setIsAnimating(true);
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::Right)) {
+        player.moveRight();
+        player.setIsAnimating(true);
+    } else player.setIsAnimating(false);
 }
 
 void CGAME::render() {
     window.clear();
-    view.setCenter(Vector2f(50, player.shape.getPosition().y - CCONSTANT::UNIT));
+    view.setCenter(Vector2f(50, player.getShape().getPosition().y - CCONSTANT::UNIT));
     window.setView(view);
-    window.draw(player.shape);
+    window.draw(player.getShape());
     window.display();
 }
 

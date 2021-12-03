@@ -5,15 +5,25 @@
 #include <SFML/Graphics.hpp>
 
 class CPEOPLE {
-public:
-	//sf::Texture texture;
-	sf::RectangleShape shape;
+	sf::Texture texture;
+	sf::Sprite shape;
+	int textureId;
+	int prevTextureId;
+	int animationTimer;
+	bool isAnimating;
 	bool isDead;
+	int nextTextureId(int id);
+	void setTextureId(int id);
+	void processAnimation();
+public:
 	CPEOPLE();
+	sf::Sprite& getShape();
 	void moveUp();
 	void moveLeft();
 	void moveRight();
 	void moveDown();
+	void setIsAnimating(bool state);
+	sf::IntRect getTextureRect(int id);
 	/*
 	bool isImpact(const CVEHICLE*&);
 	bool isImpact(const CANIMAL*&);

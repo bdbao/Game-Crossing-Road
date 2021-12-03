@@ -22,7 +22,10 @@
     <ClCompile Include="CANIMAL.cpp" />
     <ClCompile Include="CCONSTANT.cpp" />
     <ClCompile Include="CGAME.cpp" />
+    <ClCompile Include="CGRASS.cpp" />
     <ClCompile Include="CPEOPLE.cpp" />
+    <ClCompile Include="CROAD.cpp" />
+    <ClCompile Include="CROAD.h" />
     <ClCompile Include="CVEHICLE.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -30,6 +33,8 @@
     <ClInclude Include="CANIMAL.h" />
     <ClInclude Include="CGAME.h" />
     <ClInclude Include="CCONSTANT.h" />
+    <ClInclude Include="CGRASS.h" />
+    <ClInclude Include="CLANE.h" />
     <ClInclude Include="CPEOPLE.h" />
     <ClInclude Include="CVEHICLE.h" />
     <ClInclude Include="main.h" />

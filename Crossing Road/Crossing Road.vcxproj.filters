@@ -33,6 +33,15 @@
     <ClCompile Include="CCONSTANT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CROAD.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CROAD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CGRASS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CANIMAL.h">
@@ -51,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CCONSTANT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CLANE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGRASS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
