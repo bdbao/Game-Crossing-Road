@@ -42,6 +42,9 @@
     <ClCompile Include="CGRASS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CLANE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CANIMAL.h">

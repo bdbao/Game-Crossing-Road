@@ -1,8 +1,10 @@
 #include "CPEOPLE.h"
 #include "CCONSTANT.h"
+#include "CROAD.h"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <math.h>
 
 using namespace std;
 using namespace sf;
@@ -17,11 +19,11 @@ CPEOPLE::CPEOPLE() {
 }
 
 Sprite& CPEOPLE::getShape() {
-	return this->shape;
+	return shape;
 }
 
 void CPEOPLE::moveUp() {
-	if (isAnimating) processAnimation();
+	if (isAnimating) processAnimation(1);
 	else setTextureId(1), animationTimer = 0;
 
 	shape.setTextureRect(getTextureRect(textureId));
@@ -29,7 +31,7 @@ void CPEOPLE::moveUp() {
 }
 
 void CPEOPLE::moveLeft() {
-	if (isAnimating) processAnimation();
+	if (isAnimating) processAnimation(10);
 	else setTextureId(10), animationTimer = 0;
 
 	shape.setTextureRect(getTextureRect(textureId));
@@ -38,7 +40,7 @@ void CPEOPLE::moveLeft() {
 }
 
 void CPEOPLE::moveRight() {
-	if (isAnimating) processAnimation();
+	if (isAnimating) processAnimation(4);
 	else setTextureId(4), animationTimer = 0;
 
 	shape.setTextureRect(getTextureRect(textureId));
@@ -46,7 +48,7 @@ void CPEOPLE::moveRight() {
 		shape.move(Vector2f(CCONSTANT::UNIT, 0));
 }
 void CPEOPLE::moveDown() {
-	if (isAnimating) processAnimation();
+	if (isAnimating) processAnimation(7);
 	else setTextureId(7), animationTimer = 0;
 	shape.setTextureRect(getTextureRect(textureId));
 	shape.move(Vector2f(0, CCONSTANT::UNIT));
@@ -80,8 +82,9 @@ void CPEOPLE::setTextureId(int id) {
 	textureId = id;
 }
 
-void CPEOPLE::processAnimation() {
+void CPEOPLE::processAnimation(int centerId) {
 	if (isAnimating) {
+		if (abs(centerId - textureId) > 1) textureId = centerId;
 		animationTimer++;
 		if (animationTimer >= CCONSTANT::ANIMATION_TIMER_LIMIT)
 			setTextureId(nextTextureId(textureId)), animationTimer = 0;

@@ -23,6 +23,7 @@
     <ClCompile Include="CCONSTANT.cpp" />
     <ClCompile Include="CGAME.cpp" />
     <ClCompile Include="CGRASS.cpp" />
+    <ClCompile Include="CLANE.cpp" />
     <ClCompile Include="CPEOPLE.cpp" />
     <ClCompile Include="CROAD.cpp" />
     <ClCompile Include="CROAD.h" />

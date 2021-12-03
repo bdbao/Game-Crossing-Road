@@ -1,6 +1,5 @@
 #include "CGAME.h"
 
-
 int main() {
 	CGAME * game = new CGAME();
 	while (game->isRunning()) {

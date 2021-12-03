@@ -14,7 +14,8 @@ class CPEOPLE {
 	bool isDead;
 	int nextTextureId(int id);
 	void setTextureId(int id);
-	void processAnimation();
+	void processAnimation(int centerId);
+	sf::IntRect getTextureRect(int id);
 public:
 	CPEOPLE();
 	sf::Sprite& getShape();
@@ -23,7 +24,6 @@ public:
 	void moveRight();
 	void moveDown();
 	void setIsAnimating(bool state);
-	sf::IntRect getTextureRect(int id);
 	/*
 	bool isImpact(const CVEHICLE*&);
 	bool isImpact(const CANIMAL*&);

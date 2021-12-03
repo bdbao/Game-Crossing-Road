@@ -5,10 +5,11 @@
 #include <SFML/Graphics.hpp>
 
 class CLANE {
-	// sf::Texture texture;
+protected:
+	sf::RectangleShape shape;
 public:
 	virtual void update() = 0;
-
+	sf::RectangleShape & getShape();
 };
 
 #endif
