@@ -28,9 +28,9 @@ void CROAD::update() {
 	RectangleShape& lastEnemyShape = enemies.back()->getShape();
 	if (Rand(1, 100) <= 60) {
 		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200)
-			enemies.push_back(new CCAR(direction, Vector2f(1400, shape.getPosition().y + rand()%50)));
+			enemies.push_back(new CCAR(direction, Vector2f(Rand(1000, 1400), shape.getPosition().y + rand()%50)));
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)
-			enemies.push_back(new CCAR(direction, Vector2f(-1400, shape.getPosition().y + rand()%50)));
+			enemies.push_back(new CCAR(direction, Vector2f(Rand(-1400, -1000), shape.getPosition().y + rand() % 50)));
 	}
 
 	for (int i = 0; i < (int)enemies.size(); i++)

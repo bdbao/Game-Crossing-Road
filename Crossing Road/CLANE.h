@@ -9,8 +9,6 @@ class CLANE {
 protected:
 	sf::RectangleShape shape;
 	float speed;
-	int enemyTimerLim;
-	int enemyTimer;
 	std::vector<CENEMY*> enemies;
 public:
 	CLANE(float speed);

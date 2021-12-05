@@ -10,8 +10,6 @@ using namespace std;
 
 CENEMY::CENEMY(string direction, Vector2f pos): direction(direction) {
 	shape.setPosition(pos);
-	shape.setSize(Vector2f(500, 150));
-	shape.setFillColor(Color::Blue);
 }
 
 void CENEMY::move(float speed) {
