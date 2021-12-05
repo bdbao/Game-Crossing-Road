@@ -18,18 +18,18 @@ CROAD::CROAD(Vector2f pos, float speed, string direction): CLANE(speed), directi
 
 void CROAD::update() {
 	if (enemies.empty()) {
-		if (direction == CCAR::LEFT)
+		if (direction == CCONSTANT::LEFT)
 			enemies.push_back(new CCAR(direction, Vector2f(600, shape.getPosition().y + rand() % 50)));
-		if (direction == CCAR::RIGHT)
+		if (direction == CCONSTANT::RIGHT)
 			enemies.push_back(new CCAR(direction, Vector2f(-1000, shape.getPosition().y + rand() % 50)));
 		return ;
 	}
 		
 	RectangleShape& lastEnemyShape = enemies.back()->getShape();
 	if (Rand(1, 100) <= 60) {
-		if (direction == CCAR::LEFT && lastEnemyShape.getPosition().x <= -200)
+		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200)
 			enemies.push_back(new CCAR(direction, Vector2f(1400, shape.getPosition().y + rand()%50)));
-		if (direction == CCAR::RIGHT && lastEnemyShape.getPosition().x >= -200)
+		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)
 			enemies.push_back(new CCAR(direction, Vector2f(-1400, shape.getPosition().y + rand()%50)));
 	}
 

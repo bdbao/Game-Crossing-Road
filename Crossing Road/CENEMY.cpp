@@ -3,13 +3,10 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
+#include "CCONSTANT.h"
 
 using namespace sf;
 using namespace std;
-
-const string CENEMY::LEFT = "LEFT";
-const string CENEMY::RIGHT = "RIGHT";
 
 CENEMY::CENEMY(string direction, Vector2f pos): direction(direction) {
 	shape.setPosition(pos);
@@ -18,7 +15,7 @@ CENEMY::CENEMY(string direction, Vector2f pos): direction(direction) {
 }
 
 void CENEMY::move(float speed) {
-	if (direction == LEFT) shape.move(Vector2f(-speed, 0.));
+	if (direction == CCONSTANT::LEFT) shape.move(Vector2f(-speed, 0.));
 	else shape.move(Vector2f(speed, 0.));
 }
 

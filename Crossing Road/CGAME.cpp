@@ -16,9 +16,9 @@ CGAME::CGAME() : window(VideoMode(1100, 700), "Crossing Road", Style::Close), pl
         float speed = rand() % 5 + 2;
         float enemyTimerLimit = rand() % 300 + (1000 - speed * 200);
         if (rand() % 2 == 0)
-            lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i * 230.f), speed, CCAR::LEFT));
+            lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i * 230.f), speed, CCONSTANT::LEFT));
         else
-            lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i * 230.f), speed, CCAR::RIGHT));
+            lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i * 230.f), speed, CCONSTANT::RIGHT));
     }
 }
 

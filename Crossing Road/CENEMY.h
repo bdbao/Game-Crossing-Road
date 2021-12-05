@@ -11,8 +11,6 @@ protected:
 	std::string direction;
 	sf::RectangleShape shape;
 public:
-	static const std::string LEFT;
-	static const std::string RIGHT;
 	CENEMY(std::string direction, sf::Vector2f pos);
 	void move(float speed);
 	bool isOutOfView();
