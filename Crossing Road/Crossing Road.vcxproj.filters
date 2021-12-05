@@ -45,6 +45,12 @@
     <ClCompile Include="CLANE.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CCAR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CANIMAL.h">
@@ -56,7 +62,7 @@
     <ClInclude Include="CPEOPLE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CVEHICLE.h">
+    <ClInclude Include="CENEMY.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
@@ -69,6 +75,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CGRASS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCAR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

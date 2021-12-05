@@ -10,12 +10,10 @@
 #include "CANIMAL.h"
 #include "CGAME.h"
 #include "CPEOPLE.h"
-#include "CVEHICLE.h"
+#include "CENEMY.h"
 
 
 /* Using namespace */
 using namespace std;
-
-
 
 #endif // !_MAIN_H_

@@ -1,6 +1,7 @@
 #include "CPEOPLE.h"
 #include "CCONSTANT.h"
 #include "CROAD.h"
+#include "CENEMY.h"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -89,4 +90,9 @@ void CPEOPLE::processAnimation(int centerId) {
 		if (animationTimer >= CCONSTANT::ANIMATION_TIMER_LIMIT)
 			setTextureId(nextTextureId(textureId)), animationTimer = 0;
 	}
+}
+
+
+bool CPEOPLE::isImpact(CENEMY* enemy) {
+	return shape.getGlobalBounds().intersects(enemy->getShape().getGlobalBounds());
 }

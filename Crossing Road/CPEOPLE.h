@@ -3,6 +3,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include "CENEMY.h"
 
 class CPEOPLE {
 	sf::Texture texture;
@@ -24,8 +25,8 @@ public:
 	void moveRight();
 	void moveDown();
 	void setIsAnimating(bool state);
+	bool isImpact(CENEMY*);
 	/*
-	bool isImpact(const CVEHICLE*&);
 	bool isImpact(const CANIMAL*&);
 	bool isFinish();
 	bool isDead();

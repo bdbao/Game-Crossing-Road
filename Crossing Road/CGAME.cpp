@@ -1,7 +1,9 @@
 #include "CGAME.h"
 #include "CCONSTANT.h"
+#include "CCAR.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -10,8 +12,14 @@ using namespace std;
 CGAME::CGAME() : window(VideoMode(1100, 700), "Crossing Road", Style::Close), player() {
     window.setFramerateLimit(60);
     view.setSize(1100, 700);
-    for (int i = 0; i < 6; i++)
-      lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i*230.f)));
+    for (int i = 0; i < 6; i++) {
+        float speed = rand() % 5 + 2;
+        float enemyTimerLimit = rand() % 300 + (1000 - speed * 200);
+        if (rand() % 2 == 0)
+            lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i * 230.f), speed, CCAR::LEFT));
+        else
+            lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i * 230.f), speed, CCAR::RIGHT));
+    }
 }
 
 bool CGAME::isRunning() {
@@ -52,7 +60,18 @@ void CGAME::render() {
     window.clear();
     view.setCenter(Vector2f(50, player.getShape().getPosition().y - CCONSTANT::UNIT));
     window.setView(view);
-    for (auto t : lanes) window.draw(t->getShape());
+    for (auto t : lanes)
+        window.draw(t->getShape());
+    
+    for (auto t : lanes) {
+        t->update();
+        for (auto e : t->getEnemies()) {
+            if (player.isImpact(e)) cout << "GAME OVER!\n";
+            window.draw(e->getShape());
+        }
+    }
+    
+
     window.draw(player.getShape());
     window.display();
 }

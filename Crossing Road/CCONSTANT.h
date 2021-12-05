@@ -1,5 +1,5 @@
-#ifndef CONSTANT
-#define CONSTANT
+#ifndef CONSTANT_H
+#define CONSTANT_H
 
 class CCONSTANT {
 public:
