@@ -9,7 +9,7 @@
 
 class CANIMAL : public CENEMY {
 public:
-	CANIMAL(std::string direction, sf::Vector2f pos);
+	CANIMAL(std::string textureFile, std::string direction, sf::Vector2f pos);
 };
 
 #endif

@@ -8,6 +8,9 @@
 
 class CENEMY {
 protected:
+	sf::Texture texture;
+	sf::Sprite sprite;
+
 	std::string direction;
 	sf::RectangleShape shape;
 public:
@@ -15,6 +18,8 @@ public:
 	void move(float speed);
 	bool isOutOfView();
 	sf::RectangleShape& getShape();
+
+	sf::Sprite& getSprite();
 };
 
 #endif // !_CENEMY_H_

@@ -5,6 +5,7 @@
 #include "CENEMY.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -13,6 +14,8 @@ class CGRASS : public CLANE {
 public:
 	CGRASS(sf::Vector2f pos, float speed, std::string direction);
 	void update();
+
+	sf::Sprite& getSprite();
 };
 
 #endif

@@ -7,6 +7,9 @@
 
 class CLANE {
 protected:
+	sf::Texture texture;
+	sf::Sprite sprite;
+
 	sf::RectangleShape shape;
 	float speed;
 	std::vector<CENEMY*> enemies;
@@ -14,7 +17,7 @@ public:
 	CLANE(float speed);
 	virtual void update() = 0;
 	std::vector<CENEMY*>& getEnemies();
-	sf::RectangleShape & getShape();
+	sf::RectangleShape& getShape();
 };
 
 #endif

@@ -9,7 +9,13 @@ using namespace sf;
 using namespace std;
 
 
-CANIMAL::CANIMAL(string direction, Vector2f pos) : CENEMY(direction, pos) {
+CANIMAL::CANIMAL(string textureFile, string direction, Vector2f pos) : CENEMY(direction, pos) {
+	if (!texture.loadFromFile("assets/enemies/" + textureFile + ".png")) {
+		cout << "Cannot find animal texture." << endl;
+		return;
+	}
+	sprite.setTexture(texture);
+
 	shape.setSize(Vector2f(500, 150));
 	shape.setFillColor(Color::Blue);
 }
