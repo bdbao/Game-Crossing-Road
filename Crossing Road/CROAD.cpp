@@ -1,11 +1,4 @@
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-
 #include "CROAD.h"
-#include "CLANE.h"
-#include "CCONSTANT.h"
-#include "CCAR.h"
-#include "utils.h"
 
 using namespace std;
 using namespace sf;
@@ -37,6 +30,16 @@ void CROAD::update() {
 		if (enemies[i]->isOutOfView())
 			enemies.erase(enemies.begin() + i);
 
+	/* Adjust moving speed by traffic light */
+	float moving_speed = this->speed;
+	if (this->isStopped) {
+		moving_speed = 0.0;
+	}
+	else if (this->isSlowly) {
+		moving_speed = CCONSTANT::SLOW_DOWN_SPEED;
+	}
+
+	/* Moving with moving speed */
 	for (int i = 0; i < (int)enemies.size(); i++)
-		enemies[i]->move(speed);
+		enemies[i]->move(moving_speed);
 }

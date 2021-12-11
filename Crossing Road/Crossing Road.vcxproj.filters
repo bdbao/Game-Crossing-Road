@@ -45,10 +45,7 @@
     <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CANIMAL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CGRASS.cpp">
+    <ClCompile Include="CTRAFFICLIGHT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,10 +74,7 @@
     <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CGRASS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CANIMAL.h">
+    <ClInclude Include="CTRAFFICLIGHT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

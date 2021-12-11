@@ -11,6 +11,16 @@ public:
 	static const int ANIMATION_TIMER_LIMIT;
 	static const std::string LEFT;
 	static const std::string RIGHT;
+	
+
+	/* For traffic light */
+	static const float RED_LIGHT_TIME;
+	static const float YELLOW_LIGHT_TIME;
+	static const float GREEN_LIGHT_TIME;
+
+	/* Speed */
+	static const float NORMAL_SPEED;
+	static const float SLOW_DOWN_SPEED;
 };
 
 #endif

@@ -13,11 +13,19 @@ protected:
 	sf::RectangleShape shape;
 	float speed;
 	std::vector<CENEMY*> enemies;
+	
+	bool isStopped;
+	bool isSlowly;
 public:
 	CLANE(float speed);
 	virtual void update() = 0;
 	std::vector<CENEMY*>& getEnemies();
 	sf::RectangleShape& getShape();
+
+	/* Traffic light */
+	void setNormal();
+	void setSlowly();
+	void setStopped();
 };
 
 #endif

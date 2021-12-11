@@ -1,9 +1,4 @@
 #include "CENEMY.h"
-#include <string>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include "CCONSTANT.h"
 
 using namespace sf;
 using namespace std;
@@ -11,6 +6,8 @@ using namespace std;
 CENEMY::CENEMY(string direction, Vector2f pos): direction(direction) {
 	shape.setPosition(pos);
 }
+
+CENEMY::~CENEMY() {}
 
 void CENEMY::move(float speed) {
 	if (direction == CCONSTANT::LEFT) shape.move(Vector2f(-speed, 0.));
