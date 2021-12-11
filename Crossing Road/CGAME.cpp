@@ -1,17 +1,13 @@
 #include "CGAME.h"
-#include "CCONSTANT.h"
-#include "CCAR.h"
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
 
 using namespace sf;
 using namespace std;
 
 
-CGAME::CGAME() : window(VideoMode(1100, 700), "Crossing Road", Style::Close), player() {
+CGAME::CGAME() : window(VideoMode(1100, 700), "Crossing Road", Style::Close), player(), traffic_light() {
     window.setFramerateLimit(60);
     view.setSize(1100, 700);
+    clock.restart();
     
     // setting the game level -- might be moved to another function
     for (int i = 0; i < 6; i++) {
@@ -61,10 +57,32 @@ void CGAME::render() {
     window.clear();
     view.setCenter(Vector2f(50, player.getShape().getPosition().y - CCONSTANT::UNIT));
     window.setView(view);
+    View mainView;
+    mainView.setSize(1100, 700);
     
+    int traffic_state = traffic_light.getTrafficLight(this->clock);
+
     for (auto t : lanes) {
+        
+        /* Set traffic light */
+        if (traffic_state == 0)
+            t->setNormal();
+        else if (traffic_state == 1)
+            t->setSlowly();
+        else
+            t->setStopped();
+        Sprite obj = traffic_light.getShape();
+        obj.setPosition(sf::Vector2f(-60, -355) + window.getView().getCenter());
+        window.draw(obj);
+
+
+        /* Get the key of user from keyboard */
         t->update();
+
+        /* Draw lane */
         window.draw(t->getShape());
+
+        /* Draw objects on each lane */
         for (auto e : t->getEnemies()) {
             if (player.isImpact(e)) cout << "GAME OVER!\n";
             window.draw(e->getShape());

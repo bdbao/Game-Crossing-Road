@@ -1,9 +1,14 @@
 ﻿#ifndef _CPEOPLE_H_
 #define _CPEOPLE_H_
 
+#include "CROAD.h"
+#include "CENEMY.h"
+#include "CCONSTANT.h"
+
+#include <math.h>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "CENEMY.h"
+
 
 class CPEOPLE {
 	sf::Texture texture;

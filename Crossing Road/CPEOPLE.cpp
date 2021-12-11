@@ -1,11 +1,5 @@
 #include "CPEOPLE.h"
-#include "CCONSTANT.h"
-#include "CROAD.h"
-#include "CENEMY.h"
 
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <math.h>
 
 using namespace std;
 using namespace sf;

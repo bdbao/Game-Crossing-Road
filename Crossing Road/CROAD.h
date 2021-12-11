@@ -1,12 +1,16 @@
 #ifndef CROAD_H
 #define CROAD_H
 
+#include "CCAR.h"
+#include "utils.h"
 #include "CLANE.h"
 #include "CENEMY.h"
+#include "CCONSTANT.h"
+
+#include <string>
+#include <vector>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <vector>
-#include <string>
 
 class CROAD : public CLANE {
 	std::string direction;

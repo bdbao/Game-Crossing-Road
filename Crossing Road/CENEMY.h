@@ -1,10 +1,14 @@
 #ifndef _CENEMY_H_
 #define _CENEMY_H_
 
+#include "CCONSTANT.h"
+
+
+#include <string>
+#include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-#include <string>
 
 class CENEMY {
 protected:
@@ -15,6 +19,7 @@ protected:
 	sf::RectangleShape shape;
 public:
 	CENEMY(std::string direction, sf::Vector2f pos);
+	~CENEMY();
 	void move(float speed);
 	bool isOutOfView();
 	sf::RectangleShape& getShape();
