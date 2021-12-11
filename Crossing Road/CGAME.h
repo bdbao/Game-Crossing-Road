@@ -4,6 +4,7 @@
 #include "CPEOPLE.h"
 #include "CLANE.h"
 #include "CROAD.h"
+#include "CGRASS.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>

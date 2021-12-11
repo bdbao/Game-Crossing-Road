@@ -24,3 +24,7 @@ bool CENEMY::isOutOfView() {
 sf::RectangleShape& CENEMY::getShape() {
 	return shape;
 }
+
+sf::Sprite& CENEMY::getSprite() {
+	return sprite;
+}
