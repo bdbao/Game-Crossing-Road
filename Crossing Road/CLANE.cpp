@@ -8,6 +8,11 @@ RectangleShape & CLANE::getShape() {
 
 CLANE::CLANE(float speed): speed(speed), isStopped(false), isSlowly(false) {}
 
+CLANE:: ~CLANE() {
+	for (int i = 0; i < this->enemies.size(); i++)
+		delete this->enemies[i];
+}
+
 std::vector<CENEMY*>& CLANE::getEnemies() {
 	return enemies;
 }
