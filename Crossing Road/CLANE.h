@@ -18,11 +18,12 @@ protected:
 	bool isSlowly;
 public:
 	CLANE(float speed);
+	virtual ~CLANE();
 	virtual void update() = 0;
 	std::vector<CENEMY*>& getEnemies();
 	sf::RectangleShape& getShape();
 
-	/* Traffic light */
+	/* Set state for Traffic light */
 	void setNormal();
 	void setSlowly();
 	void setStopped();

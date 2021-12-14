@@ -19,7 +19,7 @@ protected:
 	sf::RectangleShape shape;
 public:
 	CENEMY(std::string direction, sf::Vector2f pos);
-	~CENEMY();
+	virtual ~CENEMY();
 	void move(float speed);
 	bool isOutOfView();
 	sf::RectangleShape& getShape();

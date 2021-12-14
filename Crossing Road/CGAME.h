@@ -29,6 +29,7 @@ class CGAME {
 	void pollEvents();
 public:
 	CGAME();
+	~CGAME();
 	bool isRunning();
 	void update();
 	void render();

@@ -19,6 +19,11 @@ CGAME::CGAME() : window(VideoMode(1100, 700), "Crossing Road", Style::Close), pl
     }
 }
 
+CGAME::~CGAME() {
+    for (int i = 0; i < this->lanes.size(); i++)
+        delete this->lanes[i];
+}
+
 bool CGAME::isRunning() {
 	return window.isOpen();
 }
