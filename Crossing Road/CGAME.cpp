@@ -34,31 +34,57 @@ void CGAME::pollEvents() {
 void CGAME::update() {
     pollEvents();
 
- 
+    /* Moving Keys */
     if (Keyboard::isKeyPressed(Keyboard::Up)) {
+        cout << "Moving UP by pressing Up or W" << endl;
         player.moveUp();
         player.setIsAnimating(true);
     }
     else if (Keyboard::isKeyPressed(Keyboard::Down)) {
+        cout << "Moving DOWN by pressing Down or S" << endl;
         player.moveDown();
         player.setIsAnimating(true);
     }
     else if (Keyboard::isKeyPressed(Keyboard::Left)) {
+        cout << "Moving LEFT by pressing Left or A" << endl;
         player.moveLeft();
         player.setIsAnimating(true);
     }
     else if (Keyboard::isKeyPressed(Keyboard::Right)) {
+        cout << "Moving RIGHT by pressing Right or D" << endl;
         player.moveRight();
         player.setIsAnimating(true);
-    } else player.setIsAnimating(false);
+    }
+
+    /* Interact keys */
+    else if (Keyboard::isKeyPressed(Keyboard::Q) || Keyboard::isKeyPressed(Keyboard::Escape)) {
+        /* Quit the game */
+        this->window.close();
+        cout << "QUIT by pressing Q" << endl;
+        return;
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+        /* Quit the game */
+        this->window.close();
+        cout << "QUIT by pressing ESC" << endl;
+        return;
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::L)) {
+        /* Load the game from file */
+        return;
+    }
+    else if (Keyboard::isKeyPressed(Keyboard::S)) {
+        /* Save the game to file */
+        return;
+    }
+
+    else player.setIsAnimating(false);
 }
 
 void CGAME::render() {
     window.clear();
     view.setCenter(Vector2f(50, player.getShape().getPosition().y - CCONSTANT::UNIT));
     window.setView(view);
-    View mainView;
-    mainView.setSize(1100, 700);
     
     int traffic_state = traffic_light.getTrafficLight(this->clock);
 
@@ -75,8 +101,7 @@ void CGAME::render() {
         obj.setPosition(sf::Vector2f(-60, -355) + window.getView().getCenter());
         window.draw(obj);
 
-
-        /* Get the key of user from keyboard */
+        /* Update CROAD */
         t->update();
 
         /* Draw lane */
