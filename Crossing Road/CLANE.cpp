@@ -2,8 +2,8 @@
 
 using namespace sf;
 
-RectangleShape & CLANE::getShape() {
-	return shape;
+sf::Sprite & CLANE::getShape() {
+	return this->sprite;
 }
 
 CLANE::CLANE(float speed): speed(speed), isStopped(false), isSlowly(false) {

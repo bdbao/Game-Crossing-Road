@@ -10,6 +10,9 @@ const int CCONSTANT::ANIMATION_TIMER_LIMIT = 5;
 const std::string CCONSTANT::LEFT = "LEFT";
 const std::string CCONSTANT::RIGHT = "RIGHT";
 
+const unsigned int CCONSTANT::LANE_WIDTH = CCONSTANT::WINDOW_WIDTH;
+const unsigned int CCONSTANT::LANE_HEIGHT = 200;
+
 const float CCONSTANT::RED_LIGHT_TIME = 2.f;
 const float CCONSTANT::YELLOW_LIGHT_TIME = 2.f;
 const float CCONSTANT::GREEN_LIGHT_TIME = 5.f;

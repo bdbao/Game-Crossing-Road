@@ -16,6 +16,10 @@ public:
 	static const int ANIMATION_TIMER_LIMIT;
 	static const std::string LEFT;
 	static const std::string RIGHT;
+
+	/* CLANE */
+	static const unsigned int LANE_WIDTH;
+	static const unsigned int LANE_HEIGHT;
 	
 
 	/* For traffic light */

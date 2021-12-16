@@ -12,7 +12,6 @@ protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
 
-	sf::RectangleShape shape;
 	float speed;
 	std::vector<CENEMY*> enemies;
 
@@ -25,7 +24,7 @@ public:
 	virtual ~CLANE();
 	virtual void update() = 0;
 	std::vector<CENEMY*>& getEnemies();
-	sf::RectangleShape& getShape();
+	virtual sf::Sprite& getShape();
 
 	/* Set state for Traffic light */
 	virtual int getTrafficLightState() = 0;
