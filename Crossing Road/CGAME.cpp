@@ -10,6 +10,10 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
 
     this->background_texture.loadFromFile("./assets/graphics/background.jpg");
     this->background_sprite = sf::Sprite(this->background_texture);
+
+    /* Scale the background image */
+    sf::Vector2u size = this->background_texture.getSize();
+    this->background_sprite.setScale(Vector2f((float)CCONSTANT::WINDOW_WIDTH / size.x, (float)CCONSTANT::WINDOW_HEIGHT / size.y));
     
     // setting the game level -- might be moved to another function
     for (int i = 0; i < 6; i++) {
