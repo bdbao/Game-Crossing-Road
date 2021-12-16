@@ -23,7 +23,7 @@ public:
 	CTRAFFICLIGHT();
 	~CTRAFFICLIGHT();
 
-	sf::Sprite& getShape();
+	sf::Sprite& getShape(sf::Vector2f pos);
 	int getTrafficLight(sf::Clock& clock);
 
 };

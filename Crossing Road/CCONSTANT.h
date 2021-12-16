@@ -5,12 +5,21 @@
 
 class CCONSTANT {
 public:
+	/* Window setting */
+	static const unsigned int WINDOW_WIDTH;
+	static const unsigned int WINDOW_HEIGHT;
+
+	/* Some setting */
 	static const float UNIT;
 	static const float VIEW_WIDTH;
 	static const float VIEW_HEIGHT;
 	static const int ANIMATION_TIMER_LIMIT;
 	static const std::string LEFT;
 	static const std::string RIGHT;
+
+	/* CLANE */
+	static const unsigned int LANE_WIDTH;
+	static const unsigned int LANE_HEIGHT;
 	
 
 	/* For traffic light */

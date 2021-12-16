@@ -4,10 +4,12 @@ using namespace sf;
 using namespace std;
 
 
-CGAME::CGAME() : window(VideoMode(1100, 700), "Crossing Road", Style::Close), player(), traffic_light() {
+CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT), "Crossing Road", Style::Close), player() {
     window.setFramerateLimit(60);
-    view.setSize(1100, 700);
-    clock.restart();
+    view.setSize(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT);
+
+    this->background_texture.loadFromFile("./assets/graphics/background.jpg");
+    this->background_sprite = sf::Sprite(this->background_texture);
     
     // setting the game level -- might be moved to another function
     for (int i = 0; i < 6; i++) {
@@ -90,23 +92,11 @@ void CGAME::render() {
     window.clear();
     view.setCenter(Vector2f(50, player.getShape().getPosition().y - CCONSTANT::UNIT));
     window.setView(view);
-    
-    int traffic_state = traffic_light.getTrafficLight(this->clock);
+    this->background_sprite.setPosition(this->view.getCenter() - Vector2f(550, 350));
+    window.draw(this->background_sprite);
 
     for (auto t : lanes) {
-        
-        /* Set traffic light */
-        if (traffic_state == 0)
-            t->setNormal();
-        else if (traffic_state == 1)
-            t->setSlowly();
-        else
-            t->setStopped();
-        Sprite obj = traffic_light.getShape();
-        obj.setPosition(sf::Vector2f(-60, -355) + window.getView().getCenter());
-        window.draw(obj);
-
-        /* Update CROAD */
+        /* Update lane */
         t->update();
 
         /* Draw lane */
@@ -116,7 +106,10 @@ void CGAME::render() {
         for (auto e : t->getEnemies()) {
             if (player.isImpact(e)) cout << "GAME OVER!\n";
             window.draw(e->getShape());
-        }
+        }        
+        
+        /* Draw traffic light */
+        window.draw(t->getTrafficLightShape());
     }
 
     window.draw(player.getShape());
