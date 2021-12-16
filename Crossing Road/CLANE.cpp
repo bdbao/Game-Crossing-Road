@@ -6,11 +6,15 @@ RectangleShape & CLANE::getShape() {
 	return shape;
 }
 
-CLANE::CLANE(float speed): speed(speed), isStopped(false), isSlowly(false) {}
+CLANE::CLANE(float speed): speed(speed), isStopped(false), isSlowly(false) {
+	this->time.restart();
+	this->traffic_light = new CTRAFFICLIGHT;
+}
 
 CLANE:: ~CLANE() {
 	for (int i = 0; i < this->enemies.size(); i++)
 		delete this->enemies[i];
+	delete this->traffic_light;
 }
 
 std::vector<CENEMY*>& CLANE::getEnemies() {

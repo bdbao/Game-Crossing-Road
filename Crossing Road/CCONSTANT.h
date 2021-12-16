@@ -5,6 +5,11 @@
 
 class CCONSTANT {
 public:
+	/* Window setting */
+	static const unsigned int WINDOW_WIDTH;
+	static const unsigned int WINDOW_HEIGHT;
+
+	/* Some setting */
 	static const float UNIT;
 	static const float VIEW_WIDTH;
 	static const float VIEW_HEIGHT;

@@ -1,5 +1,8 @@
 #include "CCONSTANT.h"
 
+const unsigned int CCONSTANT::WINDOW_WIDTH = 1100;
+const unsigned int CCONSTANT::WINDOW_HEIGHT = 700;
+
 const float CCONSTANT::UNIT = 5.f;
 const float CCONSTANT::VIEW_HEIGHT = 5.f;
 const float CCONSTANT::VIEW_WIDTH = 1100.f;

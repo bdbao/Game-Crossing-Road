@@ -15,16 +15,17 @@
 #include <vector>
 
 class CGAME {
+	/* Display */
 	sf::RenderWindow window;
 	sf::View view;
+	sf::Texture background_texture;
+	sf::Sprite background_sprite;
+
+	/* Core game */
 	sf::Event event;
 	CPEOPLE player;
 	std::vector<CLANE*> lanes;
 
-	
-	/* Traffic light */
-	sf::Clock clock;
-	CTRAFFICLIGHT traffic_light;
 	
 	void pollEvents();
 public:

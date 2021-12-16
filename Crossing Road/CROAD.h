@@ -14,9 +14,16 @@
 
 class CROAD : public CLANE {
 	std::string direction;
+
 public:
 	CROAD(sf::Vector2f pos, float speed, std::string direction);
+	~CROAD();
+
 	void update();
+
+	/* Traffic light */
+	int getTrafficLightState();
+	sf::Sprite& getTrafficLightShape();
 };
 
 #endif

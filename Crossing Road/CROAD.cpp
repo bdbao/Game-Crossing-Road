@@ -9,6 +9,9 @@ CROAD::CROAD(Vector2f pos, float speed, string direction): CLANE(speed), directi
 	shape.setPosition(pos);
 }
 
+CROAD::~CROAD() {
+}
+
 void CROAD::update() {
 	if (enemies.empty()) {
 		if (direction == CCONSTANT::LEFT)
@@ -30,6 +33,18 @@ void CROAD::update() {
 		if (enemies[i]->isOutOfView())
 			enemies.erase(enemies.begin() + i);
 
+
+	/* Adjust traffic light here */
+	int traffic_state = this->getTrafficLightState();
+	/* Set traffic light */
+	if (traffic_state == 0)
+		this->setNormal();
+	else if (traffic_state == 1)
+		this->setSlowly();
+	else
+		this->setStopped();
+
+
 	/* Adjust moving speed by traffic light */
 	float moving_speed = this->speed;
 	if (this->isStopped) {
@@ -42,4 +57,13 @@ void CROAD::update() {
 	/* Moving with moving speed */
 	for (int i = 0; i < (int)enemies.size(); i++)
 		enemies[i]->move(moving_speed);
+}
+
+int CROAD::getTrafficLightState() {
+	return this->traffic_light->getTrafficLight(this->time);
+}
+
+sf::Sprite& CROAD::getTrafficLightShape() {
+	sf::Vector2f pos = this->shape.getPosition();
+	return this->traffic_light->getShape(pos);
 }

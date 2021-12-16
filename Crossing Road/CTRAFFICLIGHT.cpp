@@ -1,7 +1,7 @@
 #include "CTRAFFICLIGHT.h"
 
 CTRAFFICLIGHT::CTRAFFICLIGHT() {
-
+	this->state = 0;
 	sf::Image img;
 
 	/* Load green light */
@@ -29,13 +29,19 @@ CTRAFFICLIGHT::CTRAFFICLIGHT() {
 CTRAFFICLIGHT::~CTRAFFICLIGHT() {}
 
 
-sf::Sprite& CTRAFFICLIGHT::getShape() {
-	if (this->state == 0)
+sf::Sprite& CTRAFFICLIGHT::getShape(sf::Vector2f pos) {
+	if (this->state == 0) {
+		green_light.setPosition(pos);
 		return green_light;
-	else if (this->state == 1)
+	}
+	else if (this->state == 1) {
+		yellow_light.setPosition(pos);
 		return yellow_light;
-	else
+	}
+	else {
+		red_light.setPosition(pos);
 		return red_light;
+	}
 }
 
 
