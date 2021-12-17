@@ -15,6 +15,9 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
     sf::Vector2u size = this->background_texture.getSize();
     this->background_sprite.setScale(Vector2f((float)CCONSTANT::WINDOW_WIDTH / size.x, (float)CCONSTANT::WINDOW_HEIGHT / size.y));
     
+    /* Sound manager */
+    this->sound_manager = new SoundManager;
+
     // setting the game level -- might be moved to another function
     for (int i = 0; i < 6; i++) {
         float speed = rand() % 5 + 2;
@@ -28,6 +31,7 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
 CGAME::~CGAME() {
     for (int i = 0; i < this->lanes.size(); i++)
         delete this->lanes[i];
+    delete this->sound_manager;
 }
 
 bool CGAME::isRunning() {
@@ -45,24 +49,30 @@ void CGAME::pollEvents() {
 void CGAME::update() {
     pollEvents();
 
+    
+
     /* Moving Keys */
     if (Keyboard::isKeyPressed(Keyboard::Up)) {
         cout << "Moving UP by pressing Up or W" << endl;
+        this->sound_manager->play_Walking();
         player.moveUp();
         player.setIsAnimating(true);
     }
     else if (Keyboard::isKeyPressed(Keyboard::Down)) {
         cout << "Moving DOWN by pressing Down or S" << endl;
+        this->sound_manager->play_Walking();
         player.moveDown();
         player.setIsAnimating(true);
     }
     else if (Keyboard::isKeyPressed(Keyboard::Left)) {
         cout << "Moving LEFT by pressing Left or A" << endl;
+        this->sound_manager->play_Walking();
         player.moveLeft();
         player.setIsAnimating(true);
     }
     else if (Keyboard::isKeyPressed(Keyboard::Right)) {
         cout << "Moving RIGHT by pressing Right or D" << endl;
+        this->sound_manager->play_Walking();
         player.moveRight();
         player.setIsAnimating(true);
     }

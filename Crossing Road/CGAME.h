@@ -7,6 +7,7 @@
 #include "CGRASS.h"
 #include "CPEOPLE.h"
 #include "CCONSTANT.h"
+#include "SoundManager.h"
 #include "CTRAFFICLIGHT.h"
 
 #include <iostream>
@@ -25,6 +26,9 @@ class CGAME {
 	sf::Event event;
 	CPEOPLE player;
 	std::vector<CLANE*> lanes;
+
+	/* Music */
+	SoundManager* sound_manager;
 
 	
 	void pollEvents();
