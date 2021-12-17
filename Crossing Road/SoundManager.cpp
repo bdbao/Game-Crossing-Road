@@ -2,6 +2,7 @@
 
 /* Singleton design pattern */
 SoundManager* SoundManager::pInstance = nullptr;
+mutex SoundManager::mLocker;
 
 
 SoundManager::SoundManager() {

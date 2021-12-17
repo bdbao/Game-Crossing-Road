@@ -19,3 +19,5 @@ const float CCONSTANT::GREEN_LIGHT_TIME = 5.f;
 
 const float CCONSTANT::NORMAL_SPEED = 1.f;
 const float CCONSTANT::SLOW_DOWN_SPEED = 1.5f;
+
+const float CCONSTANT::DELAY_WALKING_SOUND = 0.375f;

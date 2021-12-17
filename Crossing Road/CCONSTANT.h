@@ -30,6 +30,9 @@ public:
 	/* Speed */
 	static const float NORMAL_SPEED;
 	static const float SLOW_DOWN_SPEED;
+
+	/* Sound */
+	static const float DELAY_WALKING_SOUND;
 };
 
 #endif

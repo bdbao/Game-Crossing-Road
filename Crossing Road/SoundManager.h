@@ -4,24 +4,43 @@
 
 #include "SFML/Audio.hpp"
 
+#include <mutex>
 #include <vector>
 
+using std::mutex;
 using std::vector;
 
 class SoundManager {
 	/* Singleton design pattern */
+private:
 	static SoundManager* pInstance;
+	SoundManager();
+	SoundManager(const SoundManager&) = delete;
+	SoundManager& operator=(const SoundManager&) = delete;
 
+	static mutex mLocker;
+public:
+	static SoundManager* getInstance() {
+		mLocker.lock();
+		if (pInstance == nullptr) {
+			pInstance = new SoundManager;
+		}
+		mLocker.unlock();
+		return pInstance;
+	}
+
+
+	/* Attributes */
+private:
 	vector<sf::Sound> sound;
 	vector< sf::SoundBuffer> sound_buffer;
 
 	sf::Clock clock;
 	vector<sf::Time> last_played;
+
+
+	/* Public methods*/
 public:
-	SoundManager();
-	// SoundManager* getInstance();
-
-
 	void play_Walking();
 
 	void play_GameCompleted();

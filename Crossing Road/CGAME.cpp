@@ -16,7 +16,7 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
     this->background_sprite.setScale(Vector2f((float)CCONSTANT::WINDOW_WIDTH / size.x, (float)CCONSTANT::WINDOW_HEIGHT / size.y));
     
     /* Sound manager */
-    this->sound_manager = new SoundManager;
+    this->sound_manager = SoundManager::getInstance();
 
     // setting the game level -- might be moved to another function
     for (int i = 0; i < 6; i++) {
