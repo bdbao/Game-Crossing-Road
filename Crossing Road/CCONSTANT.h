@@ -9,6 +9,16 @@ public:
 	static const unsigned int WINDOW_WIDTH;
 	static const unsigned int WINDOW_HEIGHT;
 
+	/* CGAME status */
+	static const int STATE_MENU;
+	static const int STATE_START;
+	static const int STATE_PAUSE;
+	static const int STATE_END;
+	static const int STATE_GAME_COMPLETED;
+	static const int STATE_GAME_OVER;
+	static const int STATE_SAVE;
+	static const int STATE_LOAD;
+
 	/* Some setting */
 	static const float UNIT;
 	static const float VIEW_WIDTH;

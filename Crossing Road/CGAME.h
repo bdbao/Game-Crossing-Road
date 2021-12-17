@@ -30,12 +30,16 @@ class CGAME {
 	/* Music */
 	SoundManager* sound_manager;
 
-	
+	/* Event manager */
+	int game_state;
 	void pollEvents();
 public:
 	CGAME();
 	~CGAME();
+	
 	bool isRunning();
+	int state();
+	
 	void update();
 	void render();
 };
