@@ -25,9 +25,9 @@ CGRASS::CGRASS(Vector2f pos, float speed, string direction) : CLANE(speed), dire
 void CGRASS::update() {
 	if (enemies.empty()) {
 		if (direction == CCONSTANT::LEFT)
-			enemies.push_back(new CANIMAL("reindeer_toLeft", direction, Vector2f(600, shape.getPosition().y + rand() % 50)));
+			enemies.push_back(new CANIMAL("reindeer_toLeft", direction, Vector2f(600, sprite.getPosition().y + rand() % 50)));
 		if (direction == CCONSTANT::RIGHT)
-			enemies.push_back(new CANIMAL("reindeer_toRight", direction, Vector2f(-1000, shape.getPosition().y + rand() % 50)));
+			enemies.push_back(new CANIMAL("reindeer_toRight", direction, Vector2f(-1000, sprite.getPosition().y + rand() % 50)));
 		return;
 	}
 
@@ -38,9 +38,9 @@ void CGRASS::update() {
 		else animal = "reindeer";
 
 		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200)
-			enemies.push_back(new CANIMAL(animal + "_toLeft", direction, Vector2f(Rand(1000, 1400), shape.getPosition().y + rand() % 50)));
+			enemies.push_back(new CANIMAL(animal + "_toLeft", direction, Vector2f(Rand(1000, 1400), sprite.getPosition().y + rand() % 50)));
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)
-			enemies.push_back(new CANIMAL(animal + "_toRight", direction, Vector2f(Rand(-1400, -1000), shape.getPosition().y + rand() % 50)));
+			enemies.push_back(new CANIMAL(animal + "_toRight", direction, Vector2f(Rand(-1400, -1000), sprite.getPosition().y + rand() % 50)));
 	}
 
 	for (int i = 0; i < (int)enemies.size(); i++)

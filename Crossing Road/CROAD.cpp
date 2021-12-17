@@ -6,12 +6,12 @@ using namespace sf;
 CROAD::CROAD(Vector2f pos, float speed, string direction): CLANE(speed), direction(direction) {
 	//shape.setSize(Vector2f(CCONSTANT::VIEW_WIDTH, 200));
 	//shape.setFillColor(Color::Red);
-	this->texture.loadFromFile("./assets/graphics/road.jpg");
-	this->sprite = sf::Sprite(this->texture);
+	texture.loadFromFile("./assets/graphics/road.jpg");
+	sprite = sf::Sprite(texture);
 	sprite.setPosition(pos);
-	Vector2u size = this->texture.getSize();
+	Vector2u size = texture.getSize();
 	cout << size.x << " " << size.y << endl;
-	sprite.setScale(Vector2f((float)CCONSTANT::LANE_WIDTH / size.x, (float)CCONSTANT::LANE_HEIGHT / size.y));
+	sprite.setScale(Vector2f((float)CCONSTANT::LANE_WIDTH / size.x, (float) CCONSTANT::LANE_HEIGHT / size.y));
 	cout << sprite.getScale().x << " " << sprite.getScale().y << endl;
 }
 
