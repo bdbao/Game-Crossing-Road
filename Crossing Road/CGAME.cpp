@@ -26,6 +26,10 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
         else
             lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i * 230.f), speed, CCONSTANT::RIGHT));
     }
+
+    /* Set game state when beginning is MENU */
+    //this->game_state = CCONSTANT::STATE_MENU;
+    this->game_state = CCONSTANT::STATE_START;  //Temp state to test the core game
 }
 
 CGAME::~CGAME() {
@@ -36,6 +40,10 @@ CGAME::~CGAME() {
 
 bool CGAME::isRunning() {
 	return window.isOpen();
+}
+
+int CGAME::state() {
+    return this->game_state;
 }
 
 void CGAME::pollEvents() {
@@ -49,7 +57,6 @@ void CGAME::pollEvents() {
 void CGAME::update() {
     pollEvents();
 
-    
 
     /* Moving Keys */
     if (Keyboard::isKeyPressed(Keyboard::Up)) {
@@ -92,10 +99,12 @@ void CGAME::update() {
     }
     else if (Keyboard::isKeyPressed(Keyboard::L)) {
         /* Load the game from file */
+        this->game_state = CCONSTANT::STATE_LOAD;
         return;
     }
     else if (Keyboard::isKeyPressed(Keyboard::S)) {
         /* Save the game to file */
+        this->game_state = CCONSTANT::STATE_SAVE;
         return;
     }
 

@@ -3,6 +3,15 @@
 const unsigned int CCONSTANT::WINDOW_WIDTH = 1100;
 const unsigned int CCONSTANT::WINDOW_HEIGHT = 700;
 
+const int STATE_MENU = 0;
+const int STATE_START = 1;
+const int STATE_PAUSE = 2;
+const int STATE_END = 3;
+const int STATE_GAME_COMPLETED = 4;
+const int STATE_GAME_OVER = 5;
+const int STATE_SAVE = 6;
+const int STATE_LOAD = 7;
+
 const float CCONSTANT::UNIT = 5.f;
 const float CCONSTANT::VIEW_HEIGHT = 5.f;
 const float CCONSTANT::VIEW_WIDTH = 1100.f;
