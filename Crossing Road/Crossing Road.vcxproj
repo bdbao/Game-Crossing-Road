@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="CCAR.cpp" />
     <ClCompile Include="CCONSTANT.cpp" />
+    <ClCompile Include="CFinishLine.cpp" />
     <ClCompile Include="CGAME.cpp" />
     <ClCompile Include="CLANE.cpp" />
     <ClCompile Include="CPEOPLE.cpp" />
@@ -29,10 +30,12 @@
     <ClCompile Include="CENEMY.cpp" />
     <ClCompile Include="CTRAFFICLIGHT.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCAR.h" />
+    <ClInclude Include="CFinishLine.h" />
     <ClInclude Include="CGAME.h" />
     <ClInclude Include="CCONSTANT.h" />
     <ClInclude Include="CLANE.h" />
@@ -40,6 +43,7 @@
     <ClInclude Include="CENEMY.h" />
     <ClInclude Include="CTRAFFICLIGHT.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
