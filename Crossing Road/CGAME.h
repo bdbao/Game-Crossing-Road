@@ -9,6 +9,7 @@
 #include "CCONSTANT.h"
 #include "SoundManager.h"
 #include "CTRAFFICLIGHT.h"
+#include "CSNOW.h"
 
 #include <iostream>
 #include <SFML/Window.hpp>
@@ -21,6 +22,7 @@ class CGAME {
 	sf::View view;
 	sf::Texture background_texture;
 	sf::Sprite background_sprite;
+	CSNOW foreground;
 
 	/* Core game */
 	sf::Event event;

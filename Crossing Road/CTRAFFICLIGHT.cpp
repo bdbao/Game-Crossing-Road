@@ -7,21 +7,21 @@ CTRAFFICLIGHT::CTRAFFICLIGHT() {
 	/* Load green light */
 	//img.loadFromFile("./assets/traffic_light/green.jpg");
 	//texture.loadFromImage(img);
-	green_texture.loadFromFile("./assets/traffic_light/green.jpg");
+	green_texture.loadFromFile("./assets/traffic_light/green.png");
 	green_light.setTexture(green_texture);
 	green_light.setPosition(sf::Vector2f(0.f, -350.f));
 
 	/* Load yellow light */
 	//img.loadFromFile("./assets/traffic_light/yellow.jpg");
 	//texture.loadFromImage(img);
-	yellow_texture.loadFromFile("./assets/traffic_light/yellow.jpg");
+	yellow_texture.loadFromFile("./assets/traffic_light/yellow.png");
 	yellow_light.setTexture(yellow_texture);
 	yellow_light.setPosition(sf::Vector2f(0.f, -350.f));
 
 	/* Load red light */
 	//img.loadFromFile("./assets/traffic_light/red.jpg");
 	//texture.loadFromImage(img);
-	red_texture.loadFromFile("./assets/traffic_light/red.jpg");
+	red_texture.loadFromFile("./assets/traffic_light/red.png");
 	red_light.setTexture(red_texture);
 	red_light.setPosition(sf::Vector2f(0.f, -350.f));
 }

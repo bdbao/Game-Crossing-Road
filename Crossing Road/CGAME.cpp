@@ -25,7 +25,7 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
     // setting the game level -- might be moved to another function
     for (int i = 0; i < 6; i++) {
         int type = Rand(1, 100);
-        if (type <= 30) {
+        if (type <= 25) {
             cout << "Animal";
             if (rand() % 2 == 0)
                lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)i * 230.f), 2, CCONSTANT::LEFT));
@@ -163,5 +163,11 @@ void CGAME::render() {
     }
 
     window.draw(player.getShape());
+    window.setView(window.getDefaultView());
+    foreground.update();
+    for (auto e : foreground.getSnowflakes()) {
+        window.draw(e);
+    }
+
     window.display();
 }

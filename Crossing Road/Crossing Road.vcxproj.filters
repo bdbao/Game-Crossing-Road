@@ -60,6 +60,9 @@
     <ClCompile Include="CGRASS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CSNOW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGAME.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CGRASS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSNOW.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
