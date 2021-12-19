@@ -9,12 +9,14 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
     view.setSize(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT);
 
     this->background_texture.loadFromFile("./assets/graphics/background.jpg");
+    this->background_texture.setRepeated(true);
     this->background_sprite = sf::Sprite(this->background_texture);
 
     /* Scale the background image */
     sf::Vector2u size = this->background_texture.getSize();
-    this->background_sprite.setScale(Vector2f((float)CCONSTANT::WINDOW_WIDTH / size.x, (float)CCONSTANT::WINDOW_HEIGHT / size.y));
-    
+   // this->background_sprite.setScale(Vector2f((float)CCONSTANT::WINDOW_WIDTH / size.x, (float)CCONSTANT::WINDOW_HEIGHT / size.y));
+    this->background_sprite.setTextureRect(sf::IntRect(0, 0, CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT*10));
+    this->background_sprite.setPosition(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -(int)CCONSTANT::WINDOW_HEIGHT * 9));
     /* Sound manager */
     this->sound_manager = SoundManager::getInstance();
 
@@ -29,7 +31,7 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
 
     /* Set game state when beginning is MENU */
     //this->game_state = CCONSTANT::STATE_MENU;
-    this->game_state = CCONSTANT::STATE_START;  //Temp state to test the core game
+    //this->game_state = CCONSTANT::STATE_START;  //Temp state to test the core game
 }
 
 CGAME::~CGAME() {
@@ -99,12 +101,12 @@ void CGAME::update() {
     }
     else if (Keyboard::isKeyPressed(Keyboard::L)) {
         /* Load the game from file */
-        this->game_state = CCONSTANT::STATE_LOAD;
+        //this->game_state = CCONSTANT::STATE_LOAD;
         return;
     }
     else if (Keyboard::isKeyPressed(Keyboard::S)) {
         /* Save the game to file */
-        this->game_state = CCONSTANT::STATE_SAVE;
+        //this->game_state = CCONSTANT::STATE_SAVE;
         return;
     }
 
@@ -115,8 +117,8 @@ void CGAME::render() {
     window.clear();
     view.setCenter(Vector2f(50, player.getShape().getPosition().y - CCONSTANT::UNIT));
     window.setView(view);
-    this->background_sprite.setPosition(this->view.getCenter() - Vector2f(550, 350));
     window.draw(this->background_sprite);
+    //this->background_sprite.setPosition(this->view.getCenter() - Vector2f(550, 350));
 
     for (auto t : lanes) {
         /* Update lane */
@@ -128,7 +130,7 @@ void CGAME::render() {
         /* Draw objects on each lane */
         for (auto e : t->getEnemies()) {
             if (player.isImpact(e)) cout << "GAME OVER!\n";
-            window.draw(e->getShape());
+            window.draw(e->getSprite());
         }        
         
         /* Draw traffic light */

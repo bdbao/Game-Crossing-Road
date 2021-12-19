@@ -2,9 +2,12 @@
 #define CONSTANT_H
 
 #include <string>
+#include <SFML/Graphics.hpp>
+
 
 class CCONSTANT {
 public:
+
 	/* Window setting */
 	static const unsigned int WINDOW_WIDTH;
 	static const unsigned int WINDOW_HEIGHT;

@@ -31,7 +31,7 @@ void CGRASS::update() {
 		return;
 	}
 
-	RectangleShape& lastEnemyShape = enemies.back()->getShape();
+	Sprite& lastEnemyShape = enemies.back()->getSprite();
 	if (Rand(1, 100) <= 60) {
 		string animal;
 		if (Rand(1, 100) % 2 == 0) animal = "penguin";

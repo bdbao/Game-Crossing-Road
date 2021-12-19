@@ -16,14 +16,11 @@ protected:
 	sf::Sprite sprite;
 
 	std::string direction;
-	sf::RectangleShape shape;
 public:
 	CENEMY(std::string direction, sf::Vector2f pos);
 	virtual ~CENEMY();
 	void move(float speed);
 	bool isOutOfView();
-	sf::RectangleShape& getShape();
-
 	sf::Sprite& getSprite();
 };
 

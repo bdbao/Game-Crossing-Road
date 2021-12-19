@@ -5,3 +5,5 @@ x64
 "Crossing Road/x64"
 Crossing Road.vcxproj
 "Crossing Road.vcxproj"
+*.vcxproj
+Crossing Road/Crossing Road.vcxproj

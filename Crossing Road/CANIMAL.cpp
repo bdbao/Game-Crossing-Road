@@ -16,6 +16,6 @@ CANIMAL::CANIMAL(string textureFile, string direction, Vector2f pos) : CENEMY(di
 	}
 	sprite.setTexture(texture);
 
-	shape.setSize(Vector2f(500, 150));
-	shape.setFillColor(Color::Blue);
+	//shape.setSize(Vector2f(500, 150));
+	//shape.setFillColor(Color::Blue);
 }
