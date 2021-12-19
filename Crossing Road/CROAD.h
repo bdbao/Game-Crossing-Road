@@ -23,7 +23,7 @@ public:
 
 	/* Traffic light */
 	int getTrafficLightState();
-	sf::Sprite& getTrafficLightShape();
+	sf::Sprite* getTrafficLightShape();
 };
 
 #endif

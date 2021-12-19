@@ -24,11 +24,11 @@ public:
 	virtual ~CLANE();
 	virtual void update() = 0;
 	std::vector<CENEMY*>& getEnemies();
-	virtual sf::Sprite& getShape();
+	sf::Sprite& getSprite();
 
 	/* Set state for Traffic light */
 	virtual int getTrafficLightState() = 0;
-	virtual sf::Sprite& getTrafficLightShape() = 0;
+	virtual sf::Sprite* getTrafficLightShape() = 0;
 	void setNormal();
 	void setSlowly();
 	void setStopped();

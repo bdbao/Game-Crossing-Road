@@ -13,6 +13,7 @@
 class CCAR : public CENEMY {
 public:
 	CCAR(std::string direction, sf::Vector2f pos);
+	void update();
 };
 
 #endif

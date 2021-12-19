@@ -19,6 +19,7 @@ protected:
 public:
 	CENEMY(std::string direction, sf::Vector2f pos);
 	virtual ~CENEMY();
+	virtual void update() = 0;
 	void move(float speed);
 	bool isOutOfView();
 	sf::Sprite& getSprite();

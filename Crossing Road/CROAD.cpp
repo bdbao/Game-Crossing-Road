@@ -19,9 +19,9 @@ CROAD::~CROAD() {
 void CROAD::update() {
 	if (enemies.empty()) {
 		if (direction == CCONSTANT::LEFT)
-			enemies.push_back(new CCAR(direction, Vector2f(600, sprite.getPosition().y + 10)));
+			enemies.push_back(new CCAR(direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 10)));
 		if (direction == CCONSTANT::RIGHT)
-			enemies.push_back(new CCAR(direction, Vector2f(-1000, sprite.getPosition().y + 10)));
+			enemies.push_back(new CCAR(direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 10)));
 		return ;
 	}
 		
@@ -67,7 +67,7 @@ int CROAD::getTrafficLightState() {
 	return this->traffic_light->getTrafficLight(this->time);
 }
 
-sf::Sprite& CROAD::getTrafficLightShape() {
+sf::Sprite* CROAD::getTrafficLightShape() {
 	sf::Vector2f pos = this->sprite.getPosition();
-	return this->traffic_light->getShape(pos);
+	return &this->traffic_light->getShape(pos);
 }

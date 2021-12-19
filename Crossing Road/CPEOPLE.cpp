@@ -88,5 +88,10 @@ void CPEOPLE::processAnimation(int centerId) {
 
 
 bool CPEOPLE::isImpact(CENEMY* enemy) {
-	return shape.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds());
+	FloatRect playerBound(shape.getGlobalBounds());
+	playerBound.top += 70;
+	playerBound.left += 30;
+	playerBound.width = 30;
+	playerBound.height = 30;
+	return playerBound.intersects(enemy->getSprite().getGlobalBounds());
 }

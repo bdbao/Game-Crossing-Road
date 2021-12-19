@@ -5,7 +5,7 @@ using namespace sf;
 using namespace std;
 
 CCAR::CCAR(string direction, Vector2f pos) : CENEMY(direction, pos) {
-	string ver = to_string(Rand(1, 3));
+	string ver = to_string(Rand(1, 5));
 	if (direction == CCONSTANT::LEFT) {
 		texture.loadFromFile("./assets/enemies/car_v" + ver + "_toLeft.png");
 	}
@@ -14,3 +14,6 @@ CCAR::CCAR(string direction, Vector2f pos) : CENEMY(direction, pos) {
 	}
 	sprite.setTexture(texture);
 }
+
+void CCAR::update() {}
+

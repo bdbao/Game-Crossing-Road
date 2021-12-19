@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-sf::Sprite & CLANE::getShape() {
+sf::Sprite & CLANE::getSprite() {
 	return this->sprite;
 }
 

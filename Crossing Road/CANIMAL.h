@@ -8,8 +8,15 @@
 #include <string>
 
 class CANIMAL : public CENEMY {
+	int textureId;
+	int prevTextureId;
+	int animationTimer;
+	sf::IntRect getTextureRect(int id);
+	int nextTextureId(int id);
+	void setTextureId(int id);
 public:
 	CANIMAL(std::string textureFile, std::string direction, sf::Vector2f pos);
+	void update();
 };
 
 #endif
