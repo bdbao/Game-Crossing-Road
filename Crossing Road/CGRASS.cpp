@@ -34,13 +34,22 @@ void CGRASS::update() {
 
 	Sprite& lastEnemyShape = enemies.back()->getSprite();
 	if (Rand(1, 100) <= 60) {
-		//if (Rand(1, 100) % 2 == 0) typeEnemy = "penguin";
-		//else typeEnemy = "reindeer";
-		typeEnemy = "reindeer";
+		/* random type of animal */
+		long long randNumAnimal = Rand(1, 100);
+		if (randNumAnimal % 3 == 0) typeEnemy = "reindeer";
+		else if (randNumAnimal % 3 == 1) typeEnemy = "penguin";
+		else typeEnemy = "bulls";
+
+		/* random type of penguin */
+		string typeAsset = "_v1";
+		if (typeEnemy == "penguin") {
+			typeAsset = "_v" + to_string(rand() % 3 + 1);
+		}
+
 		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200)
-			enemies.push_back(new CANIMAL(typeEnemy + "_v1", direction, Vector2f(Rand(1000, 1400), sprite.getPosition().y + 50)));
+			enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(Rand(1000, 1400), sprite.getPosition().y + 50)));
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)
-			enemies.push_back(new CANIMAL(typeEnemy + "_v1", direction, Vector2f(Rand(-1400, -1000), sprite.getPosition().y + 50)));
+			enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(Rand(-1400, -1000), sprite.getPosition().y + 50)));
 
 	}
 

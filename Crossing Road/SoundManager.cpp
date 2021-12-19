@@ -34,7 +34,7 @@ SoundManager::SoundManager() {
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[5].loadFromFile("./assets/sounds/car-horn.wav");
 
-		// 6: penguin.wav
+		// 6: double-horn.wav
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[6].loadFromFile("./assets/sounds/double-horn.wav");
 	}

@@ -137,15 +137,21 @@ void CGAME::render() {
     for (auto t : lanes) {
         /* Update lane */
         t->update();
-        
-        this->sound_manager->play_Enemy(t->getTypeEnemy());
 
         /* Draw lane */
         window.draw(t->getSprite());
 
+        /* xxx: no chi play_sound ung voi loai LANE dau tien; t->getTypeEnemy() cu update lien tuc */
+        //cout << t->getTypeEnemy() << '\n';    
+        this->sound_manager->play_Enemy(t->getTypeEnemy());
+        
+
         /* Draw objects on each lane */
         for (auto e : t->getEnemies()) {
-            if (player.isImpact(e)) cout << "GAME OVER!\n";
+            if (player.isImpact(e)) {
+                cout << "GAME OVER!\n";
+                this->sound_manager->play_GameOver();
+            }
             window.draw(e->getSprite());
         }        
         
