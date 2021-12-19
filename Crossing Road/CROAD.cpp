@@ -27,6 +27,8 @@ void CROAD::update() {
 		
 	Sprite& lastEnemyShape = enemies.back()->getSprite();
 	if (Rand(1, 100) <= 60) {
+		typeEnemy = "car";
+		
 		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200)
 			enemies.push_back(new CCAR(direction, Vector2f(Rand(800, 1200), sprite.getPosition().y + 10)));
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)

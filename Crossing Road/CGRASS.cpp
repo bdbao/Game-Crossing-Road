@@ -34,14 +34,14 @@ void CGRASS::update() {
 
 	Sprite& lastEnemyShape = enemies.back()->getSprite();
 	if (Rand(1, 100) <= 60) {
-		string animal;
-		//if (Rand(1, 100) % 2 == 0) animal = "penguin";
-		//else animal = "reindeer";
-		animal = "reindeer";
+		//if (Rand(1, 100) % 2 == 0) typeEnemy = "penguin";
+		//else typeEnemy = "reindeer";
+		typeEnemy = "reindeer";
 		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200)
-			enemies.push_back(new CANIMAL(animal + "_v1", direction, Vector2f(Rand(1000, 1400), sprite.getPosition().y + 50)));
+			enemies.push_back(new CANIMAL(typeEnemy + "_v1", direction, Vector2f(Rand(1000, 1400), sprite.getPosition().y + 50)));
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)
-			enemies.push_back(new CANIMAL(animal + "_v1", direction, Vector2f(Rand(-1400, -1000), sprite.getPosition().y + 50)));
+			enemies.push_back(new CANIMAL(typeEnemy + "_v1", direction, Vector2f(Rand(-1400, -1000), sprite.getPosition().y + 50)));
+
 	}
 
 	for (int i = 0; i < (int)enemies.size(); i++)

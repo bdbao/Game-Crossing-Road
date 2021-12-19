@@ -6,6 +6,7 @@
 
 #include <mutex>
 #include <vector>
+#include <string>
 
 using std::mutex;
 using std::vector;
@@ -46,6 +47,8 @@ public:
 	void play_GameCompleted();
 
 	void play_GameOver();
+
+	void play_Enemy(std::string typeEnemy);
 
 	void reset();
 

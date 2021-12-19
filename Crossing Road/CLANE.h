@@ -19,6 +19,8 @@ protected:
 	CTRAFFICLIGHT* traffic_light;
 	bool isStopped;
 	bool isSlowly;
+
+	std::string typeEnemy;
 public:
 	CLANE(float speed);
 	virtual ~CLANE();
@@ -32,6 +34,8 @@ public:
 	void setNormal();
 	void setSlowly();
 	void setStopped();
+
+	std::string getTypeEnemy();
 };
 
 #endif

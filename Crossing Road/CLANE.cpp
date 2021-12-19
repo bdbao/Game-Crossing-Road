@@ -35,3 +35,7 @@ void CLANE::setStopped() {
 	this->isStopped = true;
 	this->isSlowly = false;
 }
+
+std::string CLANE::getTypeEnemy() {
+	return this->typeEnemy;
+}

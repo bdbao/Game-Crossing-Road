@@ -137,6 +137,8 @@ void CGAME::render() {
     for (auto t : lanes) {
         /* Update lane */
         t->update();
+        
+        this->sound_manager->play_Enemy(t->getTypeEnemy());
 
         /* Draw lane */
         window.draw(t->getSprite());
