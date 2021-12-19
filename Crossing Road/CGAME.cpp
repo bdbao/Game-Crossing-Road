@@ -141,8 +141,8 @@ void CGAME::render() {
         /* Draw lane */
         window.draw(t->getSprite());
 
-        /* xxx: no chi play_sound ung voi loai LANE dau tien; t->getTypeEnemy() cu update lien tuc */
-        //cout << t->getTypeEnemy() << '\n';    
+        /* xxx: t->getTypeEnemy() cu update lien tuc */
+        //cout << t->getTypeEnemy() << '\n';
         this->sound_manager->play_Enemy(t->getTypeEnemy());
         
 
@@ -151,6 +151,8 @@ void CGAME::render() {
             if (player.isImpact(e)) {
                 cout << "GAME OVER!\n";
                 this->sound_manager->play_GameOver();
+
+                //exit(0);
             }
             window.draw(e->getSprite());
         }        
