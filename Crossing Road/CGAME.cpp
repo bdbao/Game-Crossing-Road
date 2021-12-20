@@ -264,3 +264,31 @@ void CGAME::play_Background_music() {
         music.play();
     }
 }
+
+//Load, save game, clear saved game
+bool CGAME::loadGame() {
+    initLevel(game_level);
+    Vector2f playerPosition = player.getPlayerPosition();
+    player.setPlayerPosition(playerPosition);
+}
+
+bool CGAME::saveGame() {
+    ofstream fout("game_log/game.txt");
+    if (!fout) {
+        cout << "Load file not found. Error." << endl;
+        return false;
+    }
+
+    fout << "Coordinate of player: " << player.getPlayerPosition().x << " " 
+        << player.getPlayerPosition().y << endl;
+
+    fout << "Current Level: " << game_level << endl;
+    fout << endl << endl;
+
+    cout << "Save game successfully" << endl;
+}
+
+void CGAME::clearSavedGame() {
+    ofstream clear("game_log/game.txt");
+    clear.close();
+}
