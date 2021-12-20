@@ -14,8 +14,8 @@ class CGRASS : public CLANE {
 public:
 	CGRASS(sf::Vector2f pos, float speed, std::string direction);
 	void update();
-
-	sf::Sprite& getSprite();
+	int getTrafficLightState();
+	sf::Sprite* getTrafficLightShape();
 };
 
 #endif

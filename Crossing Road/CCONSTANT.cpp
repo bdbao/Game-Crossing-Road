@@ -1,6 +1,9 @@
 #include "CCONSTANT.h"
+#include <SFML/Graphics.hpp>
 
-const unsigned int CCONSTANT::WINDOW_WIDTH = 1100;
+using namespace sf;
+
+const unsigned int CCONSTANT::WINDOW_WIDTH = 500;
 const unsigned int CCONSTANT::WINDOW_HEIGHT = 700;
 
 const int STATE_MENU = 0;

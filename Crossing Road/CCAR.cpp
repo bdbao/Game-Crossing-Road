@@ -1,10 +1,19 @@
 #include "CCAR.h"
+#include "utils.h"
 
 using namespace sf;
 using namespace std;
 
-
 CCAR::CCAR(string direction, Vector2f pos) : CENEMY(direction, pos) {
-	shape.setSize(Vector2f(500, 150));
-	shape.setFillColor(Color::Blue);
+	string ver = to_string(Rand(1, 5));
+	if (direction == CCONSTANT::LEFT) {
+		texture.loadFromFile("./assets/enemies/car_v" + ver + "_toLeft.png");
+	}
+	else {
+		texture.loadFromFile("./assets/enemies/car_v" + ver + "_toRight.png");
+	}
+	sprite.setTexture(texture);
 }
+
+void CCAR::update() {}
+

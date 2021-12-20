@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-sf::Sprite & CLANE::getShape() {
+sf::Sprite & CLANE::getSprite() {
 	return this->sprite;
 }
 
@@ -34,4 +34,8 @@ void CLANE::setSlowly() {
 void CLANE::setStopped() {
 	this->isStopped = true;
 	this->isSlowly = false;
+}
+
+std::string CLANE::getTypeEnemy() {
+	return this->typeEnemy;
 }

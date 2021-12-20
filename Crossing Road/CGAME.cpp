@@ -1,4 +1,6 @@
 #include "CGAME.h"
+#include "CROAD.h"
+#include "CGRASS.h"
 
 using namespace sf;
 using namespace std;
@@ -9,27 +11,41 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
     view.setSize(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT);
 
     this->background_texture.loadFromFile("./assets/graphics/background.jpg");
+    this->background_texture.setRepeated(true);
     this->background_sprite = sf::Sprite(this->background_texture);
 
     /* Scale the background image */
     sf::Vector2u size = this->background_texture.getSize();
-    this->background_sprite.setScale(Vector2f((float)CCONSTANT::WINDOW_WIDTH / size.x, (float)CCONSTANT::WINDOW_HEIGHT / size.y));
-    
+   // this->background_sprite.setScale(Vector2f((float)CCONSTANT::WINDOW_WIDTH / size.x, (float)CCONSTANT::WINDOW_HEIGHT / size.y));
+    this->background_sprite.setTextureRect(sf::IntRect(0, 0, CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT*10));
+    this->background_sprite.setPosition(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -(int)CCONSTANT::WINDOW_HEIGHT * 9));
     /* Sound manager */
     this->sound_manager = SoundManager::getInstance();
 
     // setting the game level -- might be moved to another function
     for (int i = 0; i < 6; i++) {
-        float speed = rand() % 5 + 2;
-        if (rand() % 2 == 0)
-            lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i * 230.f), speed, CCONSTANT::LEFT));
-        else
-            lanes.push_back(new CROAD(Vector2f(-500.f, -200.f - (float)i * 230.f), speed, CCONSTANT::RIGHT));
+        int type = Rand(1, 100);
+        if (type <= 25) {
+            cout << "Animal";
+            if (rand() % 2 == 0)
+               lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)i * 230.f), 2, CCONSTANT::LEFT));
+            else
+               lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)i * 230.f), 2, CCONSTANT::RIGHT));
+        }
+        else {
+            cout << "Car";
+            float speed = rand() % 5 + 2;
+            if (rand() % 2 == 0)
+                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)i * 230.f), speed, CCONSTANT::LEFT));
+            else
+                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)i * 230.f), speed, CCONSTANT::RIGHT));
+            
+        }
     }
 
     /* Set game state when beginning is MENU */
     //this->game_state = CCONSTANT::STATE_MENU;
-    this->game_state = CCONSTANT::STATE_START;  //Temp state to test the core game
+    //this->game_state = CCONSTANT::STATE_START;  //Temp state to test the core game
 }
 
 CGAME::~CGAME() {
@@ -99,12 +115,12 @@ void CGAME::update() {
     }
     else if (Keyboard::isKeyPressed(Keyboard::L)) {
         /* Load the game from file */
-        this->game_state = CCONSTANT::STATE_LOAD;
+        //this->game_state = CCONSTANT::STATE_LOAD;
         return;
     }
     else if (Keyboard::isKeyPressed(Keyboard::S)) {
         /* Save the game to file */
-        this->game_state = CCONSTANT::STATE_SAVE;
+        //this->game_state = CCONSTANT::STATE_SAVE;
         return;
     }
 
@@ -115,26 +131,43 @@ void CGAME::render() {
     window.clear();
     view.setCenter(Vector2f(50, player.getShape().getPosition().y - CCONSTANT::UNIT));
     window.setView(view);
-    this->background_sprite.setPosition(this->view.getCenter() - Vector2f(550, 350));
     window.draw(this->background_sprite);
+    //this->background_sprite.setPosition(this->view.getCenter() - Vector2f(550, 350));
 
     for (auto t : lanes) {
         /* Update lane */
         t->update();
 
         /* Draw lane */
-        window.draw(t->getShape());
+        window.draw(t->getSprite());
+
+        /* xxx: t->getTypeEnemy() cu update lien tuc */
+        //cout << t->getTypeEnemy() << '\n';
+        this->sound_manager->play_Enemy(t->getTypeEnemy());
+        
 
         /* Draw objects on each lane */
         for (auto e : t->getEnemies()) {
-            if (player.isImpact(e)) cout << "GAME OVER!\n";
-            window.draw(e->getShape());
+            if (player.isImpact(e)) {
+                cout << "GAME OVER!\n";
+                this->sound_manager->play_GameOver();
+
+                //exit(0);
+            }
+            window.draw(e->getSprite());
         }        
         
         /* Draw traffic light */
-        window.draw(t->getTrafficLightShape());
+        if (t->getTrafficLightShape())
+            window.draw(*t->getTrafficLightShape());
     }
 
     window.draw(player.getShape());
+    window.setView(window.getDefaultView());
+    foreground.update();
+    for (auto e : foreground.getSnowflakes()) {
+        window.draw(e);
+    }
+
     window.display();
 }
