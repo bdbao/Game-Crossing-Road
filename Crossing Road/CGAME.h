@@ -4,12 +4,13 @@
 #include "CCAR.h"
 #include "CLANE.h"
 #include "CROAD.h"
+#include "CSNOW.h"
 #include "CGRASS.h"
 #include "CPEOPLE.h"
 #include "CCONSTANT.h"
 #include "SoundManager.h"
 #include "CTRAFFICLIGHT.h"
-#include "CSNOW.h"
+#include "CFinishLine.h"
 
 #include <iostream>
 #include <SFML/Window.hpp>
@@ -29,6 +30,7 @@ class CGAME {
 	CPEOPLE player;
 	std::vector<CLANE*> lanes;
 	int game_level;
+	CFinishLine* finish_line;
 
 	/* Music */
 	SoundManager* sound_manager;

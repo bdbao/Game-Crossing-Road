@@ -15,11 +15,20 @@ using namespace std;
 using namespace sf;
 
 class CFinishLine {
-private:
-	
+private:	
+	sf::Texture texture;
+	sf::Sprite sprite;
+
 public:
-	//bool checkCollision(CPEOPLE& player);
-	//void playSound();
+	CFinishLine(sf::Vector2f pos);
+	
+	sf::Sprite* getShape();
+	bool checkCollision(CPEOPLE& player);
+
+	/* Tmp function */
+	void update();
+	int getTrafficLightState();
+	sf::Sprite* getTrafficLightShape();
 };
 
 #endif _CROAD_H_
