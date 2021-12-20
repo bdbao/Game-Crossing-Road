@@ -53,7 +53,7 @@ public:
 	void play_Background_music();
 	
 	//Load and Save Game
-	bool loadGame();
+	void loadGame();
 	bool saveGame();
 	void clearSavedGame();
 };
