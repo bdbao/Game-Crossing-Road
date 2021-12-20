@@ -3,8 +3,9 @@
 CFinishLine::CFinishLine(sf::Vector2f pos) {
 	texture.loadFromFile("./assets/graphics/finish_line.jpg");
 	sprite = sf::Sprite(texture);
-	Vector2u size = texture.getSize();
-	sprite.setScale(Vector2f((float)CCONSTANT::LANE_WIDTH / size.x, (float)CCONSTANT::LANE_HEIGHT / size.y));
+	//Vector2u size = texture.getSize();
+	//sprite.setScale(Vector2f((float)CCONSTANT::LANE_WIDTH / size.x, (float)CCONSTANT::LANE_HEIGHT / size.y));
+	sprite.setScale(Vector2f(0.8f, 0.5f));
 	sprite.setPosition(pos);
 }
 
