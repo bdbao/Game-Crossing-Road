@@ -141,7 +141,7 @@ void CGAME::render() {
         /* Draw lane */
         window.draw(t->getSprite());
 
-        /* xxx: t->getTypeEnemy() cu update lien tuc */
+        /* xxx: t->getTypeEnemy() cu update lien tuc?? */
         //cout << t->getTypeEnemy() << '\n';
         this->sound_manager->play_Enemy(t->getTypeEnemy());
         

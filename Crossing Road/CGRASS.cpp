@@ -47,16 +47,9 @@ void CGRASS::update() {
 		}
 
 		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200)
-<<<<<<< Updated upstream
-			enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(Rand(1000, 1400), sprite.getPosition().y + 50)));
+			enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)
-			enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(Rand(-1400, -1000), sprite.getPosition().y + 50)));
-
-=======
-			enemies.push_back(new CANIMAL(animal + "_v1", direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
-		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)
-			enemies.push_back(new CANIMAL(animal + "_v1", direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
->>>>>>> Stashed changes
+			enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
 	}
 
 	for (int i = 0; i < (int)enemies.size(); i++)

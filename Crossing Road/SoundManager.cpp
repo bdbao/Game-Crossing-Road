@@ -30,13 +30,18 @@ SoundManager::SoundManager() {
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[4].loadFromFile("./assets/sounds/penguin.wav");
 
-		// 5: penguin.wav
+		// 6: bulls.wav
 		this->sound_buffer.push_back(temp);
-		this->sound_buffer[5].loadFromFile("./assets/sounds/car-horn.wav");
+		this->sound_buffer[5].loadFromFile("./assets/sounds/bulls.wav");
 
-		// 6: double-horn.wav
+		// 7: penguin.wav
 		this->sound_buffer.push_back(temp);
-		this->sound_buffer[6].loadFromFile("./assets/sounds/double-horn.wav");
+		this->sound_buffer[6].loadFromFile("./assets/sounds/car-horn.wav");
+
+		// 8: double-horn.wav
+		this->sound_buffer.push_back(temp);
+		this->sound_buffer[7].loadFromFile("./assets/sounds/double-horn.wav");
+		
 	}
 	
 	/* Add buffer to sound */	
@@ -82,10 +87,13 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 		if (typeEnemy == "penguin") {
 			this->sound[4].play();
 		}
+		if (typeEnemy == "bulls") {
+			this->sound[5].play();
+		}
 
 		/* car */
 		if (typeEnemy == "car") {
-			this->sound[5].play();
+			this->sound[6].play();
 		}
 	}
 }
