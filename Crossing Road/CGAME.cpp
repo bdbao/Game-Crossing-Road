@@ -171,7 +171,20 @@ void CGAME::update() {
     if (this->game_state == CCONSTANT::STATE_GAME_OVER) {
         // Need to draw image of game over here
         // ...
-
+	
+	//Toi nghi co the in chu ra de don gian viec nay
+	Text text;
+        Font font;
+        if (!font.loadFromFile("Fonts/SuperGame.ttf"))  throw("Could not load the font");
+        text.setFont(font);
+        text.setCharacterSize(65);
+        text.setFillColor(Color::Yellow);
+        text.setStyle(Text::Bold);
+        text.setString("GAME OVER!");
+        text.setPosition(62.f, 300.f);
+        window.draw(text);
+	    
+	    
         //Check if pressing any key to do something:
         // such as press space to restart playing game at level 0
         // such as press esc to exit game
@@ -184,6 +197,17 @@ void CGAME::update() {
         // Need to draw image of passing level here
         // ...
         
+        Text text;
+        Font font;
+        if (!font.loadFromFile("Fonts/SuperGame.ttf"))  throw("Could not load the font");
+        text.setFont(font);
+        text.setFont(font);
+        text.setCharacterSize(65);
+        text.setFillColor(Color::Yellow);
+        text.setStyle(Text::Bold);
+        text.setString("PASS LEVEL " + to_string(game_level) + "!");
+        text.setPosition(30.f, 300.f);
+	    
         //Check if pressing any key to do something:
         // such as press space to go to next level
         // such as press esc to exit game
