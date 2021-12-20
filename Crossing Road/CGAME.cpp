@@ -123,6 +123,18 @@ void CGAME::update() {
         //this->game_state = CCONSTANT::STATE_SAVE;
         return;
     }
+    else if (Keyboard::isKeyPressed(Keyboard::P)) {
+        /* Pause the game */
+        if (this->game_state != CCONSTANT::STATE_PAUSE) {
+            this->game_state = CCONSTANT::STATE_PAUSE;
+            cout << "PAUSE by pressing P (RESUME by pressing any different keys)" << endl;
+            system("pause");
+        }
+        else {
+            this->game_state = CCONSTANT::STATE_START;
+        }
+        //return;
+    }
 
     else player.setIsAnimating(false);
 }
