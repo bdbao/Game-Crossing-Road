@@ -48,7 +48,7 @@ int CGAME::state() {
 }
 
 void CGAME::initLevel(int level) {
-    /* Delete data */
+    /* Delete old data */
     for (int i = 0; i < this->lanes.size();i++) {
         delete this->lanes[i];
     }
@@ -166,8 +166,8 @@ void CGAME::render() {
     window.setView(view);
 
     /* Draw background */
-    window.draw(this->background_sprite);
     //this->background_sprite.setPosition(this->view.getCenter() - Vector2f(550, 350));
+    window.draw(this->background_sprite);
 
     /* Draw each lane and objects on it */
     for (auto t : lanes) {
@@ -179,8 +179,6 @@ void CGAME::render() {
 
         /* xxx: t->getTypeEnemy() cu update lien tuc?? */
         //cout << t->getTypeEnemy() << '\n';
-        this->sound_manager->play_Enemy(t->getTypeEnemy());
-        
 
         /* Draw objects on each lane */
         for (auto e : t->getEnemies()) {
@@ -191,8 +189,11 @@ void CGAME::render() {
                 //exit(0);
             }
             window.draw(e->getSprite());
-        }        
-        
+        }
+
+        /* Play object sound */
+        this->sound_manager->play_Enemy(t->getTypeEnemy());
+
         /* Draw traffic light */
         if (t->getTrafficLightShape())
             window.draw(*t->getTrafficLightShape());
@@ -208,5 +209,6 @@ void CGAME::render() {
         window.draw(e);
     }
 
+    /* Display the draw */
     window.display();
 }

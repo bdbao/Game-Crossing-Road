@@ -5,12 +5,14 @@
 #include "CCONSTANT.h"
 #include "SFML/Audio.hpp"
 
+#include <map>
 #include <mutex>
 #include <vector>
 #include <string>
 
 using std::mutex;
 using std::vector;
+using std::map;
 
 class SoundManager {
 	/* Singleton design pattern */

@@ -95,3 +95,14 @@ bool CPEOPLE::isImpact(CENEMY* enemy) {
 	playerBound.height = 30;
 	return playerBound.intersects(enemy->getSprite().getGlobalBounds());
 }
+
+
+Vector2f CPEOPLE::getPlayerPosition() {
+	Vector2f pos = this->shape.getPosition();
+	return pos;
+}
+
+
+void CPEOPLE::setPlayerPosition(const Vector2f& pos) {
+	this->shape.setPosition(pos);
+}
