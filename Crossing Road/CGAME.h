@@ -49,6 +49,8 @@ public:
 	
 	void update();
 	void render();
+
+	void play_Background_music();
 };
 
 

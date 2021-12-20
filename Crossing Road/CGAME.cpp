@@ -210,8 +210,6 @@ void CGAME::render() {
         /* Draw lane */
         window.draw(t->getSprite());
 
-        /* xxx: t->getTypeEnemy() cu update lien tuc?? */
-        //cout << t->getTypeEnemy() << '\n';
 
         /* Draw objects on each lane */
         for (auto e : t->getEnemies()) {
@@ -220,7 +218,6 @@ void CGAME::render() {
                 this->sound_manager->play_GameOver();
                 this->game_state = CCONSTANT::STATE_GAME_OVER;
 
-                //exit(0);
             }
             window.draw(e->getSprite());
         }
@@ -254,4 +251,16 @@ void CGAME::render() {
 
     /* Display the draw */
     window.display();
+}
+
+void CGAME::play_Background_music() {
+    sf::Music music;
+    if (!music.openFromFile("./assets/sounds/background-music.wav")) {
+        std::cout << "Cant open background-music file!\n";
+    }
+    else {
+        //music.setVolume(50.2);
+        music.setLoop(true);
+        music.play();
+    }
 }
