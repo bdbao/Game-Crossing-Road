@@ -10,6 +10,9 @@
 #include <SFML/Graphics.hpp>
 
 
+using namespace std;
+using namespace sf;
+
 class CPEOPLE {
 	sf::Texture texture;
 	sf::Sprite shape;

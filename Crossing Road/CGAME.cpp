@@ -80,7 +80,6 @@ void CGAME::initLevel(int level) {
             nLanes++;
         }
     }
-
 }
 
 
