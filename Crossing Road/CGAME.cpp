@@ -173,9 +173,9 @@ void CGAME::update() {
         // ...
 	
 	//Toi nghi co the in chu ra de don gian viec nay
-	Text text;
+        Text text;
         Font font;
-        if (!font.loadFromFile("Fonts/SuperGame.ttf"))  throw("Could not load the font");
+        if (!font.loadFromFile("./assets/fonts/SuperGame.ttf"))  throw("Could not load the font");
         text.setFont(font);
         text.setCharacterSize(65);
         text.setFillColor(Color::Yellow);
@@ -199,14 +199,14 @@ void CGAME::update() {
         
         Text text;
         Font font;
-        if (!font.loadFromFile("Fonts/SuperGame.ttf"))  throw("Could not load the font");
-        text.setFont(font);
+        if (!font.loadFromFile("./assets/fonts/SuperGame.ttf"))  throw("Could not load the font");
         text.setFont(font);
         text.setCharacterSize(65);
         text.setFillColor(Color::Yellow);
         text.setStyle(Text::Bold);
         text.setString("PASS LEVEL " + to_string(game_level) + "!");
         text.setPosition(30.f, 300.f);
+        window.draw(text);
 	    
         //Check if pressing any key to do something:
         // such as press space to go to next level
@@ -290,10 +290,11 @@ void CGAME::play_Background_music() {
 }
 
 //Load, save game, clear saved game
-bool CGAME::loadGame() {
+void CGAME::loadGame() {
     initLevel(game_level);
     Vector2f playerPosition = player.getPlayerPosition();
     player.setPlayerPosition(playerPosition);
+    return;
 }
 
 bool CGAME::saveGame() {
@@ -310,6 +311,7 @@ bool CGAME::saveGame() {
     fout << endl << endl;
 
     cout << "Save game successfully" << endl;
+    return true;
 }
 
 void CGAME::clearSavedGame() {
