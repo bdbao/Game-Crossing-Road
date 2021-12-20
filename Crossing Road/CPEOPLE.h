@@ -31,6 +31,10 @@ public:
 	void moveDown();
 	void setIsAnimating(bool state);
 	bool isImpact(CENEMY*);
+
+	Vector2f getPlayerPosition();
+	void setPlayerPosition(const Vector2f& pos);
+
 	/*
 	bool isImpact(const CANIMAL*&);
 	bool isFinish();
