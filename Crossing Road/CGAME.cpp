@@ -24,18 +24,19 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
     this->sound_manager = SoundManager::getInstance();
 
     // setting the game level -- might be moved to void initLevel(level)
-    this->game_level = 10;
+    this->game_level = 1;
     this->initLevel(this->game_level);
 
     /* Set game state when beginning is MENU */
     //this->game_state = CCONSTANT::STATE_MENU;
-    //this->game_state = CCONSTANT::STATE_START;  //Temp state to test the core game
+    this->game_state = CCONSTANT::STATE_START;  //Temp state to test the core game
 }
 
 CGAME::~CGAME() {
     cout << "~CGAME()" << endl;
     for (int i = 0; i < this->lanes.size(); i++)
         delete this->lanes[i];
+    delete this->finish_line;
     delete this->sound_manager;
 }
 
@@ -52,6 +53,7 @@ void CGAME::initLevel(int level) {
     for (int i = 0; i < this->lanes.size();i++) {
         delete this->lanes[i];
     }
+    delete this->finish_line;
 
     /* Init new lanes for level */
     int nLanes = 0;
@@ -80,6 +82,9 @@ void CGAME::initLevel(int level) {
             nLanes++;
         }
     }
+
+    /* Add finish line */
+   this->finish_line = new CFinishLine(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes++ * 275.f));
 }
 
 
@@ -94,34 +99,8 @@ void CGAME::pollEvents() {
 void CGAME::update() {
     pollEvents();
 
-    /* Moving Keys */
-    if (Keyboard::isKeyPressed(Keyboard::Up)) {
-        cout << "Moving UP by pressing Up or W" << endl;
-        this->sound_manager->play_Walking();
-        player.moveUp();
-        player.setIsAnimating(true);
-    }
-    else if (Keyboard::isKeyPressed(Keyboard::Down)) {
-        cout << "Moving DOWN by pressing Down or S" << endl;
-        this->sound_manager->play_Walking();
-        player.moveDown();
-        player.setIsAnimating(true);
-    }
-    else if (Keyboard::isKeyPressed(Keyboard::Left)) {
-        cout << "Moving LEFT by pressing Left or A" << endl;
-        this->sound_manager->play_Walking();
-        player.moveLeft();
-        player.setIsAnimating(true);
-    }
-    else if (Keyboard::isKeyPressed(Keyboard::Right)) {
-        cout << "Moving RIGHT by pressing Right or D" << endl;
-        this->sound_manager->play_Walking();
-        player.moveRight();
-        player.setIsAnimating(true);
-    }
-
-    /* Interact keys */
-    else if (Keyboard::isKeyPressed(Keyboard::Q) || Keyboard::isKeyPressed(Keyboard::Escape)) {
+    /* Global Interact keys through all state of the game*/
+    if (Keyboard::isKeyPressed(Keyboard::Q) || Keyboard::isKeyPressed(Keyboard::Escape)) {
         /* Quit the game */
         this->window.close();
         cout << "QUIT by pressing Q" << endl;
@@ -143,20 +122,75 @@ void CGAME::update() {
         //this->game_state = CCONSTANT::STATE_SAVE;
         return;
     }
-    else if (Keyboard::isKeyPressed(Keyboard::P)) {
-        /* Pause the game */
-        if (this->game_state != CCONSTANT::STATE_PAUSE) {
-            this->game_state = CCONSTANT::STATE_PAUSE;
-            cout << "PAUSE by pressing P (RESUME by pressing any different keys)" << endl;
-            system("pause");
+
+    /* Local Moving Keys for playing game */
+    if (this->game_state == CCONSTANT::STATE_START) {
+        if (Keyboard::isKeyPressed(Keyboard::Up)) {
+            cout << "Moving UP by pressing Up or W" << endl;
+            this->sound_manager->play_Walking();
+            player.moveUp();
+            player.setIsAnimating(true);
         }
-        else {
-            this->game_state = CCONSTANT::STATE_START;
+        else if (Keyboard::isKeyPressed(Keyboard::Down)) {
+            cout << "Moving DOWN by pressing Down or S" << endl;
+            this->sound_manager->play_Walking();
+            player.moveDown();
+            player.setIsAnimating(true);
         }
-        //return;
+        else if (Keyboard::isKeyPressed(Keyboard::Left)) {
+            cout << "Moving LEFT by pressing Left or A" << endl;
+            this->sound_manager->play_Walking();
+            player.moveLeft();
+            player.setIsAnimating(true);
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::Right)) {
+            cout << "Moving RIGHT by pressing Right or D" << endl;
+            this->sound_manager->play_Walking();
+            player.moveRight();
+            player.setIsAnimating(true);
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::P)) {
+            /* Pause the game */
+            if (this->game_state != CCONSTANT::STATE_PAUSE) {
+                this->game_state = CCONSTANT::STATE_PAUSE;
+                cout << "PAUSE by pressing P (RESUME by pressing any different keys)" << endl;
+                system("pause");
+            }
+        }
+    }
+    else player.setIsAnimating(false);
+    
+    /* Paused */
+    if (this->game_state == CCONSTANT::STATE_PAUSE) {
+        // Set continuing state
+        if (Keyboard::isKeyPressed(Keyboard::Space))
+            this->game_state == CCONSTANT::STATE_START;
+    }
+    
+    /* Game over */
+    if (this->game_state == CCONSTANT::STATE_GAME_OVER) {
+        // Need to draw image of game over here
+        // ...
+
+        //Check if pressing any key to do something:
+        // such as press space to restart playing game at level 0
+        // such as press esc to exit game
+
+        return;
     }
 
-    else player.setIsAnimating(false);
+    /* Completed each level */
+    if (this->game_state == CCONSTANT::STATE_GAME_COMPLETED) {
+        // Need to draw image of passing level here
+        // ...
+        
+        //Check if pressing any key to do something:
+        // such as press space to go to next level
+        // such as press esc to exit game
+        return;
+    }
+
+
 }
 
 void CGAME::render() {
@@ -184,6 +218,7 @@ void CGAME::render() {
             if (player.isImpact(e)) {
                 cout << "GAME OVER!\n";
                 this->sound_manager->play_GameOver();
+                this->game_state = CCONSTANT::STATE_GAME_OVER;
 
                 //exit(0);
             }
@@ -198,6 +233,9 @@ void CGAME::render() {
             window.draw(*t->getTrafficLightShape());
     }
 
+    /* Draw finish line */
+    window.draw(*this->finish_line->getShape());
+
     /* Draw player */
     window.draw(player.getShape());
 
@@ -206,6 +244,12 @@ void CGAME::render() {
     foreground.update();
     for (auto e : foreground.getSnowflakes()) {
         window.draw(e);
+    }
+
+    /* Check finish level state */
+    if (this->finish_line->checkCollision(this->player)) {
+        this->sound_manager->play_GameCompleted();
+        this->game_state = CCONSTANT::STATE_GAME_COMPLETED;
     }
 
     /* Display the draw */

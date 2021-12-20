@@ -19,9 +19,9 @@ CROAD::~CROAD() {
 void CROAD::update() {
 	if (enemies.empty()) {
 		if (direction == CCONSTANT::LEFT)
-			enemies.push_back(new CCAR(direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 10)));
+			enemies.push_back(new CCAR(direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 20)));
 		if (direction == CCONSTANT::RIGHT)
-			enemies.push_back(new CCAR(direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 10)));
+			enemies.push_back(new CCAR(direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 20)));
 		return ;
 	}
 		
@@ -30,9 +30,9 @@ void CROAD::update() {
 		typeEnemy = "car";
 		
 		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200)
-			enemies.push_back(new CCAR(direction, Vector2f(Rand(800, 1200), sprite.getPosition().y + 10)));
+			enemies.push_back(new CCAR(direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(100, 400), sprite.getPosition().y + 20)));
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)
-			enemies.push_back(new CCAR(direction, Vector2f(Rand(-1000, -800), sprite.getPosition().y + 10)));
+			enemies.push_back(new CCAR(direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(100, 400), sprite.getPosition().y + 20)));
 	}
 
 	for (int i = 0; i < (int)enemies.size(); i++)

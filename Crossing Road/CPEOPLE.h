@@ -25,6 +25,8 @@ class CPEOPLE {
 	void setTextureId(int id);
 	void processAnimation(int centerId);
 	sf::IntRect getTextureRect(int id);
+
+	friend class CFinishLine;
 public:
 	CPEOPLE();
 	sf::Sprite& getShape();
@@ -37,6 +39,8 @@ public:
 
 	Vector2f getPlayerPosition();
 	void setPlayerPosition(const Vector2f& pos);
+	
+
 
 	/*
 	bool isImpact(const CANIMAL*&);

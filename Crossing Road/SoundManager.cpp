@@ -84,7 +84,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 	if (typeEnemy == "reindeer") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
-		if (this->clock.getElapsedTime().asSeconds() - this->last_played[3].asSeconds() > CCONSTANT::DELAY_REINDERR_SOUND) {
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[3].asSeconds() > CCONSTANT::DELAY_REINDEER_SOUND) {
 			// Update last played time
 			this->last_played[3] = this->clock.getElapsedTime();
 
@@ -95,7 +95,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 	if (typeEnemy == "penguin") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
-		if (this->clock.getElapsedTime().asSeconds() - this->last_played[4].asSeconds() > CCONSTANT::DELAY_REINDERR_SOUND) {
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[4].asSeconds() > CCONSTANT::DELAY_PENGUIN_SOUND) {
 			// Update last played time
 			this->last_played[4] = this->clock.getElapsedTime();
 
@@ -103,10 +103,10 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 			this->sound[4].play();
 		}
 	}
-  if (typeEnemy == "bulls") {
+	if (typeEnemy == "bulls") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
-		if (this->clock.getElapsedTime().asSeconds() - this->last_played[4].asSeconds() > CCONSTANT::DELAY_REINDERR_SOUND) {
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[5].asSeconds() > CCONSTANT::DELAY_BULL_SOUND) {
 			// Update last played time
 			this->last_played[5] = this->clock.getElapsedTime();
 
@@ -119,8 +119,8 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 	if (typeEnemy == "car") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
-		if (this->clock.getElapsedTime().asSeconds() - this->last_played[5].asSeconds() > CCONSTANT::DELAY_CAR_SOUND) {
-			long long pos = Rand(6, 7);
+		long long pos = Rand(6, 7);
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[pos].asSeconds() > CCONSTANT::DELAY_CAR_SOUND) {
 			// Update last played time
 			this->last_played[pos] = this->clock.getElapsedTime();
 
