@@ -35,7 +35,7 @@ public:
 	/* Attributes */
 private:
 	vector<sf::Sound> sound;
-	vector< sf::SoundBuffer> sound_buffer;
+	vector<sf::SoundBuffer> sound_buffer;
 
 	sf::Clock clock;
 	vector<sf::Time> last_played;

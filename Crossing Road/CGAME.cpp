@@ -144,6 +144,18 @@ void CGAME::update() {
         //this->game_state = CCONSTANT::STATE_SAVE;
         return;
     }
+    else if (Keyboard::isKeyPressed(Keyboard::P)) {
+        /* Pause the game */
+        if (this->game_state != CCONSTANT::STATE_PAUSE) {
+            this->game_state = CCONSTANT::STATE_PAUSE;
+            cout << "PAUSE by pressing P (RESUME by pressing any different keys)" << endl;
+            system("pause");
+        }
+        else {
+            this->game_state = CCONSTANT::STATE_START;
+        }
+        //return;
+    }
 
     else player.setIsAnimating(false);
 }
@@ -165,7 +177,7 @@ void CGAME::render() {
         /* Draw lane */
         window.draw(t->getSprite());
 
-        /* xxx: t->getTypeEnemy() cu update lien tuc */
+        /* xxx: t->getTypeEnemy() cu update lien tuc?? */
         //cout << t->getTypeEnemy() << '\n';
         this->sound_manager->play_Enemy(t->getTypeEnemy());
         

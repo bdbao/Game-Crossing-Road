@@ -30,13 +30,18 @@ SoundManager::SoundManager() {
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[4].loadFromFile("./assets/sounds/penguin.wav");
 
-		// 5: car-horn.wav
+		// 5: bulls.wav
 		this->sound_buffer.push_back(temp);
-		this->sound_buffer[5].loadFromFile("./assets/sounds/car-horn2.wav");
+		this->sound_buffer[5].loadFromFile("./assets/sounds/bulls.wav");
 
-		// 6: double-horn.wav
+		// 6: penguin.wav
 		this->sound_buffer.push_back(temp);
-		this->sound_buffer[6].loadFromFile("./assets/sounds/double-horn.wav");
+		this->sound_buffer[6].loadFromFile("./assets/sounds/car-horn.wav");
+
+		// 7: double-horn.wav
+		this->sound_buffer.push_back(temp);
+		this->sound_buffer[7].loadFromFile("./assets/sounds/double-horn.wav");
+		
 	}
 	
 	/* Add buffer to sound */	
@@ -98,13 +103,24 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 			this->sound[4].play();
 		}
 	}
+  if (typeEnemy == "bulls") {
+		// Check if the delta time between two playing is bigger than delay time
+		// to avoid noisy when playing
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[4].asSeconds() > CCONSTANT::DELAY_REINDERR_SOUND) {
+			// Update last played time
+			this->last_played[5] = this->clock.getElapsedTime();
+
+			// Play sound
+			this->sound[5].play();
+		}
+	}  
 
 	/* car */
 	if (typeEnemy == "car") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
 		if (this->clock.getElapsedTime().asSeconds() - this->last_played[5].asSeconds() > CCONSTANT::DELAY_CAR_SOUND) {
-			long long pos = Rand(5, 6);
+			long long pos = Rand(6, 7);
 			// Update last played time
 			this->last_played[pos] = this->clock.getElapsedTime();
 
