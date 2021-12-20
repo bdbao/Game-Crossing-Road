@@ -30,7 +30,7 @@ void CPEOPLE::moveLeft() {
 	else setTextureId(10), animationTimer = 0;
 
 	shape.setTextureRect(getTextureRect(textureId));
-	if (shape.getPosition().x > -525)
+	if (shape.getPosition().x > -(long long)(CCONSTANT::WINDOW_WIDTH - 20) / 2) // -525
 		shape.move(Vector2f((-1) * CCONSTANT::UNIT, 0));
 }
 
@@ -39,7 +39,7 @@ void CPEOPLE::moveRight() {
 	else setTextureId(4), animationTimer = 0;
 
 	shape.setTextureRect(getTextureRect(textureId));
-	if (shape.getPosition().x < 525)
+	if (shape.getPosition().x < (CCONSTANT::WINDOW_WIDTH - 20) / 2) // 525
 		shape.move(Vector2f(CCONSTANT::UNIT, 0));
 }
 void CPEOPLE::moveDown() {

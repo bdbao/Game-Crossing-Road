@@ -46,6 +46,8 @@ public:
 
 	/* Sound */
 	static const float DELAY_WALKING_SOUND;
+	static const float DELAY_CAR_SOUND;
+	static const float DELAY_REINDERR_SOUND;
 };
 
 #endif

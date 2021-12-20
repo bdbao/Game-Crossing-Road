@@ -19,29 +19,13 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
    // this->background_sprite.setScale(Vector2f((float)CCONSTANT::WINDOW_WIDTH / size.x, (float)CCONSTANT::WINDOW_HEIGHT / size.y));
     this->background_sprite.setTextureRect(sf::IntRect(0, 0, CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT*10));
     this->background_sprite.setPosition(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -(int)CCONSTANT::WINDOW_HEIGHT * 9));
+    
     /* Sound manager */
     this->sound_manager = SoundManager::getInstance();
 
-    // setting the game level -- might be moved to another function
-    for (int i = 0; i < 6; i++) {
-        int type = Rand(1, 100);
-        if (type <= 25) {
-            cout << "Animal";
-            if (rand() % 2 == 0)
-               lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)i * 230.f), 2, CCONSTANT::LEFT));
-            else
-               lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)i * 230.f), 2, CCONSTANT::RIGHT));
-        }
-        else {
-            cout << "Car";
-            float speed = rand() % 5 + 2;
-            if (rand() % 2 == 0)
-                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)i * 230.f), speed, CCONSTANT::LEFT));
-            else
-                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)i * 230.f), speed, CCONSTANT::RIGHT));
-            
-        }
-    }
+    // setting the game level -- might be moved to void initLevel(level)
+    this->game_level = 10;
+    this->initLevel(this->game_level);
 
     /* Set game state when beginning is MENU */
     //this->game_state = CCONSTANT::STATE_MENU;
@@ -49,6 +33,7 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
 }
 
 CGAME::~CGAME() {
+    cout << "~CGAME()" << endl;
     for (int i = 0; i < this->lanes.size(); i++)
         delete this->lanes[i];
     delete this->sound_manager;
@@ -62,6 +47,43 @@ int CGAME::state() {
     return this->game_state;
 }
 
+void CGAME::initLevel(int level) {
+    /* Delete data */
+    for (int i = 0; i < this->lanes.size();i++) {
+        delete this->lanes[i];
+    }
+
+    /* Init new lanes for level */
+    int nLanes = 0;
+    float speed;
+    for (int i = 0; i < min(level, 5); i++)
+    {
+        /* CROAD */
+        for (int i = 0; i < min(level, 2); i++) {
+            cout << "CROAD";
+            speed = min(10.0, nLanes * 0.5 + 2);
+            if (rand() % 2 == 0)
+                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::LEFT));
+            else
+                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::RIGHT));
+            nLanes++;
+        }
+
+        /* CGRASS */
+        for (int i = 0; i < min(level, 3); i++) {
+            cout << "CGRASS";
+            speed = min(10.0, nLanes * 0.5 + 2);
+            if (rand() % 2 == 0)
+                lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::LEFT));
+            else
+                lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::RIGHT));
+            nLanes++;
+        }
+    }
+
+}
+
+
 void CGAME::pollEvents() {
     while (window.pollEvent(event))
     {
@@ -72,7 +94,6 @@ void CGAME::pollEvents() {
 
 void CGAME::update() {
     pollEvents();
-
 
     /* Moving Keys */
     if (Keyboard::isKeyPressed(Keyboard::Up)) {
@@ -143,9 +164,12 @@ void CGAME::render() {
     window.clear();
     view.setCenter(Vector2f(50, player.getShape().getPosition().y - CCONSTANT::UNIT));
     window.setView(view);
+
+    /* Draw background */
     window.draw(this->background_sprite);
     //this->background_sprite.setPosition(this->view.getCenter() - Vector2f(550, 350));
 
+    /* Draw each lane and objects on it */
     for (auto t : lanes) {
         /* Update lane */
         t->update();
@@ -174,7 +198,10 @@ void CGAME::render() {
             window.draw(*t->getTrafficLightShape());
     }
 
+    /* Draw player */
     window.draw(player.getShape());
+
+    /* Draw snowflakes theme */
     window.setView(window.getDefaultView());
     foreground.update();
     for (auto e : foreground.getSnowflakes()) {

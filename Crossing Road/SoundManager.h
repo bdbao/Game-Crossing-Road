@@ -1,7 +1,8 @@
 #ifndef _SOUNDMANAGER_H_
 #define _SOUNDMANAGER_H_
 
-
+#include "utils.h"
+#include "CCONSTANT.h"
 #include "SFML/Audio.hpp"
 
 #include <mutex>
