@@ -30,9 +30,9 @@ SoundManager::SoundManager() {
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[4].loadFromFile("./assets/sounds/penguin.wav");
 
-		// 5: penguin.wav
+		// 5: car-horn.wav
 		this->sound_buffer.push_back(temp);
-		this->sound_buffer[5].loadFromFile("./assets/sounds/car-horn.wav");
+		this->sound_buffer[5].loadFromFile("./assets/sounds/car-horn2.wav");
 
 		// 6: double-horn.wav
 		this->sound_buffer.push_back(temp);
@@ -50,7 +50,7 @@ SoundManager::SoundManager() {
 }
 
 void SoundManager::play_Walking() {
-	if (this->clock.getElapsedTime().asSeconds() - this->last_played[0].asSeconds() > 0.375) {
+	if (this->clock.getElapsedTime().asSeconds() - this->last_played[0].asSeconds() > CCONSTANT::DELAY_WALKING_SOUND) {
 		this->last_played[0] = this->clock.getElapsedTime();
 		this->sound[0].play();
 	}
@@ -59,33 +59,57 @@ void SoundManager::play_Walking() {
 void SoundManager::play_GameCompleted() {
 	// Play once only for each level
 	// If you want to play again, use reset() method below
-	if (this->last_played[0] == sf::Time()) {
-		this->last_played[0] = this->clock.getElapsedTime();
+	if (this->last_played[1] == sf::Time()) {
+		this->last_played[1] = this->clock.getElapsedTime();
 		this->sound[1].play();
 	}
 }
 
 void SoundManager::play_GameOver() {
-	if (this->clock.getElapsedTime().asSeconds() - this->last_played[0].asSeconds() > 0.375) {
-		this->last_played[0] = this->clock.getElapsedTime();
+	// Play once only for each level
+	// If you want to play again, use reset() method below
+	if (this->last_played[2] == sf::Time()) {
+		this->last_played[2] = this->clock.getElapsedTime();
 		this->sound[2].play();
 	}
 }
 
 void SoundManager::play_Enemy(std::string typeEnemy) {
-	if (this->clock.getElapsedTime().asSeconds() - this->last_played[0].asSeconds() > 0.375) {
-		this->last_played[0] = this->clock.getElapsedTime();
-		/* animal */
-		if (typeEnemy == "reindeer") {
+	/* animal */
+	if (typeEnemy == "reindeer") {
+		// Check if the delta time between two playing is bigger than delay time
+		// to avoid noisy when playing
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[3].asSeconds() > CCONSTANT::DELAY_REINDERR_SOUND) {
+			// Update last played time
+			this->last_played[3] = this->clock.getElapsedTime();
+
+			// Play sound
 			this->sound[3].play();
 		}
-		if (typeEnemy == "penguin") {
+	}
+	if (typeEnemy == "penguin") {
+		// Check if the delta time between two playing is bigger than delay time
+		// to avoid noisy when playing
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[4].asSeconds() > CCONSTANT::DELAY_REINDERR_SOUND) {
+			// Update last played time
+			this->last_played[4] = this->clock.getElapsedTime();
+
+			// Play sound
 			this->sound[4].play();
 		}
+	}
 
-		/* car */
-		if (typeEnemy == "car") {
-			this->sound[5].play();
+	/* car */
+	if (typeEnemy == "car") {
+		// Check if the delta time between two playing is bigger than delay time
+		// to avoid noisy when playing
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[5].asSeconds() > CCONSTANT::DELAY_CAR_SOUND) {
+			long long pos = Rand(5, 6);
+			// Update last played time
+			this->last_played[pos] = this->clock.getElapsedTime();
+
+			// Play sound
+			this->sound[pos].play();
 		}
 	}
 }

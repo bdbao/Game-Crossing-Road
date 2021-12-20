@@ -33,3 +33,6 @@ const float CCONSTANT::NORMAL_SPEED = 1.f;
 const float CCONSTANT::SLOW_DOWN_SPEED = 1.5f;
 
 const float CCONSTANT::DELAY_WALKING_SOUND = 0.375f;
+const float CCONSTANT::DELAY_CAR_SOUND = 2.0f;
+const float CCONSTANT::DELAY_REINDERR_SOUND = 2.5f;
+

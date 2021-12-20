@@ -28,6 +28,7 @@ class CGAME {
 	sf::Event event;
 	CPEOPLE player;
 	std::vector<CLANE*> lanes;
+	int game_level;
 
 	/* Music */
 	SoundManager* sound_manager;
@@ -41,6 +42,8 @@ public:
 	
 	bool isRunning();
 	int state();
+
+	void initLevel(int level);
 	
 	void update();
 	void render();
