@@ -1,6 +1,7 @@
 #include "CGAME.h"
 #include "CROAD.h"
 #include "CGRASS.h"
+#include <fstream>
 
 using namespace sf;
 using namespace std;
