@@ -161,20 +161,22 @@ void CGAME::update() {
         else if (Keyboard::isKeyPressed(Keyboard::P)) {
             /* Pause the game */
             if (this->game_state != CCONSTANT::STATE_PAUSE) {
-                this->game_state = CCONSTANT::STATE_PAUSE;
+                //this->game_state = CCONSTANT::STATE_PAUSE;
+                /* khong can set thanh STATE_PAUSE nua */
                 cout << "PAUSE by pressing P (RESUME by pressing any different keys)" << endl;
+                this->sound_manager->pause_Background();
                 system("pause");
             }
         }
     }
     else player.setIsAnimating(false);
     
-    /* Paused */
-    if (this->game_state == CCONSTANT::STATE_PAUSE) {
-        // Set continuing state
-        if (Keyboard::isKeyPressed(Keyboard::Space))
-            this->game_state == CCONSTANT::STATE_START;
-    }
+    ///* Paused */
+    //if (this->game_state == CCONSTANT::STATE_PAUSE) {
+    //    // Set continuing state
+    //    if (Keyboard::isKeyPressed(Keyboard::Space))
+    //        this->game_state == CCONSTANT::STATE_START;
+    //}
     
     /* Game over */
     if (this->game_state == CCONSTANT::STATE_GAME_OVER) {
