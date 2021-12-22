@@ -11,7 +11,7 @@
 #include "SoundManager.h"
 #include "CTRAFFICLIGHT.h"
 #include "CFinishLine.h"
-
+#include "CMENU.h"
 
 #include <vector>
 #include <fstream>
@@ -44,6 +44,9 @@ class CGAME {
 	/* Variable to check if show game over once or winning once */
 	bool showedGameOver;
 	bool showedGameCompleted;
+
+	/* Menu */
+	CMENU menu;
 public:
 	CGAME();
 	~CGAME();
