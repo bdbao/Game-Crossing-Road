@@ -1,6 +1,7 @@
 #include "CGAME.h"
 #include "CROAD.h"
 #include "CGRASS.h"
+#include <fstream>
 
 using namespace sf;
 using namespace std;
@@ -171,7 +172,20 @@ void CGAME::update() {
     if (this->game_state == CCONSTANT::STATE_GAME_OVER) {
         // Need to draw image of game over here
         // ...
-
+	
+	//Toi nghi co the in chu ra de don gian viec nay
+        Text text;
+        Font font;
+        if (!font.loadFromFile("./assets/fonts/SuperGame.ttf"))  throw("Could not load the font");
+        text.setFont(font);
+        text.setCharacterSize(65);
+        text.setFillColor(Color::Yellow);
+        text.setStyle(Text::Bold);
+        text.setString("GAME OVER!");
+        text.setPosition(62.f, 300.f);
+        window.draw(text);
+	    
+	    
         //Check if pressing any key to do something:
         // such as press space to restart playing game at level 0
         // such as press esc to exit game
@@ -184,6 +198,17 @@ void CGAME::update() {
         // Need to draw image of passing level here
         // ...
         
+        Text text;
+        Font font;
+        if (!font.loadFromFile("./assets/fonts/SuperGame.ttf"))  throw("Could not load the font");
+        text.setFont(font);
+        text.setCharacterSize(65);
+        text.setFillColor(Color::Yellow);
+        text.setStyle(Text::Bold);
+        text.setString("PASS LEVEL " + to_string(game_level) + "!");
+        text.setPosition(30.f, 300.f);
+        window.draw(text);
+	    
         //Check if pressing any key to do something:
         // such as press space to go to next level
         // such as press esc to exit game
@@ -210,8 +235,6 @@ void CGAME::render() {
         /* Draw lane */
         window.draw(t->getSprite());
 
-        /* xxx: t->getTypeEnemy() cu update lien tuc?? */
-        //cout << t->getTypeEnemy() << '\n';
 
         /* Draw objects on each lane */
         for (auto e : t->getEnemies()) {
@@ -220,7 +243,6 @@ void CGAME::render() {
                 this->sound_manager->play_GameOver();
                 this->game_state = CCONSTANT::STATE_GAME_OVER;
 
-                //exit(0);
             }
             window.draw(e->getSprite());
         }
@@ -254,4 +276,46 @@ void CGAME::render() {
 
     /* Display the draw */
     window.display();
+}
+
+void CGAME::play_Background_music() {
+    sf::Music music;
+    if (!music.openFromFile("./assets/sounds/background-music.wav")) {
+        std::cout << "Cant open background-music file!\n";
+    }
+    else {
+        //music.setVolume(50.2);
+        music.setLoop(true);
+        music.play();
+    }
+}
+
+//Load, save game, clear saved game
+void CGAME::loadGame() {
+    initLevel(game_level);
+    Vector2f playerPosition = player.getPlayerPosition();
+    player.setPlayerPosition(playerPosition);
+    return;
+}
+
+bool CGAME::saveGame() {
+    ofstream fout("game_log/game.txt");
+    if (!fout) {
+        cout << "Load file not found. Error." << endl;
+        return false;
+    }
+
+    fout << "Coordinate of player: " << player.getPlayerPosition().x << " " 
+        << player.getPlayerPosition().y << endl;
+
+    fout << "Current Level: " << game_level << endl;
+    fout << endl << endl;
+
+    cout << "Save game successfully" << endl;
+    return true;
+}
+
+void CGAME::clearSavedGame() {
+    ofstream clear("game_log/game.txt");
+    clear.close();
 }

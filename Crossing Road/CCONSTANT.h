@@ -51,6 +51,8 @@ public:
 	static const float DELAY_BULL_SOUND;
 	static const float DELAY_PENGUIN_SOUND;
 
+	/* Menu */
+	static const int NUMBER_OF_OPTIONS;
 };
 
 #endif

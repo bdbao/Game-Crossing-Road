@@ -49,6 +49,13 @@ public:
 	
 	void update();
 	void render();
+
+	void play_Background_music();
+	
+	//Load and Save Game
+	void loadGame();
+	bool saveGame();
+	void clearSavedGame();
 };
 
 

@@ -26,6 +26,7 @@
     <ClCompile Include="CGAME.cpp" />
     <ClCompile Include="CGRASS.cpp" />
     <ClCompile Include="CLANE.cpp" />
+    <ClCompile Include="CMENU.cpp" />
     <ClCompile Include="CPEOPLE.cpp" />
     <ClCompile Include="CROAD.cpp" />
     <ClCompile Include="CROAD.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="CCONSTANT.h" />
     <ClInclude Include="CGRASS.h" />
     <ClInclude Include="CLANE.h" />
+    <ClInclude Include="CMENU.h" />
     <ClInclude Include="CPEOPLE.h" />
     <ClInclude Include="CENEMY.h" />
     <ClInclude Include="CSNOW.h" />
@@ -169,6 +171,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.\SFML-2.5.1\include;D:\HCMUS\Second_Year\1st_Semester\CS202\Project\cs202-crossing-road-project-2021-2022\Crossing Road\SFML-2.5.1\include;"D:\HCMUS\Second_Year\1st_Semester\CS202\Project\cs202-crossing-road-project-2021-2022\Crossing Road\SFML-2.5.1\include";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
