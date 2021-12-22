@@ -12,10 +12,12 @@
 #include "CTRAFFICLIGHT.h"
 #include "CFinishLine.h"
 
+
+#include <vector>
+#include <fstream>
 #include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 class CGAME {
 	/* Display */

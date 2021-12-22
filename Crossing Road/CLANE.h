@@ -6,6 +6,7 @@
 
 #include "CENEMY.h"
 #include "CTRAFFICLIGHT.h"
+#include "utils.h"
 
 class CLANE {
 protected:

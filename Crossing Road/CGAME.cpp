@@ -1,7 +1,4 @@
 #include "CGAME.h"
-#include "CROAD.h"
-#include "CGRASS.h"
-#include <fstream>
 
 using namespace sf;
 using namespace std;
@@ -59,11 +56,13 @@ void CGAME::initLevel(int level) {
         delete this->lanes[i];
     }
     delete this->finish_line;
+    this->lanes.clear();
 
     /* Set showed game state */
     this->showedGameOver = false;
     this->showedGameCompleted = false;
 
+    this->game_level = level;
     /* Init new lanes for level */
     int nLanes = 0;
     float speed;
@@ -133,7 +132,7 @@ void CGAME::update() {
         return;
     }
 
-    /* Local Moving Keys for playing game */
+    /* Local Moving Keys while playing game */
     if (this->game_state == CCONSTANT::STATE_START) {
         if (Keyboard::isKeyPressed(Keyboard::Up)) {
             cout << "Moving UP by pressing Up or W" << endl;
@@ -179,20 +178,20 @@ void CGAME::update() {
     
     /* Game over */
     if (this->game_state == CCONSTANT::STATE_GAME_OVER) {
-        // Need to draw image of game over here
-        // ...
-	
-	//Toi nghi co the in chu ra de don gian viec nay
+        
+        /* Print game over and hotkey instruction */
         if (!this->showedGameOver) {
+
+            int notiSize = 72, instructionSize = 40;
             
             /* Print game over */
             Text text_gameover;
-            Font font;
+            Font font, font2;
             if (!font.loadFromFile("./assets/fonts/SuperGame.ttf"))  throw("Could not load the font");
             
             text_gameover.setFont(font);
             
-            text_gameover.setCharacterSize(72);
+            text_gameover.setCharacterSize(notiSize);
             text_gameover.setFillColor(Color::Black);
             text_gameover.setStyle(Text::Bold);
             text_gameover.setString("GAME OVER!!!");
@@ -205,15 +204,15 @@ void CGAME::update() {
             sf::FloatRect textRect = text_gameover.getLocalBounds();
             text_gameover.setOrigin(textRect.width / 2, textRect.height / 2);
             text_gameover.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.2f));
-
-            //text.setPosition(35.f, CCONSTANT::WINDOW_HEIGHT*0.1);
             window.draw(text_gameover);
 
 
             /* Print extra information */
+            if (!font2.loadFromFile("./assets/fonts/arial.ttf"))  throw("Could not load the font");
+
             Text text_replay;
-            text_replay.setFont(font);
-            text_replay.setCharacterSize(60);
+            text_replay.setFont(font2);
+            text_replay.setCharacterSize(instructionSize);
             text_replay.setFillColor(Color::Cyan);
             text_replay.setStyle(Text::Bold);
             text_replay.setString("Replay: SPACE");
@@ -222,22 +221,21 @@ void CGAME::update() {
             /* Set position of text: align center */
             sf::FloatRect textRect_replay = text_replay.getLocalBounds();
             text_replay.setOrigin(textRect_replay.width / 2, textRect_replay.height / 2);
-            text_replay.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.55f));
+            text_replay.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.5f));
             window.draw(text_replay);
 
-
             Text text_quit;
-            text_quit.setFont(font);
-            text_quit.setCharacterSize(60);
+            text_quit.setFont(font2);
+            text_quit.setCharacterSize(instructionSize);
             text_quit.setFillColor(Color::Cyan);
             text_quit.setStyle(Text::Bold);
             text_quit.setString("Quit game: Q");
             text_quit.setOutlineColor(sf::Color::Black);
             text_quit.setOutlineThickness(3);
             /* Set position of text: align center */
-            sf::FloatRect textRect_quit = text_quit.getLocalBounds();
+            sf::FloatRect  textRect_quit = text_quit.getLocalBounds();
             text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
-            text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.7f));
+            text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.6f));
             window.draw(text_quit);
 
             
@@ -248,7 +246,13 @@ void CGAME::update() {
         //Check if pressing any key to do something:
         // such as press space to restart playing game at level 0
         // such as press esc to exit game
-
+        if (Keyboard::isKeyPressed(Keyboard::Space)) {
+            this->initLevel(1);
+            this->game_state = CCONSTANT::STATE_START;
+            this->showedGameOver = false;
+            this->player.setPlayerPosition(Vector2f(0.f, 0.f));
+            this->sound_manager->reset();
+        }
         return;
     }
 
@@ -258,22 +262,78 @@ void CGAME::update() {
         // ...
         
         if (!this->showedGameCompleted) {
-            Text text;
+
+            int notiSize = 70, instructionSize = 40;
+
+            Text level_completed;
             Font font;
             if (!font.loadFromFile("./assets/fonts/SuperGame.ttf"))  throw("Could not load the font");
-            text.setFont(font);
-            text.setCharacterSize(65);
-            text.setFillColor(Color::Yellow);
-            text.setStyle(Text::Bold);
-            text.setString("PASS LEVEL " + to_string(game_level) + "!");
-            text.setPosition(30.f, 300.f);
-            window.draw(text);
+
+            level_completed.setFont(font);
+
+            level_completed.setCharacterSize(notiSize);
+            level_completed.setFillColor(Color::Yellow);
+            level_completed.setStyle(Text::Bold);
+            level_completed.setString("Passed Level " + to_string(this->game_level));
+            level_completed.setOutlineColor(sf::Color::Blue);
+            level_completed.setOutlineThickness(6.5);
+
+            /* Set position of text: align center */
+            sf::FloatRect textRect = level_completed.getLocalBounds();
+            level_completed.setOrigin(textRect.width / 2, textRect.height / 2);
+            level_completed.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.2f));
+            window.draw(level_completed);
+
+
+            /* Print hotkey instruction */
+            Font font2;
+            if (!font2.loadFromFile("./assets/fonts/arial.ttf"))  throw("Could not load the font");
+
+            Text next_level;
+            next_level.setFont(font2);
+            next_level.setCharacterSize(instructionSize);
+            next_level.setFillColor(Color::Cyan);
+            next_level.setStyle(Text::Bold);
+            next_level.setString("Next level: SPACE");
+            next_level.setOutlineColor(sf::Color::Black);
+            next_level.setOutlineThickness(3);
+            /* Set position of text: align center */
+            sf::FloatRect textRect_next_level = next_level.getLocalBounds();
+            next_level.setOrigin(textRect_next_level.width / 2, textRect_next_level.height / 2);
+            next_level.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.5f));
+            window.draw(next_level);
+
+            
+            Text text_quit;
+            text_quit.setFont(font2);
+            text_quit.setCharacterSize(instructionSize);
+            text_quit.setFillColor(Color::Cyan);
+            text_quit.setStyle(Text::Bold);
+            text_quit.setString("Quit game: Q");
+            text_quit.setOutlineColor(sf::Color::Black);
+            text_quit.setOutlineThickness(3);
+            /* Set position of text: align center */
+            sf::FloatRect textRect_quit = text_quit.getLocalBounds();
+            text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
+            text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.6f));
+            window.draw(text_quit);
+
+
             this->showedGameCompleted = true;
+            window.display();
         }
 	    
         //Check if pressing any key to do something:
         // such as press space to go to next level
         // such as press esc to exit game
+        if (Keyboard::isKeyPressed(Keyboard::Space)) {
+            this->initLevel(++this->game_level);
+            this->game_state = CCONSTANT::STATE_START;
+            this->showedGameOver = false;
+            this->player.setPlayerPosition(Vector2f(0.f, 0.f));
+            this->sound_manager->reset();
+        }
+
         return;
     }
 
@@ -335,6 +395,24 @@ void CGAME::render() {
         this->sound_manager->play_GameCompleted();
         this->game_state = CCONSTANT::STATE_GAME_COMPLETED;
     }
+
+    /* Print current level */
+    Text level_completed;
+    Font font;
+    if (!font.loadFromFile("./assets/fonts/arial.ttf"))  throw("Could not load the font");
+    level_completed.setFont(font);
+    level_completed.setCharacterSize(30);
+    level_completed.setFillColor(Color::Black);
+    level_completed.setStyle(Text::Bold);
+    level_completed.setString("Level " + to_string(this->game_level));
+    level_completed.setOutlineColor(sf::Color::Green);
+    level_completed.setOutlineThickness(6.5);
+
+    /* Set position of text: align center */
+    sf::FloatRect textRect = level_completed.getLocalBounds();
+    level_completed.setOrigin(textRect.width / 2, textRect.height / 2);
+    level_completed.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, textRect.height / 2));
+    window.draw(level_completed);
 
     /* Display the draw */
     window.display();
