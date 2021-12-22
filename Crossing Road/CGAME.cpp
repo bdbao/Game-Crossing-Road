@@ -351,6 +351,9 @@ void CGAME::update() {
 
         return;
     }
+
+    if (this->game_state == CCONSTANT::STATE_END)
+        window.close();
 }
 
 void CGAME::render() {
