@@ -11,25 +11,20 @@ CMENU::CMENU() {
 		return;
 	}
 	
+	for (int i = 0; i < CCONSTANT::NUMBER_OF_OPTIONS; ++i) {
+		menu[i].setFont(font);
+		menu[i].setColor(Color::White);
+	}
+
 	/* Create options */
-	menu[0].setFont(font);
-	menu[0].setColor(Color::Yellow);
-	menu[0].setString("Start Game");
+	menu[0].setColor(Color::Blue);
 	menu[0].setCharacterSize(menu[0].getCharacterSize() + 10);
 
-	menu[1].setFont(font);
-	menu[1].setColor(Color::White);
+	/* Set name of these options */
+	menu[0].setString("Start Game");
 	menu[1].setString("Load Game");
-	
-	menu[2].setFont(font);
-	menu[2].setColor(Color::White);
 	menu[2].setString("Settings");
-	
-	menu[3].setFont(font);
-	menu[3].setColor(Color::White);
 	menu[3].setString("Quit");
-
-	cout << "CMENU is loaded successfully!\n";
 }
 
 CMENU::~CMENU() {
