@@ -3,8 +3,9 @@
 using namespace std;
 using namespace sf;
 
-CROAD::CROAD(Vector2f pos, float speed, string direction): CLANE(speed), direction(direction) {
+CROAD::CROAD(Vector2f pos, float speed, string direction): CLANE(speed) {
 	texture.loadFromFile("./assets/graphics/road.jpg");
+	this->direction = direction;
 	sprite = sf::Sprite(texture);
 	sprite.setPosition(pos);
 	Vector2u size = texture.getSize();
