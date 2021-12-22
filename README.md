@@ -26,3 +26,4 @@ Crossy-road game is written in C++ language with the supports of SFML - a powerf
 - Phan Minh Duy
 - Trần Minh Nam
 - Lâm Hiền Toàn
+- Bùi Duy Bảo
