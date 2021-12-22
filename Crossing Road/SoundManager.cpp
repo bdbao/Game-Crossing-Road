@@ -42,6 +42,18 @@ SoundManager::SoundManager() {
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[7].loadFromFile("./assets/sounds/double-horn.wav");
 		
+		//8 polar_bear.wav
+		this->sound_buffer.push_back(temp);
+		this->sound_buffer[8].loadFromFile("./assets/sounds/polar_bear.wav");
+
+		//9 siberian_dog.wav
+		this->sound_buffer.push_back(temp);
+		this->sound_buffer[9].loadFromFile("./assets/sounds/siberia_dog.wav");
+
+		//10 snowman.wav
+		this->sound_buffer.push_back(temp);
+		this->sound_buffer[10].loadFromFile("./assets/sounds/snowman.wav");
+		
 	}
 	
 	/* Add buffer to sound */	
@@ -136,6 +148,42 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 
 			// Play sound
 			this->sound[pos].play();
+		}
+	}
+	
+		if (typeEnemy == "polarBear") {
+		// Check if the delta time between two playing is bigger than delay time
+		// to avoid noisy when playing
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[8].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
+			// Update last played time
+			this->last_played[8] = this->clock.getElapsedTime();
+
+			// Play sound
+			this->sound[8].play();
+		}
+	}
+
+	if (typeEnemy == "siberianDog") {
+		// Check if the delta time between two playing is bigger than delay time
+		// to avoid noisy when playing
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[9].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
+			// Update last played time
+			this->last_played[9] = this->clock.getElapsedTime();
+
+			// Play sound
+			this->sound[9].play();
+		}
+	}
+
+	if (typeEnemy == "snowMan") {
+		// Check if the delta time between two playing is bigger than delay time
+		// to avoid noisy when playing
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[10].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
+			// Update last played time
+			this->last_played[10] = this->clock.getElapsedTime();
+
+			// Play sound
+			this->sound[10].play();
 		}
 	}
 }
