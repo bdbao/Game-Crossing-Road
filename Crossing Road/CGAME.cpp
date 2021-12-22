@@ -26,8 +26,8 @@ CGAME::CGAME() : window(VideoMode(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEI
     this->initLevel(this->game_level);
 
     /* Set game state when beginning is MENU */
-    //this->game_state = CCONSTANT::STATE_MENU;
-    this->game_state = CCONSTANT::STATE_START;  //Temp state to test the core game
+    this->game_state = CCONSTANT::STATE_MENU;
+    //this->game_state = CCONSTANT::STATE_START;  //Temp state to test the core game
 
     /* Set showed game state in function initLevel(int) */
     this->showedGameOver = false;
@@ -97,10 +97,19 @@ void CGAME::initLevel(int level) {
 
 
 void CGAME::pollEvents() {
-    while (window.pollEvent(event))
-    {
+    while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             window.close();
+        if (game_state == CCONSTANT::STATE_MENU) {
+            if (Keyboard::isKeyPressed(Keyboard::Up))
+                menu.moveUp();
+            if (Keyboard::isKeyPressed(Keyboard::Down))
+                menu.moveDown();
+            if (Keyboard::isKeyPressed(Keyboard::Return)) {
+                game_state = menu.getOption();
+            }
+                
+        }
     }
 }
 
@@ -133,6 +142,10 @@ void CGAME::update() {
     }
 
     /* Local Moving Keys while playing game */
+    if (this->game_state == CCONSTANT::STATE_MENU) {
+        menu.draw(window);
+    }
+
     if (this->game_state == CCONSTANT::STATE_START) {
         if (Keyboard::isKeyPressed(Keyboard::Up)) {
             cout << "Moving UP by pressing Up or W" << endl;
@@ -338,8 +351,6 @@ void CGAME::update() {
 
         return;
     }
-
-
 }
 
 void CGAME::render() {
