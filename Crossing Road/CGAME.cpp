@@ -352,6 +352,12 @@ void CGAME::update() {
         return;
     }
 
+    if (this->game_state == CCONSTANT::STATE_LOAD)
+        return;
+
+    if (this->game_state == CCONSTANT::STATE_SETTINGS)
+        return;
+
     if (this->game_state == CCONSTANT::STATE_END)
         window.close();
 }
