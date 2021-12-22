@@ -1,3 +1,4 @@
+#define SFML_NO_DEPRECATED_WARNINGS
 #include "CMENU.h"
 
 using namespace std;
@@ -11,28 +12,31 @@ CMENU::CMENU() {
 	}
 	
 	/* Create options */
-	menu = new Text[CCONSTANT::NUMBER_OF_OPTIONS];
-	for (int i = 0; i < CCONSTANT::NUMBER_OF_OPTIONS; ++i) {
-		menu[i].setFont(font);
-		menu[i].setFillColor(Color::Black);
-	}
-
-	/* Set the default chosen option */
-	menu[0].setFillColor(Color::Blue);
+	menu[0].setFont(font);
+	menu[0].setColor(Color::Yellow);
+	menu[0].setString("Start Game");
 	menu[0].setCharacterSize(menu[0].getCharacterSize() + 10);
 
-	/* Set name of these options */
-	menu[0].setString("Start Game");
+	menu[1].setFont(font);
+	menu[1].setColor(Color::White);
 	menu[1].setString("Load Game");
+	
+	menu[2].setFont(font);
+	menu[2].setColor(Color::White);
 	menu[2].setString("Settings");
+	
+	menu[3].setFont(font);
+	menu[3].setColor(Color::White);
 	menu[3].setString("Quit");
+
+	cout << "CMENU is loaded successfully!\n";
 }
 
 CMENU::~CMENU() {
-	if (menu) delete[] menu;
+	delete[] menu;
 }
 
-void CMENU::draw(sf::RenderWindow& window) {
+void CMENU::draw(RenderWindow& window) {
 	/* Set background color */
 	RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
 	rectangle.setFillColor(Color(0, 0, 0, 200));
@@ -46,13 +50,15 @@ void CMENU::draw(sf::RenderWindow& window) {
 		menu[i].setPosition(Vector2f(window.getSize().x / 2.0f,
 			(window.getSize().y) /
 			(CCONSTANT::NUMBER_OF_OPTIONS + 1) *
-			(i + 1) + 50));
+			(i + 1) + 20));
 		window.draw(menu[i]);
 	}
+
+	window.display();
 }
 
 void CMENU::moveUp() {
-	menu[selectedOption].setFillColor(Color::White);
+	menu[selectedOption].setColor(Color::White);
 	menu[selectedOption].setCharacterSize(menu[selectedOption].getCharacterSize() - 10);
 	
 	if (!selectedOption)
@@ -60,12 +66,12 @@ void CMENU::moveUp() {
 	else
 		--selectedOption;
 
-	menu[selectedOption].setFillColor(Color::Blue);
+	menu[selectedOption].setColor(Color::Blue);
 	menu[selectedOption].setCharacterSize(menu[selectedOption].getCharacterSize() + 10);
 }
 
 void CMENU::moveDown() {
-	menu[selectedOption].setFillColor(Color::White);
+	menu[selectedOption].setColor(Color::White);
 	menu[selectedOption].setCharacterSize(menu[selectedOption].getCharacterSize() - 10);
 
 	if (selectedOption == CCONSTANT::NUMBER_OF_OPTIONS - 1)
@@ -73,7 +79,7 @@ void CMENU::moveDown() {
 	else
 		++selectedOption;
 
-	menu[selectedOption].setFillColor(Color::Blue);
+	menu[selectedOption].setColor(Color::Blue);
 	menu[selectedOption].setCharacterSize(menu[selectedOption].getCharacterSize() + 10);
 }
 
