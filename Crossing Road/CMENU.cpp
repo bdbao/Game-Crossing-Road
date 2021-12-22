@@ -84,5 +84,14 @@ void CMENU::moveDown() {
 }
 
 int CMENU::getOption() {
-	return selectedOption;
+	switch (selectedOption) {
+	case 0:
+		return CCONSTANT::STATE_START;
+	case 1:
+		return CCONSTANT::STATE_LOAD;
+	case 2:
+		return CCONSTANT::STATE_SETTINGS;
+	case 3:
+		return CCONSTANT::STATE_END;
+	}
 }
