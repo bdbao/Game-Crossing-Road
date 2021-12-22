@@ -9,6 +9,7 @@
 #include <mutex>
 #include <vector>
 #include <string>
+#include <iostream>
 
 using std::mutex;
 using std::vector;
@@ -42,7 +43,8 @@ private:
 	sf::Clock clock;
 	vector<sf::Time> last_played;
 
-
+	sf::Music* background_music;
+	bool isPlayingBackground;
 	/* Public methods*/
 public:
 	void play_Walking();
@@ -52,6 +54,11 @@ public:
 	void play_GameOver();
 
 	void play_Enemy(std::string typeEnemy);
+
+	void play_Background();
+	void pause_Background();
+	void stop_Background();
+
 
 	void reset();
 

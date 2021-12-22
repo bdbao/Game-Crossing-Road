@@ -52,6 +52,16 @@ SoundManager::SoundManager() {
 	/* Clock to manage multi thread and delay between sound */
 	this->last_played.resize(this->sound_buffer.size(), sf::Time());	
 	this->clock.restart();
+
+
+	/* load background music */
+	this->background_music = new sf::Music;
+	if (!this->background_music->openFromFile("./assets/sounds/background-music.wav")) {
+		std::cout << "Cannot open background music" << std::endl;
+		return;
+	}
+	this->background_music->setLoop(true);
+	this->isPlayingBackground = false;
 }
 
 void SoundManager::play_Walking() {
@@ -130,9 +140,29 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 	}
 }
 
-
 void SoundManager::reset() {
 	for (int i = 0; i < (int)this->last_played.size(); i++) {
 		last_played[i] = sf::Time();
+	}
+}
+
+void SoundManager::play_Background() {
+	if (!this->isPlayingBackground) {
+		this->isPlayingBackground = true;
+		this->background_music->play();
+	}
+}
+
+void SoundManager::pause_Background() {
+	if (this->isPlayingBackground) {
+		this->isPlayingBackground = false;
+		this->background_music->pause();
+	}
+}
+
+void SoundManager::stop_Background() {
+	if (this->isPlayingBackground) {
+		this->isPlayingBackground = false;
+		this->background_music->stop();
 	}
 }
