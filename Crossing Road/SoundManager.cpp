@@ -52,6 +52,16 @@ SoundManager::SoundManager() {
 	/* Clock to manage multi thread and delay between sound */
 	this->last_played.resize(this->sound_buffer.size(), sf::Time());	
 	this->clock.restart();
+
+
+	/* load background music */
+	this->background_music = new sf::Music;
+	if (!this->background_music->openFromFile("./assets/sounds/background-music.wav")) {
+		std::cout << "Cannot open background music" << std::endl;
+		return;
+	}
+	this->background_music->setLoop(true);
+	this->isPlayingBackground = false;
 }
 
 void SoundManager::play_Walking() {
@@ -84,7 +94,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 	if (typeEnemy == "reindeer") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
-		if (this->clock.getElapsedTime().asSeconds() - this->last_played[3].asSeconds() > CCONSTANT::DELAY_REINDEER_SOUND) {
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[3].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_REINDEER_SOUND) {
 			// Update last played time
 			this->last_played[3] = this->clock.getElapsedTime();
 
@@ -95,7 +105,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 	if (typeEnemy == "penguin") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
-		if (this->clock.getElapsedTime().asSeconds() - this->last_played[4].asSeconds() > CCONSTANT::DELAY_PENGUIN_SOUND) {
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[4].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_PENGUIN_SOUND) {
 			// Update last played time
 			this->last_played[4] = this->clock.getElapsedTime();
 
@@ -106,7 +116,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 	if (typeEnemy == "bulls") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
-		if (this->clock.getElapsedTime().asSeconds() - this->last_played[5].asSeconds() > CCONSTANT::DELAY_BULL_SOUND) {
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[5].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
 			// Update last played time
 			this->last_played[5] = this->clock.getElapsedTime();
 
@@ -120,7 +130,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
 		long long pos = Rand(6, 7);
-		if (this->clock.getElapsedTime().asSeconds() - this->last_played[pos].asSeconds() > CCONSTANT::DELAY_CAR_SOUND) {
+		if (this->clock.getElapsedTime().asSeconds() - this->last_played[pos].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_CAR_SOUND) {
 			// Update last played time
 			this->last_played[pos] = this->clock.getElapsedTime();
 
@@ -130,9 +140,30 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 	}
 }
 
-
 void SoundManager::reset() {
+	this->clock.restart();
 	for (int i = 0; i < (int)this->last_played.size(); i++) {
 		last_played[i] = sf::Time();
+	}
+}
+
+void SoundManager::play_Background() {
+	if (!this->isPlayingBackground) {
+		this->isPlayingBackground = true;
+		this->background_music->play();
+	}
+}
+
+void SoundManager::pause_Background() {
+	if (this->isPlayingBackground) {
+		this->isPlayingBackground = false;
+		this->background_music->pause();
+	}
+}
+
+void SoundManager::stop_Background() {
+	if (this->isPlayingBackground) {
+		this->isPlayingBackground = false;
+		this->background_music->stop();
 	}
 }

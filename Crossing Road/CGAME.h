@@ -12,10 +12,12 @@
 #include "CTRAFFICLIGHT.h"
 #include "CFinishLine.h"
 
+
+#include <vector>
+#include <fstream>
 #include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 class CGAME {
 	/* Display */
@@ -38,6 +40,10 @@ class CGAME {
 	/* Event manager */
 	int game_state;
 	void pollEvents();
+
+	/* Variable to check if show game over once or winning once */
+	bool showedGameOver;
+	bool showedGameCompleted;
 public:
 	CGAME();
 	~CGAME();
@@ -49,9 +55,7 @@ public:
 	
 	void update();
 	void render();
-
-	void play_Background_music();
-	
+		
 	//Load and Save Game
 	void loadGame();
 	bool saveGame();
