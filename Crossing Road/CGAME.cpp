@@ -108,7 +108,6 @@ void CGAME::pollEvents() {
             if (Keyboard::isKeyPressed(Keyboard::Return)) {
                 game_state = menu.getOption();
             }
-                
         }
     }
 }
