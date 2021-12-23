@@ -15,9 +15,9 @@ int main() {
 		if (game->state() == CCONSTANT::STATE_START) {
 			game->render();
 		}
-		else if (state == CCONSTANT::STATE_PAUSE) {
-			continue;
-		}
+		//else if (state == cconstant::state_pause) {
+		//	continue;
+		//}
 		else if (state == CCONSTANT::STATE_GAME_COMPLETED) {
 			continue;
 		}
