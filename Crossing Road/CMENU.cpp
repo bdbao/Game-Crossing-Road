@@ -17,7 +17,7 @@ CMENU::CMENU() {
 	}
 
 	/* Create options */
-	menu[0].setColor(Color::Blue);
+	menu[0].setColor(CCONSTANT::CHOSEN_OPTION);
 	menu[0].setCharacterSize(menu[0].getCharacterSize() + 10);
 
 	/* Set name of these options */
@@ -34,7 +34,7 @@ CMENU::~CMENU() {
 void CMENU::draw(RenderWindow& window) {
 	/* Set background color */
 	RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
-	rectangle.setFillColor(Color(0, 0, 0, 200));
+	rectangle.setFillColor(CCONSTANT::BACKGROUND);
 	window.draw(rectangle);
 
 	/* Display options */
@@ -61,7 +61,7 @@ void CMENU::moveUp() {
 	else
 		--selectedOption;
 
-	menu[selectedOption].setColor(Color::Blue);
+	menu[selectedOption].setColor(CCONSTANT::CHOSEN_OPTION);
 	menu[selectedOption].setCharacterSize(menu[selectedOption].getCharacterSize() + 10);
 }
 
@@ -74,7 +74,7 @@ void CMENU::moveDown() {
 	else
 		++selectedOption;
 
-	menu[selectedOption].setColor(Color::Blue);
+	menu[selectedOption].setColor(CCONSTANT::CHOSEN_OPTION);
 	menu[selectedOption].setCharacterSize(menu[selectedOption].getCharacterSize() + 10);
 }
 
