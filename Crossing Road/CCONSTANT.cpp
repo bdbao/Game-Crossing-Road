@@ -40,3 +40,5 @@ const float CCONSTANT::DELAY_BULL_SOUND = 5.f;
 const float CCONSTANT::DELAY_PENGUIN_SOUND = 3.5f;
 
 const int CCONSTANT::NUMBER_OF_OPTIONS = 4;
+const sf::Color CCONSTANT::CHOSEN_OPTION = sf::Color(120, 255, 158);
+const sf::Color CCONSTANT::BACKGROUND = sf::Color(255, 103, 102);

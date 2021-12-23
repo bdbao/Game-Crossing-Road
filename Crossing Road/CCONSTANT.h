@@ -54,6 +54,8 @@ public:
 
 	/* Menu */
 	static const int NUMBER_OF_OPTIONS;
+	static const sf::Color CHOSEN_OPTION;
+	static const sf::Color BACKGROUND;
 };
 
 #endif
