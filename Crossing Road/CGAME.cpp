@@ -352,11 +352,15 @@ void CGAME::update() {
         return;
     }
 
-    if (this->game_state == CCONSTANT::STATE_LOAD)
+    if (this->game_state == CCONSTANT::STATE_LOAD) {
+        game_state = CCONSTANT::STATE_MENU; //temp state to test
         return;
+    }
 
-    if (this->game_state == CCONSTANT::STATE_SETTINGS)
+    if (this->game_state == CCONSTANT::STATE_SETTINGS) {
+        game_state = CCONSTANT::STATE_MENU; //temp state to test
         return;
+    }
 
     if (this->game_state == CCONSTANT::STATE_END)
         window.close();
