@@ -80,12 +80,8 @@ void CSETTINGS::moveDown() {
 int CSETTINGS::getOption() {
 	switch (selectedOption) {
 	case 0:
-		return CCONSTANT::STATE_START;
+		return CCONSTANT::STATE_MENU;
 	case 1:
-		return CCONSTANT::STATE_LOAD;
-	case 2:
-		return CCONSTANT::STATE_SETTINGS;
-	case 3:
-		return CCONSTANT::STATE_END;
+		return CCONSTANT::STATE_MENU;
 	}
 }
