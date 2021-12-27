@@ -15,7 +15,6 @@ public:
 
 	void moveUp();
 	void moveDown();
-	CSETTINGS settings;
 private:
 	int selectedOption = 0;
 	sf::Texture title;
