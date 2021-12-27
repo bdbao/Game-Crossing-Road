@@ -14,6 +14,7 @@ CMENU::CMENU() {
 	for (int i = 0; i < CCONSTANT::NUMBER_OF_OPTIONS; ++i) {
 		menu[i].setFont(font);
 		menu[i].setColor(Color::White);
+		menu[i].setStyle(Text::Bold);
 	}
 
 	/* Create options */
@@ -45,7 +46,7 @@ void CMENU::draw(RenderWindow& window) {
 		menu[i].setPosition(Vector2f(window.getSize().x / 2.0f,
 			(window.getSize().y) /
 			(CCONSTANT::NUMBER_OF_OPTIONS + 1) *
-			(i + 1) + 20));
+			(i + 1) + 5));
 		window.draw(menu[i]);
 	}
 
