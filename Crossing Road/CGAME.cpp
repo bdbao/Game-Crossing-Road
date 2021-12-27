@@ -1,3 +1,4 @@
+#define SFML_NO_DEPRECATED_WARNINGS
 #include "CGAME.h"
 
 using namespace sf;
@@ -365,7 +366,8 @@ void CGAME::update() {
     }
 
     if (this->game_state == CCONSTANT::STATE_SETTINGS) {
-        game_state = CCONSTANT::STATE_MENU; //temp state to test
+        menu.settings.draw(window);
+        //game_state = CCONSTANT::STATE_MENU; //temp state to test
         return;
     }
 

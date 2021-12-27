@@ -2,6 +2,7 @@
 #define CMENU_H
 
 #include "CCONSTANT.h"
+#include "CSETTINGS.h"
 #include <iostream>
 
 class  CMENU {
@@ -14,6 +15,7 @@ public:
 
 	void moveUp();
 	void moveDown();
+	CSETTINGS settings;
 private:
 	int selectedOption = 0;
 	sf::Texture title;
