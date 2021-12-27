@@ -196,12 +196,16 @@ void CGAME::update() {
         /* Print game over and hotkey instruction */
         if (!this->showedGameOver) {
 
-            int notiSize = 72, instructionSize = 40;
+            int notiSize = 72, instructionSize = 32;
             
+            RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+            rectangle.setFillColor(Color(0, 0, 0, 200));
+            window.draw(rectangle);
+
             /* Print game over */
             Text text_gameover;
             Font font, font2;
-            if (!font.loadFromFile("./assets/fonts/SuperGame.ttf"))  throw("Could not load the font");
+            if (!font.loadFromFile("./assets/fonts/plaguard.otf"))  throw("Could not load the font");
             
             text_gameover.setFont(font);
             
@@ -222,16 +226,16 @@ void CGAME::update() {
 
 
             /* Print extra information */
-            if (!font2.loadFromFile("./assets/fonts/arial.ttf"))  throw("Could not load the font");
+            if (!font2.loadFromFile("./assets/fonts/ChargeVector.ttf"))  throw("Could not load the font");
 
             Text text_replay;
             text_replay.setFont(font2);
             text_replay.setCharacterSize(instructionSize);
-            text_replay.setFillColor(Color::Cyan);
-            text_replay.setStyle(Text::Bold);
+            text_replay.setFillColor(Color::White);
+            //text_replay.setStyle(Text::Bold);
             text_replay.setString("Replay: SPACE");
-            text_replay.setOutlineColor(sf::Color::Black);
-            text_replay.setOutlineThickness(3);
+            //text_replay.setOutlineColor(sf::Color::Black);
+            //text_replay.setOutlineThickness(3);
             /* Set position of text: align center */
             sf::FloatRect textRect_replay = text_replay.getLocalBounds();
             text_replay.setOrigin(textRect_replay.width / 2, textRect_replay.height / 2);
@@ -241,11 +245,11 @@ void CGAME::update() {
             Text text_quit;
             text_quit.setFont(font2);
             text_quit.setCharacterSize(instructionSize);
-            text_quit.setFillColor(Color::Cyan);
-            text_quit.setStyle(Text::Bold);
+            text_quit.setFillColor(Color::White);
+            //text_quit.setStyle(Text::Bold);
             text_quit.setString("Quit game: Q");
-            text_quit.setOutlineColor(sf::Color::Black);
-            text_quit.setOutlineThickness(3);
+            //text_quit.setOutlineColor(sf::Color::Black);
+            //text_quit.setOutlineThickness(3);
             /* Set position of text: align center */
             sf::FloatRect  textRect_quit = text_quit.getLocalBounds();
             text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
@@ -277,11 +281,15 @@ void CGAME::update() {
         
         if (!this->showedGameCompleted) {
 
-            int notiSize = 70, instructionSize = 40;
+            int notiSize = 56, instructionSize = 32;
+
+            RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+            rectangle.setFillColor(Color(0,0,0,200));
+            window.draw(rectangle);
 
             Text level_completed;
             Font font;
-            if (!font.loadFromFile("./assets/fonts/SuperGame.ttf"))  throw("Could not load the font");
+            if (!font.loadFromFile("./assets/fonts/plaguard.otf"))  throw("Could not load the font");
 
             level_completed.setFont(font);
 
@@ -301,16 +309,16 @@ void CGAME::update() {
 
             /* Print hotkey instruction */
             Font font2;
-            if (!font2.loadFromFile("./assets/fonts/arial.ttf"))  throw("Could not load the font");
+            if (!font2.loadFromFile("./assets/fonts/ChargeVector.ttf"))  throw("Could not load the font");
 
             Text next_level;
             next_level.setFont(font2);
             next_level.setCharacterSize(instructionSize);
-            next_level.setFillColor(Color::Cyan);
-            next_level.setStyle(Text::Bold);
+            next_level.setFillColor(Color::White);
+            //next_level.setStyle(Text::Bold);
             next_level.setString("Next level: SPACE");
-            next_level.setOutlineColor(sf::Color::Black);
-            next_level.setOutlineThickness(3);
+            //next_level.setOutlineColor(sf::Color::Black);
+            //next_level.setOutlineThickness(3);
             /* Set position of text: align center */
             sf::FloatRect textRect_next_level = next_level.getLocalBounds();
             next_level.setOrigin(textRect_next_level.width / 2, textRect_next_level.height / 2);
@@ -321,11 +329,11 @@ void CGAME::update() {
             Text text_quit;
             text_quit.setFont(font2);
             text_quit.setCharacterSize(instructionSize);
-            text_quit.setFillColor(Color::Cyan);
-            text_quit.setStyle(Text::Bold);
+            text_quit.setFillColor(Color::White);
+            //text_quit.setStyle(Text::Bold);
             text_quit.setString("Quit game: Q");
-            text_quit.setOutlineColor(sf::Color::Black);
-            text_quit.setOutlineThickness(3);
+            //text_quit.setOutlineColor(sf::Color::Black);
+            //text_quit.setOutlineThickness(3);
             /* Set position of text: align center */
             sf::FloatRect textRect_quit = text_quit.getLocalBounds();
             text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
