@@ -31,6 +31,7 @@
     <ClCompile Include="CROAD.cpp" />
     <ClCompile Include="CROAD.h" />
     <ClCompile Include="CENEMY.cpp" />
+    <ClCompile Include="CSETTINGS.cpp" />
     <ClCompile Include="CSNOW.cpp" />
     <ClCompile Include="CTRAFFICLIGHT.cpp" />
     <ClCompile Include="main.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="CMENU.h" />
     <ClInclude Include="CPEOPLE.h" />
     <ClInclude Include="CENEMY.h" />
+    <ClInclude Include="CSETTINGS.h" />
     <ClInclude Include="CSNOW.h" />
     <ClInclude Include="CTRAFFICLIGHT.h" />
     <ClInclude Include="main.h" />

@@ -66,6 +66,9 @@
     <ClCompile Include="CMENU.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CSETTINGS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGAME.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CMENU.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSETTINGS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
