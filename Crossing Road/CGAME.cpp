@@ -98,16 +98,29 @@ void CGAME::initLevel(int level) {
 
 
 void CGAME::pollEvents() {
+    window.setKeyRepeatEnabled(false);
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             window.close();
         if (game_state == CCONSTANT::STATE_MENU) {
+            menu.draw(window);
             if (Keyboard::isKeyPressed(Keyboard::Up))
                 menu.moveUp();
             if (Keyboard::isKeyPressed(Keyboard::Down))
                 menu.moveDown();
-            if (Keyboard::isKeyPressed(Keyboard::Return) || Keyboard::isKeyPressed(Keyboard::Space)) {
+            if (Keyboard::isKeyPressed(Keyboard::Return)) {
                 game_state = menu.getOption();
+            }
+            return;
+        }
+        if (game_state == CCONSTANT::STATE_SETTINGS) {
+            settings.draw(window);
+            if (Keyboard::isKeyPressed(Keyboard::Up))
+                settings.moveUp();
+            if (Keyboard::isKeyPressed(Keyboard::Down))
+                settings.moveDown();
+            if (Keyboard::isKeyPressed(Keyboard::Space)) {
+                game_state = settings.getOption();
             }
         }
     }
@@ -116,7 +129,6 @@ void CGAME::pollEvents() {
 void CGAME::update() {
     pollEvents();
     this->sound_manager->play_Background();
-
     /* Global Interact keys through all state of the game*/
     if (Keyboard::isKeyPressed(Keyboard::Q) || Keyboard::isKeyPressed(Keyboard::Escape)) {
         /* Quit the game */
@@ -142,9 +154,6 @@ void CGAME::update() {
     }
 
     /* Local Moving Keys while playing game */
-    if (this->game_state == CCONSTANT::STATE_MENU) {
-        menu.draw(window);
-    }
 
     if (this->game_state == CCONSTANT::STATE_START) {
         if (Keyboard::isKeyPressed(Keyboard::Up)) {
@@ -362,12 +371,6 @@ void CGAME::update() {
 
     if (this->game_state == CCONSTANT::STATE_LOAD) {
         game_state = CCONSTANT::STATE_MENU; //temp state to test
-        return;
-    }
-
-    if (this->game_state == CCONSTANT::STATE_SETTINGS) {
-        menu.settings.draw(window);
-        //game_state = CCONSTANT::STATE_MENU; //temp state to test
         return;
     }
 

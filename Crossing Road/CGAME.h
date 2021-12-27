@@ -47,6 +47,7 @@ class CGAME {
 
 	/* Menu */
 	CMENU menu;
+	CSETTINGS settings;
 public:
 	CGAME();
 	~CGAME();
