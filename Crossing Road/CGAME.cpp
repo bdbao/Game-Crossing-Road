@@ -105,7 +105,7 @@ void CGAME::pollEvents() {
                 menu.moveUp();
             if (Keyboard::isKeyPressed(Keyboard::Down))
                 menu.moveDown();
-            if (Keyboard::isKeyPressed(Keyboard::Return)) {
+            if (Keyboard::isKeyPressed(Keyboard::Return) || Keyboard::isKeyPressed(Keyboard::Space)) {
                 game_state = menu.getOption();
             }
         }
@@ -430,22 +430,22 @@ void CGAME::render() {
     }
 
     /* Print current level */
-    Text level_completed;
+    Text current_level;
     Font font;
-    if (!font.loadFromFile("./assets/fonts/arial.ttf"))  throw("Could not load the font");
-    level_completed.setFont(font);
-    level_completed.setCharacterSize(30);
-    level_completed.setFillColor(Color::Black);
-    level_completed.setStyle(Text::Bold);
-    level_completed.setString("Level " + to_string(this->game_level));
-    level_completed.setOutlineColor(sf::Color::Green);
-    level_completed.setOutlineThickness(6.5);
+    if (!font.loadFromFile("./assets/fonts/plaguard.otf"))  throw("Could not load the font");
+    current_level.setFont(font);
+    current_level.setCharacterSize(34);
+    current_level.setFillColor(Color(174, 188, 253));
+    current_level.setStyle(Text::Bold);
+    current_level.setString("Level " + to_string(this->game_level));
+    current_level.setOutlineColor(Color::Black);
+    current_level.setOutlineThickness(3);
 
     /* Set position of text: align center */
-    sf::FloatRect textRect = level_completed.getLocalBounds();
-    level_completed.setOrigin(textRect.width / 2, textRect.height / 2);
-    level_completed.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, textRect.height / 2));
-    window.draw(level_completed);
+    sf::FloatRect textRect = current_level.getLocalBounds();
+    current_level.setOrigin(textRect.width / 2, textRect.height / 2);
+    current_level.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, textRect.height / 2));
+    window.draw(current_level);
 
     /* Display the draw */
     window.display();
