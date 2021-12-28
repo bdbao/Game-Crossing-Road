@@ -23,3 +23,8 @@ bool CENEMY::isOutOfView() {
 sf::Sprite& CENEMY::getSprite() {
 	return sprite;
 }
+
+
+string CENEMY::getEnemyName() {
+	return "enemy";
+}

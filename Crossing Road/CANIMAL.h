@@ -24,6 +24,10 @@ public:
 	CANIMAL(std::string textureFile, std::string direction, sf::Vector2f pos);
 	virtual ~CANIMAL() {}
 	void update();
+
+	string getEnemyName() {
+		return "anmimal";
+	}
 };
 
 #endif

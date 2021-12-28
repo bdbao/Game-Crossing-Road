@@ -2,9 +2,10 @@
 
 
 CANIMAL::CANIMAL(string textureFile, string direction, Vector2f pos) : CENEMY(direction, pos) {
+	cout << "Create enemy: " << textureFile << endl; 
 	if (!texture.loadFromFile("assets/enemies/" + textureFile + ".png")) {
 		cout << "Cannot find animal texture." << endl;
-		return;
+		return;	
 	}
 	sprite.setTexture(texture);
 	textureId = (direction == CCONSTANT::LEFT) ? 3 : 6;

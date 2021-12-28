@@ -25,6 +25,8 @@ public:
 	void move(float speed);
 	bool isOutOfView();
 	sf::Sprite& getSprite();
+
+	virtual string getEnemyName();
 };
 
 #endif // !_CENEMY_H_
