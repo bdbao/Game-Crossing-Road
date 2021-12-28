@@ -32,9 +32,9 @@ void CGRASS::update() {
 		long long randNumAnimal = Rand(1, 100);
 		if (randNumAnimal % 6 == 0) typeEnemy = "reindeer";
 		else if (randNumAnimal % 6 == 1) typeEnemy = "penguin";
-		else if (randNumAnimal % 6 == 2) typeEnemy = "polarBear";
-	    else if (randNumAnimal % 6 == 3) typeEnemy = "siberianDog";
-		else if (randNumAnimal % 6 == 4) typeEnemy = "snowMan";
+		else if (randNumAnimal % 6 == 2) typeEnemy = "polarbear";
+	    else if (randNumAnimal % 6 == 3) typeEnemy = "siberiandog";
+		else if (randNumAnimal % 6 == 4) typeEnemy = "snowman";
 		else typeEnemy = "bulls";
 		
 		/* random type of penguin */

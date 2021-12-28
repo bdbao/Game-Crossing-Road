@@ -13,7 +13,7 @@ public:
 	}
 
 private:
-	string typeAni = "polarBear";
+	string typeAni = "polarbear";
 };
 
 
