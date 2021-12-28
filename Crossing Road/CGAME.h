@@ -39,7 +39,6 @@ class CGAME {
 
 	/* Event manager */
 	int game_state;
-	void pollEvents();
 
 	/* Variable to check if show game over once or winning once */
 	bool showedGameOver;
@@ -59,7 +58,9 @@ public:
 	
 	void update();
 	void render();
-		
+	
+	void pollEvents();
+
 	//Load and Save Game
 	void loadGame();
 	bool saveGame();

@@ -9,20 +9,10 @@ int main() {
 	int state = -1;
 	
 	while (game->isRunning()) {
+		game->pollEvents();
 		game->update();
-		state = game->state();
-
 		if (game->state() == CCONSTANT::STATE_START) {
 			game->render();
-		}
-		//else if (state == cconstant::state_pause) {
-		//	continue;
-		//}
-		else if (state == CCONSTANT::STATE_GAME_COMPLETED) {
-			continue;
-		}
-		else if (state == CCONSTANT::STATE_GAME_OVER) {
-			continue;
 		}
 
 		// 
