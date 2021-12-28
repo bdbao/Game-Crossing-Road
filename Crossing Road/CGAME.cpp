@@ -123,12 +123,24 @@ void CGAME::pollEvents() {
                 game_state = settings.getOption();
             }
         }
+        if (game_state == CCONSTANT::STATE_START && Keyboard::isKeyPressed(Keyboard::P)) {
+            /* Pause the game */
+            cout << "PAUSE by pressing P (RESUME by pressing any different keys)" << endl;
+            game_state = CCONSTANT::STATE_PAUSE;
+            this->sound_manager->pause_Background();
+        }
+        if (game_state == CCONSTANT::STATE_PAUSE) {
+            if (event.type == Event::KeyPressed && !Keyboard::isKeyPressed(Keyboard::P))
+                game_state = CCONSTANT::STATE_START;
+        }
     }
 }
 
 void CGAME::update() {
-    pollEvents();
-    this->sound_manager->play_Background();
+    //pollEvents();
+    if (this->game_state != CCONSTANT::STATE_PAUSE)
+        this->sound_manager->play_Background();
+    
     /* Global Interact keys through all state of the game*/
     if (Keyboard::isKeyPressed(Keyboard::Q) || Keyboard::isKeyPressed(Keyboard::Escape)) {
         /* Quit the game */
@@ -180,26 +192,16 @@ void CGAME::update() {
             player.moveRight();
             player.setIsAnimating(true);
         }
-        else if (Keyboard::isKeyPressed(Keyboard::P)) {
-            /* Pause the game */
-            if (this->game_state != CCONSTANT::STATE_PAUSE) {
-                //this->game_state = CCONSTANT::STATE_PAUSE;
-                /* khong can set thanh STATE_PAUSE nua */
-                cout << "PAUSE by pressing P (RESUME by pressing any different keys)" << endl;
-                this->sound_manager->pause_Background();
-                system("pause");
-            }
-        }
     }
     else player.setIsAnimating(false);
-    
-    ///* Paused */
-    //if (this->game_state == CCONSTANT::STATE_PAUSE) {
-    //    // Set continuing state
-    //    if (Keyboard::isKeyPressed(Keyboard::Space))
-    //        this->game_state == CCONSTANT::STATE_START;
-    //}
-    
+   
+    if (this->game_state == CCONSTANT::STATE_PAUSE) {
+        RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+        rectangle.setFillColor(Color(60, 70, 50, 200));
+        window.draw(rectangle);
+        window.display();
+    }
+
     /* Game over */
     if (this->game_state == CCONSTANT::STATE_GAME_OVER) {
         
@@ -242,10 +244,7 @@ void CGAME::update() {
             text_replay.setFont(font2);
             text_replay.setCharacterSize(instructionSize);
             text_replay.setFillColor(Color::White);
-            //text_replay.setStyle(Text::Bold);
             text_replay.setString("Replay: SPACE");
-            //text_replay.setOutlineColor(sf::Color::Black);
-            //text_replay.setOutlineThickness(3);
             /* Set position of text: align center */
             sf::FloatRect textRect_replay = text_replay.getLocalBounds();
             text_replay.setOrigin(textRect_replay.width / 2, textRect_replay.height / 2);
@@ -256,10 +255,7 @@ void CGAME::update() {
             text_quit.setFont(font2);
             text_quit.setCharacterSize(instructionSize);
             text_quit.setFillColor(Color::White);
-            //text_quit.setStyle(Text::Bold);
             text_quit.setString("Quit game: Q");
-            //text_quit.setOutlineColor(sf::Color::Black);
-            //text_quit.setOutlineThickness(3);
             /* Set position of text: align center */
             sf::FloatRect  textRect_quit = text_quit.getLocalBounds();
             text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
@@ -325,10 +321,7 @@ void CGAME::update() {
             next_level.setFont(font2);
             next_level.setCharacterSize(instructionSize);
             next_level.setFillColor(Color::White);
-            //next_level.setStyle(Text::Bold);
             next_level.setString("Next level: SPACE");
-            //next_level.setOutlineColor(sf::Color::Black);
-            //next_level.setOutlineThickness(3);
             /* Set position of text: align center */
             sf::FloatRect textRect_next_level = next_level.getLocalBounds();
             next_level.setOrigin(textRect_next_level.width / 2, textRect_next_level.height / 2);
@@ -340,10 +333,7 @@ void CGAME::update() {
             text_quit.setFont(font2);
             text_quit.setCharacterSize(instructionSize);
             text_quit.setFillColor(Color::White);
-            //text_quit.setStyle(Text::Bold);
             text_quit.setString("Quit game: Q");
-            //text_quit.setOutlineColor(sf::Color::Black);
-            //text_quit.setOutlineThickness(3);
             /* Set position of text: align center */
             sf::FloatRect textRect_quit = text_quit.getLocalBounds();
             text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
