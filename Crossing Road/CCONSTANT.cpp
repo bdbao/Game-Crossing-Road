@@ -14,6 +14,7 @@ const int CCONSTANT::STATE_GAME_COMPLETED = 4;
 const int CCONSTANT::STATE_GAME_OVER = 5;
 const int CCONSTANT::STATE_SAVE = 6;
 const int CCONSTANT::STATE_LOAD = 7;
+const int CCONSTANT::STATE_SETTINGS = 8;
 
 const float CCONSTANT::UNIT = 5.f;
 const float CCONSTANT::VIEW_HEIGHT = 5.f;
@@ -39,3 +40,6 @@ const float CCONSTANT::DELAY_BULL_SOUND = 5.f;
 const float CCONSTANT::DELAY_PENGUIN_SOUND = 3.5f;
 
 const int CCONSTANT::NUMBER_OF_OPTIONS = 4;
+const int CCONSTANT::NUMBER_OF_SETTING_OPTIONS = 2;
+const sf::Color CCONSTANT::CHOSEN_OPTION = sf::Color(120, 255, 158);
+const sf::Color CCONSTANT::BACKGROUND = sf::Color(255, 103, 102);

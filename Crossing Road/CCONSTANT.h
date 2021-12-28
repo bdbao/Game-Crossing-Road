@@ -21,6 +21,7 @@ public:
 	static const int STATE_GAME_OVER;
 	static const int STATE_SAVE;
 	static const int STATE_LOAD;
+	static const int STATE_SETTINGS;
 
 	/* Some setting */
 	static const float UNIT;
@@ -53,6 +54,9 @@ public:
 
 	/* Menu */
 	static const int NUMBER_OF_OPTIONS;
+	static const int NUMBER_OF_SETTING_OPTIONS;
+	static const sf::Color CHOSEN_OPTION;
+	static const sf::Color BACKGROUND;
 };
 
 #endif

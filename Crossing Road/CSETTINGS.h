@@ -1,14 +1,13 @@
-#ifndef CMENU_H
-#define CMENU_H
+#ifndef CSETTINGS_H
+#define CSETTINGS_H
 
 #include "CCONSTANT.h"
-#include "CSETTINGS.h"
 #include <iostream>
 
-class  CMENU {
+class  CSETTINGS {
 public:
-	CMENU();
-	~CMENU();
+	CSETTINGS();
+	~CSETTINGS();
 
 	void draw(sf::RenderWindow& window);
 	int getOption();
@@ -19,7 +18,7 @@ private:
 	int selectedOption = 0;
 	sf::Texture title;
 	sf::Font font;
-	sf::Text* menu = new sf::Text[CCONSTANT::NUMBER_OF_OPTIONS];
+	sf::Text* settings = new sf::Text[CCONSTANT::NUMBER_OF_SETTING_OPTIONS];
 };
 
-#endif // !CMENU_H
+#endif // !CSETTINGS_H
