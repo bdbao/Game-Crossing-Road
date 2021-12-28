@@ -212,7 +212,10 @@ void SoundManager::reset() {
 }
 
 void SoundManager::play_Background() {
-	if (isMute) return;
+	if (isMute) {
+		pause_Background();
+		return;
+	}
 	if (!this->isPlayingBackground) {
 		this->isPlayingBackground = true;
 		this->background_music->play();
@@ -220,7 +223,6 @@ void SoundManager::play_Background() {
 }
 
 void SoundManager::pause_Background() {
-	if (isMute) return;
 	if (this->isPlayingBackground) {
 		this->isPlayingBackground = false;
 		this->background_music->pause();
@@ -228,7 +230,6 @@ void SoundManager::pause_Background() {
 }
 
 void SoundManager::stop_Background() {
-	if (isMute) return;
 	if (this->isPlayingBackground) {
 		this->isPlayingBackground = false;
 		this->background_music->stop();
