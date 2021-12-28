@@ -9,7 +9,7 @@ int main() {
 	int state = -1;
 	
 	while (game->isRunning()) {
-		game->pollEvents();
+		game->pollEvents(); cout << SoundManager::getInstance()->getIsMute() << endl;
 		game->update();
 		if (game->state() == CCONSTANT::STATE_START) {
 			game->render();

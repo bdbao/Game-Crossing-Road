@@ -88,6 +88,7 @@ SoundManager::SoundManager() {
 }
 
 void SoundManager::play_Walking() {
+	if (isMute) return;
 	if (this->clock.getElapsedTime().asSeconds() - this->last_played[0].asSeconds() > CCONSTANT::DELAY_WALKING_SOUND) {
 		this->last_played[0] = this->clock.getElapsedTime();
 		this->sound[0].play();
@@ -95,6 +96,7 @@ void SoundManager::play_Walking() {
 }
 
 void SoundManager::play_GameCompleted() {
+	if (isMute) return;
 	// Play once only for each level
 	// If you want to play again, use reset() method below
 	if (this->last_played[1] == sf::Time()) {
@@ -104,6 +106,7 @@ void SoundManager::play_GameCompleted() {
 }
 
 void SoundManager::play_GameOver() {
+	if (isMute) return;
 	// Play once only for each level
 	// If you want to play again, use reset() method below
 	if (this->last_played[2] == sf::Time()) {
@@ -113,6 +116,7 @@ void SoundManager::play_GameOver() {
 }
 
 void SoundManager::play_Enemy(std::string typeEnemy) {
+	if (isMute) return;
 	/* animal */
 	if (typeEnemy == "reindeer") {
 		// Check if the delta time between two playing is bigger than delay time
@@ -200,6 +204,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 }
 
 void SoundManager::reset() {
+	if (isMute) return;
 	this->clock.restart();
 	for (int i = 0; i < (int)this->last_played.size(); i++) {
 		last_played[i] = sf::Time();
@@ -207,6 +212,7 @@ void SoundManager::reset() {
 }
 
 void SoundManager::play_Background() {
+	if (isMute) return;
 	if (!this->isPlayingBackground) {
 		this->isPlayingBackground = true;
 		this->background_music->play();
@@ -214,6 +220,7 @@ void SoundManager::play_Background() {
 }
 
 void SoundManager::pause_Background() {
+	if (isMute) return;
 	if (this->isPlayingBackground) {
 		this->isPlayingBackground = false;
 		this->background_music->pause();
@@ -221,6 +228,7 @@ void SoundManager::pause_Background() {
 }
 
 void SoundManager::stop_Background() {
+	if (isMute) return;
 	if (this->isPlayingBackground) {
 		this->isPlayingBackground = false;
 		this->background_music->stop();
@@ -229,6 +237,7 @@ void SoundManager::stop_Background() {
 
 
 void SoundManager::play_EnemySound(const string& enemy) {
+	if (isMute) return;
 	int idx = sound_index[enemy];
 	float delay_time = 2.f;
 	if (enemy == "car") {

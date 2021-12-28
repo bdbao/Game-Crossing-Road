@@ -80,7 +80,19 @@ void CSETTINGS::moveDown() {
 int CSETTINGS::getOption() {
 	switch (selectedOption) {
 	case 0:
+		if (settings[0].getString() == "Sound: ON") {
+			SoundManager::getInstance()->setIsMute(true);
+
+			settings[0].setString("Sound: OFF");
+		}
+		else {
+			SoundManager::getInstance()->setIsMute(false);
+
+			settings[0].setString("Sound: ON");
+		}
+		
 		return CCONSTANT::STATE_MENU;
+		break;
 	case 1:
 		return CCONSTANT::STATE_MENU;
 	}

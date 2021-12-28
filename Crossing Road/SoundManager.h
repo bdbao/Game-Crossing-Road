@@ -50,6 +50,9 @@ private:
 
 	map<string, int> sound_index;
 
+	/* For Mute State */
+	bool isMute = false;
+
 
 	/* Public methods*/
 public:
@@ -70,6 +73,14 @@ public:
 
 	void reset();
 
+
+	/* For Mute State */
+	bool getIsMute() {
+		return this->isMute;
+	}
+	void setIsMute(bool stateMute) {
+		this->isMute = stateMute;
+	}
 };
 
 #endif // !_SOUNDMANAGER_H_

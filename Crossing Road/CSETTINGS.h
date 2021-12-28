@@ -2,6 +2,7 @@
 #define CSETTINGS_H
 
 #include "CCONSTANT.h"
+#include "SoundManager.h"
 #include <iostream>
 
 class  CSETTINGS {
