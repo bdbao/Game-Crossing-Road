@@ -1,5 +1,5 @@
 #include "CPOLARBEAR.h"
 
-CPOLARBEAR::CPOLARBEAR(string typeAsset, string direction, Vector2f pos) : CANIMAL("polarBear" + typeAsset, direction, pos) {
+CPOLARBEAR::CPOLARBEAR(string typeAsset, string direction, Vector2f pos) : CANIMAL("polarbear" + typeAsset, direction, pos) {
 
 }

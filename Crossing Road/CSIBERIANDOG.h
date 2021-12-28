@@ -13,7 +13,7 @@ public:
 	}
 
 private:
-	string typeAni = "siberianDog";
+	string typeAni = "siberiandog";
 };
 
 #endif // !_CSIBERIANDOG_H_

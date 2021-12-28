@@ -13,46 +13,57 @@ SoundManager::SoundManager() {
 		// 0: walking4.wav
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[0].loadFromFile("./assets/sounds/walking4.wav");
+		sound_index["walking"] = 0;
 
 		// 1: game_completed
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[1].loadFromFile("./assets/sounds/game-completed.wav");
+		sound_index["game_completed"] = 1;
 
 		// 2: game_over
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[2].loadFromFile("./assets/sounds/game-over.wav");
+		sound_index["game_over"] = 2;
 
 		// 3: reindeer.wav
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[3].loadFromFile("./assets/sounds/reindeer.wav");
+		sound_index["reindeer"] = 3;
 
 		// 4: penguin.wav
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[4].loadFromFile("./assets/sounds/penguin.wav");
+		sound_index["penguin"] = 4;
 
 		// 5: bulls.wav
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[5].loadFromFile("./assets/sounds/bulls.wav");
+		sound_index["bulls"] = 5;
 
 		// 6: penguin.wav
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[6].loadFromFile("./assets/sounds/car-horn.wav");
+		sound_index["car"] = 6;
 
 		// 7: double-horn.wav
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[7].loadFromFile("./assets/sounds/double-horn.wav");
+		sound_index["car_double"] = 7;
 		
-		//8 polar_bear.wav
+		//8 polarbear.wav
 		this->sound_buffer.push_back(temp);
-		this->sound_buffer[8].loadFromFile("./assets/sounds/polar_bear.wav");
+		this->sound_buffer[8].loadFromFile("./assets/sounds/polarbear.wav");
+		sound_index["polarbear"] = 8;
 
-		//9 siberian_dog.wav
+		//9 siberiandog.wav
 		this->sound_buffer.push_back(temp);
-		this->sound_buffer[9].loadFromFile("./assets/sounds/siberia_dog.wav");
+		this->sound_buffer[9].loadFromFile("./assets/sounds/siberiandog.wav");
+		sound_index["siberiandog"] = 9;
 
 		//10 snowman.wav
 		this->sound_buffer.push_back(temp);
 		this->sound_buffer[10].loadFromFile("./assets/sounds/snowman.wav");
+		sound_index["snowman"] = 10;
 		
 	}
 	
@@ -213,5 +224,27 @@ void SoundManager::stop_Background() {
 	if (this->isPlayingBackground) {
 		this->isPlayingBackground = false;
 		this->background_music->stop();
+	}
+}
+
+
+void SoundManager::play_EnemySound(const string& enemy) {
+	int idx = sound_index[enemy];
+	float delay_time = 2.f;
+	if (enemy == "car") {
+		delay_time = 2.25f;
+	}
+	else if (enemy == "bulls") {
+		delay_time = CCONSTANT::DELAY_BULL_SOUND;
+	}
+	else if (enemy == "penguins") {
+		delay_time = CCONSTANT::DELAY_PENGUIN_SOUND;
+	}
+	if (this->clock.getElapsedTime().asSeconds() - this->last_played[idx].asSeconds() - Rand(1000, 5000) / 1000.0 > delay_time) {
+		// Update last played time
+		this->last_played[idx] = this->clock.getElapsedTime();
+
+		// Play sound
+		this->sound[idx].play();
 	}
 }
