@@ -136,6 +136,7 @@ void CGAME::pollEvents() {
     }
 }
 
+
 void CGAME::update() {
     //pollEvents();
     if (this->game_state != CCONSTANT::STATE_PAUSE)
@@ -368,6 +369,7 @@ void CGAME::update() {
         window.close();
 }
 
+
 void CGAME::render() {
     window.clear();
     view.setCenter(Vector2f(50, player.getShape().getPosition().y - CCONSTANT::UNIT));
@@ -377,24 +379,35 @@ void CGAME::render() {
     //this->background_sprite.setPosition(this->view.getCenter() - Vector2f(550, 350));
     window.draw(this->background_sprite);
 
+    int player_position_idx = round(((float) player.getPlayerPosition().y + 200) / -275.0);
+    cout << player_position_idx << endl;
+
     /* Draw each lane and objects on it */
+    int lane_idx = 0;
+    bool is_draw = false;
     for (auto t : lanes) {
+        is_draw = (lane_idx >= player_position_idx - 1) && (lane_idx <= player_position_idx + 2);
+        lane_idx++;
+
         /* Update lane */
         t->update();
 
         /* Draw lane */
-        window.draw(t->getSprite());
+        if(is_draw)
+            window.draw(t->getSprite());
 
 
-        /* Draw objects on each lane */
-        for (auto e : t->getEnemies()) {
-            if (player.isImpact(e)) {
-                cout << "GAME OVER!\n";
-                this->sound_manager->play_GameOver();
-                this->game_state = CCONSTANT::STATE_GAME_OVER;
-                cout << "Collision with " << e->getEnemyName() << endl;
+        /* Draw objects on each lane and check collision */
+        if (is_draw) {
+            for (auto e : t->getEnemies()) {
+                if (player.isImpact(e)) {
+                    cout << "GAME OVER!\n";
+                    this->sound_manager->play_GameOver();
+                    this->game_state = CCONSTANT::STATE_GAME_OVER;
+                    cout << "Collision with " << e->getEnemyName() << endl;
+                }
+                window.draw(e->getSprite());
             }
-            window.draw(e->getSprite());
         }
 
         /* Play object sound */
@@ -446,7 +459,7 @@ void CGAME::render() {
     window.display();
 
     /* Debug part */
-    //cout << this->player.getPlayerPosition().x << " " << this->player.getPlayerPosition().y << endl;
+    cout << this->player.getPlayerPosition().x << " " << this->player.getPlayerPosition().y << endl;
 }
 
 
