@@ -75,6 +75,18 @@
     <ClCompile Include="CREINDEER.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CPOLARBEAR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSIBERIANDOG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CBULL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSNOWMAN.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGAME.h">
@@ -129,6 +141,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CREINDEER.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CPOLARBEAR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSIBERIANDOG.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBULL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSNOWMAN.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
