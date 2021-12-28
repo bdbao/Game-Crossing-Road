@@ -1,18 +1,11 @@
 #include "CANIMAL.h"
 
-#include <string>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
-using namespace sf;
-using namespace std;
-
 
 CANIMAL::CANIMAL(string textureFile, string direction, Vector2f pos) : CENEMY(direction, pos) {
+	cout << "Create enemy: " << textureFile << endl; 
 	if (!texture.loadFromFile("assets/enemies/" + textureFile + ".png")) {
 		cout << "Cannot find animal texture." << endl;
-		return;
+		return;	
 	}
 	sprite.setTexture(texture);
 	textureId = (direction == CCONSTANT::LEFT) ? 3 : 6;
@@ -21,9 +14,11 @@ CANIMAL::CANIMAL(string textureFile, string direction, Vector2f pos) : CENEMY(di
 	animationTimer = 0;
 }
 
+
 IntRect CANIMAL::getTextureRect(int id) {
 	return IntRect((id % 3) * 100, (id / 3) * 100, 100, 100);
 }
+
 
 int CANIMAL::nextTextureId(int id) {
 	if (id % 3 == 2) return id - 1;
@@ -34,10 +29,12 @@ int CANIMAL::nextTextureId(int id) {
 	}
 }
 
+
 void CANIMAL::setTextureId(int id) {
 	prevTextureId = textureId;
 	textureId = id;
 }
+
 
 void CANIMAL::update() {
 	animationTimer += 1;

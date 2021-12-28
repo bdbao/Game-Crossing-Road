@@ -14,6 +14,7 @@ CLANE::CLANE(float speed): speed(speed), isStopped(false), isSlowly(false) {
 CLANE:: ~CLANE() {
 	for (int i = 0; i < this->enemies.size(); i++)
 		delete this->enemies[i];
+	this->enemies.clear();
 	delete this->traffic_light;
 }
 

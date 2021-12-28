@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CANIMAL.cpp" />
+    <ClCompile Include="CBULL.cpp" />
     <ClCompile Include="CCAR.cpp" />
     <ClCompile Include="CCONSTANT.cpp" />
     <ClCompile Include="CFinishLine.cpp" />
@@ -27,12 +28,17 @@
     <ClCompile Include="CGRASS.cpp" />
     <ClCompile Include="CLANE.cpp" />
     <ClCompile Include="CMENU.cpp" />
+    <ClCompile Include="CPENGUIN.cpp" />
     <ClCompile Include="CPEOPLE.cpp" />
+    <ClCompile Include="CPOLARBEAR.cpp" />
+    <ClCompile Include="CREINDEER.cpp" />
     <ClCompile Include="CROAD.cpp" />
     <ClCompile Include="CROAD.h" />
     <ClCompile Include="CENEMY.cpp" />
     <ClCompile Include="CSETTINGS.cpp" />
+    <ClCompile Include="CSIBERIANDOG.cpp" />
     <ClCompile Include="CSNOW.cpp" />
+    <ClCompile Include="CSNOWMAN.cpp" />
     <ClCompile Include="CTRAFFICLIGHT.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SoundManager.cpp" />
@@ -40,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CANIMAL.h" />
+    <ClInclude Include="CBULL.h" />
     <ClInclude Include="CCAR.h" />
     <ClInclude Include="CFinishLine.h" />
     <ClInclude Include="CGAME.h" />
@@ -47,10 +54,15 @@
     <ClInclude Include="CGRASS.h" />
     <ClInclude Include="CLANE.h" />
     <ClInclude Include="CMENU.h" />
+    <ClInclude Include="CPENGUIN.h" />
     <ClInclude Include="CPEOPLE.h" />
     <ClInclude Include="CENEMY.h" />
+    <ClInclude Include="CPOLARBEAR.h" />
+    <ClInclude Include="CREINDEER.h" />
     <ClInclude Include="CSETTINGS.h" />
+    <ClInclude Include="CSIBERIANDOG.h" />
     <ClInclude Include="CSNOW.h" />
+    <ClInclude Include="CSNOWMAN.h" />
     <ClInclude Include="CTRAFFICLIGHT.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="SoundManager.h" />

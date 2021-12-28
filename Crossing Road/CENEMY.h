@@ -3,12 +3,14 @@
 
 #include "CCONSTANT.h"
 
-
 #include <string>
 #include <iostream>
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+using namespace sf;
+using namespace std;
 
 class CENEMY {
 protected:
@@ -23,6 +25,8 @@ public:
 	void move(float speed);
 	bool isOutOfView();
 	sf::Sprite& getSprite();
+
+	virtual string getEnemyName();
 };
 
 #endif // !_CENEMY_H_

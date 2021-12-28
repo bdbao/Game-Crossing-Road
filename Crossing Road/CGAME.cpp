@@ -392,7 +392,7 @@ void CGAME::render() {
                 cout << "GAME OVER!\n";
                 this->sound_manager->play_GameOver();
                 this->game_state = CCONSTANT::STATE_GAME_OVER;
-
+                cout << "Collision with " << e->getEnemyName() << endl;
             }
             window.draw(e->getSprite());
         }
@@ -444,6 +444,9 @@ void CGAME::render() {
 
     /* Display the draw */
     window.display();
+
+    /* Debug part */
+    //cout << this->player.getPlayerPosition().x << " " << this->player.getPlayerPosition().y << endl;
 }
 
 

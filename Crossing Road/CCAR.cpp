@@ -1,8 +1,5 @@
 #include "CCAR.h"
-#include "utils.h"
 
-using namespace sf;
-using namespace std;
 
 CCAR::CCAR(string direction, Vector2f pos) : CENEMY(direction, pos) {
 	string ver = to_string(Rand(1, 5));
@@ -14,6 +11,7 @@ CCAR::CCAR(string direction, Vector2f pos) : CENEMY(direction, pos) {
 	}
 	sprite.setTexture(texture);
 }
+
 
 void CCAR::update() {}
 
