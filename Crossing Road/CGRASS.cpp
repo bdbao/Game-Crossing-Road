@@ -18,9 +18,11 @@ CGRASS::CGRASS(Vector2f pos, float speed, string direction) : CLANE(speed), dire
 void CGRASS::update() {
 	if (enemies.empty()) {
 		if (direction == CCONSTANT::LEFT)
-			enemies.push_back(new CANIMAL("reindeer_v1", direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 50)));
+			//enemies.push_back(new CANIMAL("reindeer_v1", direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 50)));
+			enemies.push_back(new CREINDEER("_v1", direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 50)));
 		else
-			enemies.push_back(new CANIMAL("reindeer_v1", direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 50)));
+			//enemies.push_back(new CANIMAL("reindeer_v1", direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 50)));
+			enemies.push_back(new CREINDEER("_v1", direction, Vector2f(Rand(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, CCONSTANT::WINDOW_WIDTH / 2.f), sprite.getPosition().y + 50)));
 		return;
 	}
 
@@ -51,15 +53,31 @@ void CGRASS::update() {
 		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200) {
 			if (typeEnemy == "penguin")
 				enemies.push_back(new CPENGUIN(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
+			else if (typeEnemy == "reindeer")
+				enemies.push_back(new CREINDEER(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
+			else if (typeEnemy == "polarBear")
+				enemies.push_back(new CPOLARBEAR(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
+			else if (typeEnemy == "siberianDog")
+				enemies.push_back(new CSIBERIANDOG(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
+			else if (typeEnemy == "snowMan")
+				enemies.push_back(new CSNOWMAN(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 			else 
-				enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
+				enemies.push_back(new CBULL(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 		}
 		
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200) {
 			if (typeEnemy == "penguin")
 				enemies.push_back(new CPENGUIN(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
+			else if (typeEnemy == "reindeer")
+				enemies.push_back(new CREINDEER(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
+			else if (typeEnemy == "polarBear")
+				enemies.push_back(new CPOLARBEAR(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
+			else if (typeEnemy == "siberianDog")
+				enemies.push_back(new CSIBERIANDOG(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
+			else if (typeEnemy == "snowMan")
+				enemies.push_back(new CSNOWMAN(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
 			else
-				enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
+				enemies.push_back(new CBULL(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
 		}
 
 	}

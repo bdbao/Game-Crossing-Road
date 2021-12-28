@@ -6,7 +6,12 @@
 #include "CENEMY.h"
 #include "CANIMAL.h"
 #include "CCONSTANT.h"
+#include "CBULL.h"
 #include "CPENGUIN.h"
+#include "CSNOWMAN.h"
+#include "CREINDEER.h"
+#include "CPOLARBEAR.h"
+#include "CSIBERIANDOG.h"
 
 #include <vector>
 #include <string>

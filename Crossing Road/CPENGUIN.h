@@ -8,8 +8,12 @@ public:
 	CPENGUIN(string typeAsset, string direction, Vector2f pos);
 	~CPENGUIN() {}
 
-private:
+	string getEnemyName() {
+		return typeAni;
+	}
 
+private:
+	string typeAni = "penguin";
 };
 
 #endif // !_CPENGUIN_H_
