@@ -1,9 +1,6 @@
 #include "CPEOPLE.h"
 
 
-using namespace std;
-using namespace sf;
-
 CPEOPLE::CPEOPLE() {
 	texture.loadFromFile("./assets/texture/santa_claus.png");
 	shape.setTexture(texture);
@@ -13,9 +10,11 @@ CPEOPLE::CPEOPLE() {
 	shape.setPosition(Vector2f(0.f, 0.f));
 }
 
+
 Sprite& CPEOPLE::getShape() {
 	return shape;
 }
+
 
 void CPEOPLE::moveUp() {
 	if (isAnimating) processAnimation(1);
@@ -24,6 +23,7 @@ void CPEOPLE::moveUp() {
 	shape.setTextureRect(getTextureRect(textureId));
 	shape.move(Vector2f(0.f, (-1) * CCONSTANT::UNIT));
 }
+
 
 void CPEOPLE::moveLeft() {
 	if (isAnimating) processAnimation(10);
@@ -34,6 +34,7 @@ void CPEOPLE::moveLeft() {
 		shape.move(Vector2f((-1) * CCONSTANT::UNIT, 0));
 }
 
+
 void CPEOPLE::moveRight() {
 	if (isAnimating) processAnimation(4);
 	else setTextureId(4), animationTimer = 0;
@@ -42,12 +43,15 @@ void CPEOPLE::moveRight() {
 	if (shape.getPosition().x < (CCONSTANT::WINDOW_WIDTH - 20) / 2) // 525
 		shape.move(Vector2f(CCONSTANT::UNIT, 0));
 }
+
+
 void CPEOPLE::moveDown() {
 	if (isAnimating) processAnimation(7);
 	else setTextureId(7), animationTimer = 0;
 	shape.setTextureRect(getTextureRect(textureId));
 	shape.move(Vector2f(0, CCONSTANT::UNIT));
 }
+
 
 void CPEOPLE::setIsAnimating(bool state) {
 	if (isAnimating && !state) {
@@ -59,9 +63,11 @@ void CPEOPLE::setIsAnimating(bool state) {
 	isAnimating = state;
 }
 
+
 IntRect CPEOPLE::getTextureRect(int id) {
 	return IntRect((id%3)*100, (id/3)*100, 100, 100);
 }
+
 
 int CPEOPLE::nextTextureId(int id) {
 	if (id % 3 == 2) return id - 1;
@@ -72,10 +78,12 @@ int CPEOPLE::nextTextureId(int id) {
 	}
 }
 
+
 void CPEOPLE::setTextureId(int id) {
 	prevTextureId = textureId;
 	textureId = id;
 }
+
 
 void CPEOPLE::processAnimation(int centerId) {
 	if (isAnimating) {
@@ -94,6 +102,7 @@ bool CPEOPLE::isImpact(CENEMY* enemy) {
 	playerBound.width = 28;
 	playerBound.height = 20;
 	return playerBound.intersects(enemy->getSprite().getGlobalBounds());
+	
 }
 
 

@@ -1,14 +1,5 @@
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-
 #include "CGRASS.h"
-#include "CLANE.h"
-#include "CCONSTANT.h"
-#include "CANIMAL.h"
-#include "utils.h"
 
-using namespace std;
-using namespace sf;
 
 CGRASS::CGRASS(Vector2f pos, float speed, string direction) : CLANE(speed), direction(direction) {
 	if (!texture.loadFromFile("assets/graphics/grass.jpg")) {
@@ -22,6 +13,7 @@ CGRASS::CGRASS(Vector2f pos, float speed, string direction) : CLANE(speed), dire
 	sprite.setScale(Vector2f((float)CCONSTANT::LANE_WIDTH / size.x, (float)CCONSTANT::LANE_HEIGHT / size.y));
 	cout << sprite.getScale().x << " " << sprite.getScale().y << endl;
 }
+
 
 void CGRASS::update() {
 	if (enemies.empty()) {
@@ -49,10 +41,27 @@ void CGRASS::update() {
 			typeAsset = "_v" + to_string(rand() % 3 + 1);
 		}
 
+		/*
 		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200)
 			enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200)
 			enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
+		*/
+
+		if (direction == CCONSTANT::LEFT && lastEnemyShape.getPosition().x <= -200) {
+			if (typeEnemy == "penguin")
+				enemies.push_back(new CPENGUIN(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
+			else 
+				enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
+		}
+		
+		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200) {
+			if (typeEnemy == "penguin")
+				enemies.push_back(new CPENGUIN(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
+			else
+				enemies.push_back(new CANIMAL(typeEnemy + typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
+		}
+
 	}
 
 	for (int i = 0; i < (int)enemies.size(); i++)

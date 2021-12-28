@@ -27,7 +27,9 @@
     <ClCompile Include="CGRASS.cpp" />
     <ClCompile Include="CLANE.cpp" />
     <ClCompile Include="CMENU.cpp" />
+    <ClCompile Include="CPENGUIN.cpp" />
     <ClCompile Include="CPEOPLE.cpp" />
+    <ClCompile Include="CREINDEER.cpp" />
     <ClCompile Include="CROAD.cpp" />
     <ClCompile Include="CROAD.h" />
     <ClCompile Include="CENEMY.cpp" />
@@ -47,8 +49,10 @@
     <ClInclude Include="CGRASS.h" />
     <ClInclude Include="CLANE.h" />
     <ClInclude Include="CMENU.h" />
+    <ClInclude Include="CPENGUIN.h" />
     <ClInclude Include="CPEOPLE.h" />
     <ClInclude Include="CENEMY.h" />
+    <ClInclude Include="CREINDEER.h" />
     <ClInclude Include="CSETTINGS.h" />
     <ClInclude Include="CSNOW.h" />
     <ClInclude Include="CTRAFFICLIGHT.h" />

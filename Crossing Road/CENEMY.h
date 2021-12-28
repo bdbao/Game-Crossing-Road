@@ -3,12 +3,14 @@
 
 #include "CCONSTANT.h"
 
-
 #include <string>
 #include <iostream>
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+using namespace sf;
+using namespace std;
 
 class CENEMY {
 protected:
