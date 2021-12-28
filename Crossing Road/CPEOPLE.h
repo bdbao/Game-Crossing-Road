@@ -40,7 +40,7 @@ public:
 	Vector2f getPlayerPosition();
 	void setPlayerPosition(const Vector2f& pos);
 	
-
+	void setAfterDead();
 
 	/*
 	bool isImpact(const CANIMAL*&);

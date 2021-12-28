@@ -115,3 +115,14 @@ Vector2f CPEOPLE::getPlayerPosition() {
 void CPEOPLE::setPlayerPosition(const Vector2f& pos) {
 	this->shape.setPosition(pos);
 }
+
+
+void CPEOPLE::setAfterDead() {
+	texture.loadFromFile("./assets/texture/blood.png");
+	shape.setTexture(texture);
+
+	sf::IntRect rect(0, 0, 20, 20);
+	shape.setTextureRect(rect);
+
+	//this->shape.rotate(90);
+}
