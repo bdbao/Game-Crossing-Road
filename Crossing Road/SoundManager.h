@@ -3,7 +3,6 @@
 
 #include "utils.h"
 #include "CCONSTANT.h"
-#include "SFML/Audio.hpp"
 
 #include <map>
 #include <mutex>
@@ -11,9 +10,12 @@
 #include <string>
 #include <iostream>
 
+#include <SFML/Audio.hpp>
+
 using std::mutex;
 using std::vector;
 using std::map;
+using std::string;
 
 class SoundManager {
 	/* Singleton design pattern */
@@ -45,6 +47,10 @@ private:
 
 	sf::Music* background_music;
 	bool isPlayingBackground;
+
+	map<string, int> sound_index;
+
+
 	/* Public methods*/
 public:
 	void play_Walking();
@@ -58,6 +64,8 @@ public:
 	void play_Background();
 	void pause_Background();
 	void stop_Background();
+
+	void play_EnemySound(const string& enemy);
 
 
 	void reset();

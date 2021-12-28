@@ -8,6 +8,10 @@ public:
 	CBULL(string typeAsset, string direction, Vector2f pos);
 	~CBULL() {}
 
+	string getEnemyName() {
+		return typeAni;
+	}
+
 private:
 	string typeAni = "bulls";
 };

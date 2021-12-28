@@ -46,6 +46,7 @@ public:
 	static const float SLOW_DOWN_SPEED;
 
 	/* Sound */
+	static const float GENERAL_DELAY_SOUND;
 	static const float DELAY_WALKING_SOUND;
 	static const float DELAY_CAR_SOUND;
 	static const float DELAY_REINDEER_SOUND;

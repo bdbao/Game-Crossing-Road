@@ -380,7 +380,7 @@ void CGAME::render() {
     window.draw(this->background_sprite);
 
     int player_position_idx = round(((float) player.getPlayerPosition().y + 200) / -275.0);
-    cout << player_position_idx << endl;
+    //cout << player_position_idx << endl;
 
     /* Draw each lane and objects on it */
     int lane_idx = 0;
@@ -407,11 +407,14 @@ void CGAME::render() {
                     cout << "Collision with " << e->getEnemyName() << endl;
                 }
                 window.draw(e->getSprite());
+
+                /* Play obstacle sound */
+                this->sound_manager->play_EnemySound(e->getEnemyName());
             }
         }
 
         /* Play object sound */
-        this->sound_manager->play_Enemy(t->getTypeEnemy());
+        //this->sound_manager->play_Enemy(t->getTypeEnemy());
 
         /* Draw traffic light */
         if (t->getTrafficLightShape())
@@ -459,7 +462,7 @@ void CGAME::render() {
     window.display();
 
     /* Debug part */
-    cout << this->player.getPlayerPosition().x << " " << this->player.getPlayerPosition().y << endl;
+    //cout << this->player.getPlayerPosition().x << " " << this->player.getPlayerPosition().y << endl;
 }
 
 

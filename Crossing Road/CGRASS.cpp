@@ -29,13 +29,13 @@ void CGRASS::update() {
 	Sprite& lastEnemyShape = enemies.back()->getSprite();
 	if (Rand(1, 100) <= 60) {
 		/* random type of animal */
-		long long randNumAnimal = Rand(1, 100);
-		if (randNumAnimal % 6 == 0) typeEnemy = "reindeer";
+		long long randNumAnimal = Rand(1, 8);
+		if (randNumAnimal % 6 == 0) typeEnemy = "bulls";
 		else if (randNumAnimal % 6 == 1) typeEnemy = "penguin";
 		else if (randNumAnimal % 6 == 2) typeEnemy = "polarbear";
 	    else if (randNumAnimal % 6 == 3) typeEnemy = "siberiandog";
 		else if (randNumAnimal % 6 == 4) typeEnemy = "snowman";
-		else typeEnemy = "bulls";
+		else typeEnemy = "reindeer";
 		
 		/* random type of penguin */
 		string typeAsset = "_v1";
