@@ -258,3 +258,11 @@ void SoundManager::play_EnemySound(const string& enemy) {
 		this->sound[idx].play();
 	}
 }
+
+/* For Mute State */
+bool SoundManager::getIsMute() {
+	return this->isMute;
+}
+void SoundManager::setIsMute(bool stateMute) {
+	this->isMute = stateMute;
+}

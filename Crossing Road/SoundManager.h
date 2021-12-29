@@ -75,12 +75,8 @@ public:
 
 
 	/* For Mute State */
-	bool getIsMute() {
-		return this->isMute;
-	}
-	void setIsMute(bool stateMute) {
-		this->isMute = stateMute;
-	}
+	bool getIsMute();
+	void setIsMute(bool stateMute);
 };
 
 #endif // !_SOUNDMANAGER_H_
