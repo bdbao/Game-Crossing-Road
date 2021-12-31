@@ -166,7 +166,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 		}
 	}
 	
-	if (typeEnemy == "polarBear") {
+	if (typeEnemy == "polarbear") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
 		if (this->clock.getElapsedTime().asSeconds() - this->last_played[8].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
@@ -178,7 +178,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 		}
 	}
 
-	if (typeEnemy == "siberianDog") {
+	if (typeEnemy == "siberiandog") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
 		if (this->clock.getElapsedTime().asSeconds() - this->last_played[9].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
@@ -190,7 +190,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 		}
 	}
 
-	if (typeEnemy == "snowMan") {
+	if (typeEnemy == "snowman") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
 		if (this->clock.getElapsedTime().asSeconds() - this->last_played[10].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
