@@ -55,11 +55,11 @@ void CGRASS::update() {
 				enemies.push_back(new CPENGUIN(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 			else if (typeEnemy == "reindeer")
 				enemies.push_back(new CREINDEER(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
-			else if (typeEnemy == "polarBear")
+			else if (typeEnemy == "polarbear")
 				enemies.push_back(new CPOLARBEAR(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
-			else if (typeEnemy == "siberianDog")
+			else if (typeEnemy == "siberiandog")
 				enemies.push_back(new CSIBERIANDOG(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
-			else if (typeEnemy == "snowMan")
+			else if (typeEnemy == "snowman")
 				enemies.push_back(new CSNOWMAN(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 			else 
 				enemies.push_back(new CBULL(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
@@ -70,11 +70,11 @@ void CGRASS::update() {
 				enemies.push_back(new CPENGUIN(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
 			else if (typeEnemy == "reindeer")
 				enemies.push_back(new CREINDEER(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
-			else if (typeEnemy == "polarBear")
+			else if (typeEnemy == "polarbear")
 				enemies.push_back(new CPOLARBEAR(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
-			else if (typeEnemy == "siberianDog")
+			else if (typeEnemy == "siberiandog")
 				enemies.push_back(new CSIBERIANDOG(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
-			else if (typeEnemy == "snowMan")
+			else if (typeEnemy == "snowman")
 				enemies.push_back(new CSNOWMAN(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
 			else
 				enemies.push_back(new CBULL(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
