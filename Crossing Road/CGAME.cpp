@@ -137,6 +137,10 @@ void CGAME::pollEvents() {
             if (Keyboard::isKeyPressed(Keyboard::Space))
                 game_state = CCONSTANT::STATE_MENU;
         }
+        if (game_state == CCONSTANT::STATE_SAVE) {
+            if (Keyboard::isKeyPressed(Keyboard::Space))
+                game_state = CCONSTANT::STATE_START;
+        }
     }
 }
 
@@ -166,7 +170,10 @@ void CGAME::update() {
     }
     else if (Keyboard::isKeyPressed(Keyboard::S)) {
         /* Save the game to file */
-        //this->game_state = CCONSTANT::STATE_SAVE;
+        if (!showedGameOver) {
+            saveGame();
+            game_state = CCONSTANT::STATE_SAVE;
+        }
         return;
     }
 
@@ -333,7 +340,17 @@ void CGAME::update() {
             next_level.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.5f));
             window.draw(next_level);
 
-            
+            Text text_save;
+            text_save.setFont(font2);
+            text_save.setCharacterSize(instructionSize);
+            text_save.setFillColor(Color::White);
+            text_save.setString("Save game: S");
+            /* Set position of text: align center */
+            sf::FloatRect textRect_save = text_save.getLocalBounds();
+            text_save.setOrigin(textRect_save.width / 2, textRect_save.height / 2);
+            text_save.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.6f));
+            window.draw(text_save);
+
             Text text_quit;
             text_quit.setFont(font2);
             text_quit.setCharacterSize(instructionSize);
@@ -342,7 +359,7 @@ void CGAME::update() {
             /* Set position of text: align center */
             sf::FloatRect textRect_quit = text_quit.getLocalBounds();
             text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
-            text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.6f));
+            text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.7f));
             window.draw(text_quit);
 
 
@@ -402,6 +419,42 @@ void CGAME::update() {
 
             window.display();
         }
+        return;
+    }
+
+    if (game_state == CCONSTANT::STATE_SAVE) {
+        int instructionSize = 30;
+
+        RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+        rectangle.setFillColor(Color(174, 188, 253));
+        window.draw(rectangle);
+
+        Font font2;
+        if (!font2.loadFromFile("./assets/fonts/ChargeVector.ttf"))  throw("Could not load the font");
+
+        Text noti;
+        noti.setFont(font2);
+        noti.setCharacterSize(instructionSize);
+        noti.setFillColor(Color::White);
+        noti.setString("Game has been saved.");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_noti = noti.getLocalBounds();
+        noti.setOrigin(textRect_noti.width / 2, textRect_noti.height / 2);
+        noti.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.45f));
+        window.draw(noti);
+
+        Text backToGame;
+        backToGame.setFont(font2);
+        backToGame.setCharacterSize(instructionSize);
+        backToGame.setFillColor(Color::White);
+        backToGame.setString("Back to game [Space]");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_backToGame = backToGame.getLocalBounds();
+        backToGame.setOrigin(textRect_backToGame.width / 2, textRect_backToGame.height / 2);
+        backToGame.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.55f));
+        window.draw(backToGame);
+
+        window.display();
         return;
     }
 
