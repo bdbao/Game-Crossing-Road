@@ -525,7 +525,9 @@ bool CGAME::saveGame() {
         cout << "Load file not found. Error." << endl;
         return false;
     }
-    
+    fout.write((char*)&game_level, 4);
+    cout << "Save game successfully" << endl;
+    return true;
 }
 
 void CGAME::clearSavedGame() {
