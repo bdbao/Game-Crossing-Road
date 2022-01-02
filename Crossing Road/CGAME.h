@@ -62,7 +62,7 @@ public:
 	void pollEvents();
 
 	//Load and Save Game
-	void loadGame();
+	bool loadGame();
 	bool saveGame();
 	void clearSavedGame();
 };
