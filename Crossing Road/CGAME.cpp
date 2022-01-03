@@ -70,8 +70,8 @@ void CGAME::initLevel(int level) {
     /* Init new lanes for level */
     int nLanes = 0;
     float speed;
-    for (int i = 0; i < min(level, 5) + 1; i++)
-    {
+    bool dir;
+    for (int i = 0; i < min(level, 5) + 1; i++) {
         /* CROAD */
         for (int j = 0; j < min(level, 5); j++) {
             cout << "CROAD";
@@ -79,43 +79,26 @@ void CGAME::initLevel(int level) {
             Vector2f tmp = Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f);
             fout.write((char*)&tmp, sizeof(Vector2f));
             fout.write((char*)&speed, sizeof(float));
-            
-            if (rand() % 2 == 0) {
-                if (rand() % 2 == 0)
+            fout.write((char*)&dir, sizeof(bool));
+            dir = rand() % 2;
+            if (!dir) {
+                bool t = rand() % 2;
+                if (!t)
                     lanes.push_back(new CROAD(tmp, speed, CCONSTANT::LEFT));
                 else
                     lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::LEFT));
-                fout.write((char*)&CCONSTANT::LEFT, sizeof(CCONSTANT::LEFT));
+                fout.write((char*)&t, sizeof(bool));
             }
             else {
-                if (rand() % 2 == 0)
+                bool t = rand() % 2;
+                if (!t)
                     lanes.push_back(new CROAD(tmp, speed, CCONSTANT::RIGHT));
                 else
                     lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::RIGHT));
-                fout.write((char*)&CCONSTANT::RIGHT, sizeof(CCONSTANT::RIGHT));
+                fout.write((char*)&t, sizeof(bool));
             }
             nLanes++;
         }
-
-        /* CGRASS */
-        /*
-                for (int i = 0; i < min(level, 3); i++) {
-            cout << "CGRASS";
-            speed = min(10.0, nLanes * 0.5 + 2);
-            Vector2f tmp = Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f);
-            fout.write((char*)&tmp, sizeof(Vector2f));
-            fout.write((char*)&speed, sizeof(float));
-            if (rand() % 2 == 0) {
-                lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::LEFT));
-                fout.write((char*)&CCONSTANT::LEFT, sizeof(CCONSTANT::LEFT));
-            }
-            else {
-                lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::RIGHT));                
-                fout.write((char*)&CCONSTANT::RIGHT, sizeof(CCONSTANT::RIGHT));
-            }
-            nLanes++;
-        }
-        */
     }
 
     /* Add finish line */
@@ -304,6 +287,7 @@ void CGAME::update() {
 
             
             window.display();
+            clearSavedGame();
             this->showedGameOver = true;
         }
         	    
@@ -595,18 +579,77 @@ bool CGAME::loadGame() {
         return false;
     }
     fin.read((char*)&game_level, 4);
-    ++game_level;
-    initLevel(game_level);
+    if (!game_level) return false;
+    fin.read((char*)&showedGameCompleted, sizeof(bool));
+    
+    if (showedGameCompleted) {
+        initLevel(++game_level);
+        return true;
+    }
+
+    Vector2f pos;
+    fin.read((char*)&pos, sizeof(Vector2f));
+    cout << pos.x << " " << pos.y << endl;
+    player.setPlayerPosition(pos);
+
+    for (int i = 0; i < lanes.size(); i++)
+        delete this->lanes[i];
+
+    if (finish_line) delete finish_line;
+    lanes.clear();
+
+    Vector2f xy;
+    float speed;
+    bool dir;
+    bool type;
+    for (int i = 0; i < min(game_level, 5) + 1; i++) {
+        for (int j = 0; j < min(game_level, 5); j++) {
+            fin.read((char*)&xy, sizeof(Vector2f));
+            fin.read((char*)&speed, sizeof(float));
+            fin.read((char*)&dir, sizeof(bool));
+            fin.read((char*)&type, sizeof(bool));
+
+            if (!dir) {
+                if (!type)
+                    lanes.push_back(new CROAD(xy, speed, CCONSTANT::LEFT));
+                else
+                    lanes.push_back(new CGRASS(xy, speed, CCONSTANT::LEFT));
+            }
+            else {
+                if (!type)
+                    lanes.push_back(new CROAD(xy, speed, CCONSTANT::RIGHT));
+                else
+                    lanes.push_back(new CGRASS(xy, speed, CCONSTANT::RIGHT));
+            }
+        }
+    }
+    
+    Vector2f fl;
+    fin.read((char*)&fl, sizeof(Vector2f));
+    finish_line = new CFinishLine(fl);
+    
     return true;
 }
 
 bool CGAME::saveGame() {
     ofstream fout("game_log/game.dat", ios::out | ios::binary);
-    if (!fout) {
+    ifstream fin("game_log/temp_file.dat", ios::in | ios::binary);
+    if (!fout | !fin) {
         cout << "Load file not found. Error." << endl;
         return false;
     }
     fout.write((char*)&game_level, 4);
+    fout.write((char*)&showedGameCompleted, sizeof(bool));
+    Vector2f pos = player.getPlayerPosition();
+    cout << pos.x << " " << pos.y << endl;
+    fout.write((char*)&pos, sizeof(Vector2f));
+    
+    char c;
+    while (!fin.eof()) {
+        c = fin.get();
+        fout.put(c);
+    }
+
     cout << "Save game successfully" << endl;
     return true;
 }
@@ -614,4 +657,6 @@ bool CGAME::saveGame() {
 void CGAME::clearSavedGame() {
     ofstream fout("game_log/game.dat", ios::binary);
     fout.clear();
+    int tmp = 0;
+    fout.write((char*)&tmp, sizeof(int));
 }
