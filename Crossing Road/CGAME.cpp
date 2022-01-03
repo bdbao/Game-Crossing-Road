@@ -53,6 +53,9 @@ int CGAME::state() {
 
 void CGAME::initLevel(int level) {
     /* Delete old data */
+    ofstream fout("game_log/temp_file.dat", ios::out | ios::binary);
+    fout.clear();
+
     for (int i = 0; i < this->lanes.size();i++) {
         delete this->lanes[i];
     }
@@ -67,33 +70,58 @@ void CGAME::initLevel(int level) {
     /* Init new lanes for level */
     int nLanes = 0;
     float speed;
-    for (int i = 0; i < min(level, 5); i++)
+    for (int i = 0; i < min(level, 5) + 1; i++)
     {
         /* CROAD */
-        for (int i = 0; i < min(level, 2); i++) {
+        for (int j = 0; j < min(level, 5); j++) {
             cout << "CROAD";
             speed = min(10.0, nLanes * 0.5 + 2);
-            if (rand() % 2 == 0)
-                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::LEFT));
-            else
-                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::RIGHT));
+            Vector2f tmp = Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f);
+            fout.write((char*)&tmp, sizeof(Vector2f));
+            fout.write((char*)&speed, sizeof(float));
+            
+            if (rand() % 2 == 0) {
+                if (rand() % 2 == 0)
+                    lanes.push_back(new CROAD(tmp, speed, CCONSTANT::LEFT));
+                else
+                    lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::LEFT));
+                fout.write((char*)&CCONSTANT::LEFT, sizeof(CCONSTANT::LEFT));
+            }
+            else {
+                if (rand() % 2 == 0)
+                    lanes.push_back(new CROAD(tmp, speed, CCONSTANT::RIGHT));
+                else
+                    lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::RIGHT));
+                fout.write((char*)&CCONSTANT::RIGHT, sizeof(CCONSTANT::RIGHT));
+            }
             nLanes++;
         }
 
         /* CGRASS */
-        for (int i = 0; i < min(level, 3); i++) {
+        /*
+                for (int i = 0; i < min(level, 3); i++) {
             cout << "CGRASS";
             speed = min(10.0, nLanes * 0.5 + 2);
-            if (rand() % 2 == 0)
-                lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::LEFT));
-            else
-                lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::RIGHT));
+            Vector2f tmp = Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f);
+            fout.write((char*)&tmp, sizeof(Vector2f));
+            fout.write((char*)&speed, sizeof(float));
+            if (rand() % 2 == 0) {
+                lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::LEFT));
+                fout.write((char*)&CCONSTANT::LEFT, sizeof(CCONSTANT::LEFT));
+            }
+            else {
+                lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::RIGHT));                
+                fout.write((char*)&CCONSTANT::RIGHT, sizeof(CCONSTANT::RIGHT));
+            }
             nLanes++;
         }
+        */
     }
 
     /* Add finish line */
-   this->finish_line = new CFinishLine(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -50.f - (float)nLanes++ * 275.f));
+    Vector2f fl = Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -50.f - (float)nLanes++ * 275.f);
+    finish_line = new CFinishLine(fl);
+    fout.write((char*)&fl, sizeof(Vector2f));
 }
 
 
@@ -371,7 +399,7 @@ void CGAME::update() {
         // such as press space to go to next level
         // such as press esc to exit game
         if (Keyboard::isKeyPressed(Keyboard::Space)) {
-            this->initLevel(++this->game_level);
+            this->initLevel(++game_level);
             this->game_state = CCONSTANT::STATE_START;
             this->showedGameOver = false;
             this->player.setPlayerPosition(Vector2f(0.f, 0.f));
