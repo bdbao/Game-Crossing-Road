@@ -188,12 +188,22 @@ void CGAME::update() {
         }
         return;
     }
-    else if (Keyboard::isKeyPressed(Keyboard::M))
+    else if (Keyboard::isKeyPressed(Keyboard::M)) {
+        isNewGame = true;
         game_state = CCONSTANT::STATE_MENU;
+    }
 
     /* Local Moving Keys while playing game */
 
     if (this->game_state == CCONSTANT::STATE_START) {
+        if (isNewGame) {
+            initLevel(1);
+            this->player.setPlayerPosition(Vector2f(0.f, 0.f));
+            this->sound_manager->reset();
+            isNewGame = false;
+            return;
+        }
+
         if (Keyboard::isKeyPressed(Keyboard::Up)) {
             cout << "Moving UP by pressing Up or W" << endl;
             this->sound_manager->play_Walking();
@@ -460,20 +470,22 @@ void CGAME::update() {
             RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
             rectangle.setFillColor(Color(174, 188, 253));
             window.draw(rectangle);
-
+            
+            Font font;
+            if (!font.loadFromFile("./assets/fonts/plaguard.otf"))  throw("Could not load the font");
             Font font2;
             if (!font2.loadFromFile("./assets/fonts/ChargeVector.ttf"))  throw("Could not load the font");
 
             Text noti;
-            noti.setFont(font2);
-            noti.setCharacterSize(instructionSize + 2);
+            noti.setFont(font);
+            noti.setCharacterSize(56);
             noti.setStyle(Text::Bold);
             noti.setFillColor(Color::White);
-            noti.setString("Load file cannot be found.");
+            noti.setString("NOT FOUND!");
             /* Set position of text: align center */
             sf::FloatRect textRect_noti = noti.getLocalBounds();
             noti.setOrigin(textRect_noti.width / 2, textRect_noti.height / 2);
-            noti.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.45f));
+            noti.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.30f));
             window.draw(noti);
 
             Text backToMenu;

@@ -22,7 +22,7 @@ CMENU::CMENU() {
 	menu[0].setCharacterSize(menu[0].getCharacterSize() + 10);
 
 	/* Set name of these options */
-	menu[0].setString("Start Game");
+	menu[0].setString("New Game");
 	menu[1].setString("Load Game");
 	menu[2].setString("Settings");
 	menu[3].setString("Quit");
@@ -45,7 +45,7 @@ void CMENU::draw(RenderWindow& window) {
 		menu[i].setPosition(Vector2f(window.getSize().x / 2.0f,
 			(window.getSize().y) /
 			(CCONSTANT::NUMBER_OF_OPTIONS + 1) *
-			(i + 1) + 5));
+			(i + 1)));
 		window.draw(menu[i]);
 	}
 
