@@ -165,6 +165,7 @@ void CGAME::update() {
     /* Global Interact keys through all state of the game*/
     if (Keyboard::isKeyPressed(Keyboard::Q) || Keyboard::isKeyPressed(Keyboard::Escape)) {
         /* Quit the game */
+        if (game_state == CCONSTANT::STATE_MENU) return;
         this->window.close();
         cout << "QUIT by pressing Q" << endl;
         return;
@@ -173,19 +174,6 @@ void CGAME::update() {
         /* Quit the game */
         this->window.close();
         cout << "QUIT by pressing ESC" << endl;
-        return;
-    }
-    else if (Keyboard::isKeyPressed(Keyboard::L)) {
-        /* Load the game from file */
-        //this->game_state = CCONSTANT::STATE_LOAD;
-        return;
-    }
-    else if (Keyboard::isKeyPressed(Keyboard::S)) {
-        /* Save the game to file */
-        if (!showedGameOver) {
-            saveGame();
-            game_state = CCONSTANT::STATE_SAVE;
-        }
         return;
     }
     else if (Keyboard::isKeyPressed(Keyboard::M)) {
@@ -227,6 +215,20 @@ void CGAME::update() {
             this->sound_manager->play_Walking();
             player.moveRight();
             player.setIsAnimating(true);
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::S)) {
+            if (!showedGameOver) {
+                saveGame();
+                game_state = CCONSTANT::STATE_SAVE;
+            }
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::L)) {
+            /* Load the game from file */
+            initLevel(game_level);
+            this->player.setPlayerPosition(Vector2f(0.f, 0.f));
+            this->sound_manager->reset();
+            isNewGame = false;
+            return;
         }
     }
     else player.setIsAnimating(false);

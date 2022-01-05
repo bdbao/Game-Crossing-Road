@@ -33,6 +33,7 @@ CMENU::~CMENU() {
 }
 void CMENU::draw(RenderWindow& window) {
 	/* Set background color */
+	int padding = 0;
 	RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
 	rectangle.setFillColor(CCONSTANT::BACKGROUND);
 	window.draw(rectangle);
@@ -43,9 +44,9 @@ void CMENU::draw(RenderWindow& window) {
 		menu[i].setOrigin(textRect.left + textRect.width / 2.0f,
 			textRect.top + textRect.height / 2.0f);
 		menu[i].setPosition(Vector2f(window.getSize().x / 2.0f,
-			(window.getSize().y) /
+			(window.getSize().y - padding) /
 			(CCONSTANT::NUMBER_OF_OPTIONS + 1) *
-			(i + 1)));
+			(i + 1) + padding));
 		window.draw(menu[i]);
 	}
 
