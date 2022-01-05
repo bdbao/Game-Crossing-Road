@@ -77,6 +77,9 @@ public:
 	/* For Mute State */
 	bool getIsMute();
 	void setIsMute(bool stateMute);
+
+	/* For pausing music */
+	void pauseAllEnemySound();
 };
 
 #endif // !_SOUNDMANAGER_H_
