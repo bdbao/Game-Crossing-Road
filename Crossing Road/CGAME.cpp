@@ -236,9 +236,11 @@ void CGAME::update() {
     if (this->game_state == CCONSTANT::STATE_PAUSE) {
         int instructionSize = 30;
 
-        RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
-        rectangle.setFillColor(Color(174, 188, 253));
-        window.draw(rectangle);
+        Sprite backdrop;
+        Texture backdropTexture;
+        backdropTexture.loadFromFile("./assets/graphics/background3.jpg");
+        backdrop.setTexture(backdropTexture);
+        window.draw(backdrop);
 
         Font font;
         if (!font.loadFromFile("./assets/fonts/plaguard.otf"))  throw("Could not load the font");
@@ -262,7 +264,7 @@ void CGAME::update() {
         backToGame.setFont(font2);
         backToGame.setCharacterSize(instructionSize);
         backToGame.setFillColor(Color::White);
-        backToGame.setString("Back to game: Arrow keys");
+        backToGame.setString("Back to game: Arbitrary key");
         /* Set position of text: align center */
         sf::FloatRect textRect_backToGame = backToGame.getLocalBounds();
         backToGame.setOrigin(textRect_backToGame.width / 2, textRect_backToGame.height / 2);
@@ -383,7 +385,8 @@ void CGAME::update() {
             int notiSize = 56, instructionSize = 32;
 
             RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
-            rectangle.setFillColor(Color(0,0,0,200));
+            rectangle.setFillColor(Color(0, 0, 0, 200));
+
             window.draw(rectangle);
 
             Text level_completed;
