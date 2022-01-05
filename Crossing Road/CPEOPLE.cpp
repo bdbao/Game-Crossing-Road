@@ -49,7 +49,8 @@ void CPEOPLE::moveDown() {
 	if (isAnimating) processAnimation(7);
 	else setTextureId(7), animationTimer = 0;
 	shape.setTextureRect(getTextureRect(textureId));
-	shape.move(Vector2f(0, CCONSTANT::UNIT));
+	if (shape.getPosition().y < 350)
+		shape.move(Vector2f(0, CCONSTANT::UNIT));
 }
 
 
