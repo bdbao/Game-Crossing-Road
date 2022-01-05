@@ -20,7 +20,6 @@ class CPEOPLE {
 	int prevTextureId;
 	int animationTimer;
 	bool isAnimating;
-	bool isDead;
 	int nextTextureId(int id);
 	void setTextureId(int id);
 	void processAnimation(int centerId);

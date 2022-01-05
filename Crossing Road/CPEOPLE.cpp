@@ -125,5 +125,4 @@ void CPEOPLE::gameOver(string direction) {
 		this->shape.setTextureRect(getTextureRect(13));
 	}
 	isAnimating = false;
-	isDead = true;
 }

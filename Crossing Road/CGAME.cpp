@@ -377,10 +377,8 @@ void CGAME::update() {
     if (this->game_state == CCONSTANT::STATE_GAME_COMPLETED) {
         // Need to draw image of passing level here
         // ...
-        
+
         if (!this->showedGameCompleted) {
-
-
             int notiSize = 56, instructionSize = 32;
 
             RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
