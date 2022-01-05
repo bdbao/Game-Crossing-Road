@@ -265,4 +265,18 @@ bool SoundManager::getIsMute() {
 }
 void SoundManager::setIsMute(bool stateMute) {
 	this->isMute = stateMute;
+	if (stateMute) {
+		for (int i = 0; i < this->sound.size(); i++)
+			this->sound[i].stop();
+		this->background_music->stop();
+	}
+	else {
+		this->background_music->play();
+	}
+}
+
+/* For pausing music */
+void SoundManager::pauseAllEnemySound() {
+	for (int i = 0; i < this->sound.size(); i++)
+		this->sound[i].pause();
 }
