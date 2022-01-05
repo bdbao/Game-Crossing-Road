@@ -34,9 +34,13 @@ CMENU::~CMENU() {
 void CMENU::draw(RenderWindow& window) {
 	/* Set background color */
 	int padding = 0;
-	RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
-	rectangle.setFillColor(CCONSTANT::BACKGROUND);
-	window.draw(rectangle);
+	//RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+	//rectangle.setFillColor(CCONSTANT::BACKGROUND);
+	Sprite background;
+	Texture backgroundTexture;
+	backgroundTexture.loadFromFile("./assets/graphics/background3.jpg");
+	background.setTexture(backgroundTexture);
+	window.draw(background);
 
 	/* Display options */
 	for (int i = 0; i < CCONSTANT::NUMBER_OF_OPTIONS; ++i) {
