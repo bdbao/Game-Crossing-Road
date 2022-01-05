@@ -679,6 +679,8 @@ bool CGAME::loadGame() {
         cout << "Load file not found. Error." << endl;
         return false;
     }
+
+    isNewGame = false;
     int tmp_lvl;
     fin.read((char*)&tmp_lvl, 4);
     if (!tmp_lvl) return false;
@@ -737,7 +739,7 @@ bool CGAME::loadGame() {
 bool CGAME::saveGame() {
     ofstream fout("game_log/game.dat", ios::out | ios::binary);
     ifstream fin("game_log/temp_file.dat", ios::in | ios::binary);
-    if (!fout | !fin) {
+    if (!fout || !fin) {
         cout << "Load file not found. Error." << endl;
         return false;
     }
