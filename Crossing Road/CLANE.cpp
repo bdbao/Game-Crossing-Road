@@ -40,3 +40,7 @@ void CLANE::setStopped() {
 std::string CLANE::getTypeEnemy() {
 	return this->typeEnemy;
 }
+
+std::string CLANE::getDirection() {
+	return direction;
+}

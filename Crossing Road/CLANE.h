@@ -13,6 +13,7 @@ protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
 
+	std::string direction;
 	float speed;
 	std::vector<CENEMY*> enemies;
 
@@ -35,6 +36,7 @@ public:
 	void setNormal();
 	void setSlowly();
 	void setStopped();
+	std::string getDirection();
 
 	std::string getTypeEnemy();
 };

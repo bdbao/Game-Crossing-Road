@@ -231,7 +231,6 @@ void CGAME::update() {
             return;
         } else player.setIsAnimating(false);
     }
-    else player.setIsAnimating(false);
    
     if (this->game_state == CCONSTANT::STATE_PAUSE) {
         int instructionSize = 30;
@@ -298,10 +297,9 @@ void CGAME::update() {
 
     /* Game over */
     if (this->game_state == CCONSTANT::STATE_GAME_OVER) {
-        
         /* Print game over and hotkey instruction */
-        if (!this->showedGameOver) {
 
+        if (!this->showedGameOver) {
             int notiSize = 72, instructionSize = 32;
             
             RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
@@ -381,6 +379,7 @@ void CGAME::update() {
         // ...
         
         if (!this->showedGameCompleted) {
+
 
             int notiSize = 56, instructionSize = 32;
 
@@ -609,6 +608,7 @@ void CGAME::render() {
                 if (player.isImpact(e)) {
                     cout << "GAME OVER!\n";
                     this->sound_manager->play_GameOver();
+                    player.gameOver(t->getDirection());
                     this->game_state = CCONSTANT::STATE_GAME_OVER;
                     cout << "Collision with " << e->getEnemyName() << endl;
                 }
@@ -619,7 +619,7 @@ void CGAME::render() {
             }
         }
 
-        /* Play object sound */
+        /* Play object sound *///window.draw(player.getShape());
         //this->sound_manager->play_Enemy(t->getTypeEnemy());
 
         /* Draw traffic light */
@@ -631,7 +631,7 @@ void CGAME::render() {
     window.draw(*this->finish_line->getShape());
 
     /* Draw player */
-    window.draw(player.getShape());
+    window.draw(player.getShape());   
 
     /* Draw snowflakes theme */
     window.setView(window.getDefaultView());
@@ -663,9 +663,9 @@ void CGAME::render() {
     current_level.setOrigin(textRect.width / 2, textRect.height / 2);
     current_level.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, textRect.height / 2));
     window.draw(current_level);
-
     /* Display the draw */
-    window.display();
+    if (game_state != CCONSTANT::STATE_GAME_OVER)
+        window.display();
 
     /* Debug part */
     //cout << this->player.getPlayerPosition().x << " " << this->player.getPlayerPosition().y << endl;

@@ -36,12 +36,11 @@ public:
 	void moveDown();
 	void setIsAnimating(bool state);
 	bool isImpact(CENEMY*);
+	void gameOver(std::string direction);
 
 	Vector2f getPlayerPosition();
 	void setPlayerPosition(const Vector2f& pos);
 	
-	void setAfterDead();
-
 	/*
 	bool isImpact(const CANIMAL*&);
 	bool isFinish();

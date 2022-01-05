@@ -14,8 +14,7 @@ int main() {
 		if (game->state() == CCONSTANT::STATE_START) {
 			game->render();
 		}
-
-		// 
+		 
 	}
 	delete game;
 	return 0;

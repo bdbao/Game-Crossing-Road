@@ -22,7 +22,6 @@ using namespace std;
 using namespace sf;
 
 class CGRASS : public CLANE {
-	std::string direction;
 public:
 	CGRASS(sf::Vector2f pos, float speed, std::string direction);
 	void update();

@@ -1,11 +1,12 @@
 #include "CGRASS.h"
 
 
-CGRASS::CGRASS(Vector2f pos, float speed, string direction) : CLANE(speed), direction(direction) {
+CGRASS::CGRASS(Vector2f pos, float speed, string direction) : CLANE(speed) {
 	if (!texture.loadFromFile("assets/graphics/grass.jpg")) {
 		cout << "Cannot find grass texture." << endl;
 		return;
 	}
+	this->direction = direction;
 	sprite.setTexture(texture);
 	sprite.setPosition(pos);
 	Vector2u size = texture.getSize();
