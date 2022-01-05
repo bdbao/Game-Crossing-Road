@@ -139,6 +139,7 @@ void CGAME::pollEvents() {
             cout << "PAUSE by pressing P (RESUME by pressing any different keys)" << endl;
             game_state = CCONSTANT::STATE_PAUSE;
             this->sound_manager->pause_Background();
+            this->sound_manager->pauseAllEnemySound();
         }
         if (game_state == CCONSTANT::STATE_PAUSE) {
             if (event.type == Event::KeyPressed && !Keyboard::isKeyPressed(Keyboard::P))

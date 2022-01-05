@@ -31,7 +31,6 @@ CMENU::CMENU() {
 CMENU::~CMENU() {
 	delete[] menu;
 }
-
 void CMENU::draw(RenderWindow& window) {
 	/* Set background color */
 	RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
