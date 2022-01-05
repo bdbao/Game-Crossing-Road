@@ -229,7 +229,7 @@ void CGAME::update() {
             this->sound_manager->reset();
             isNewGame = false;
             return;
-        }
+        } else player.setIsAnimating(false);
     }
     else player.setIsAnimating(false);
    
