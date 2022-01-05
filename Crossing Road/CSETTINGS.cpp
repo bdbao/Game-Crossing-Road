@@ -22,8 +22,8 @@ CSETTINGS::CSETTINGS() {
 	settings[0].setCharacterSize(settings[0].getCharacterSize() + 10);
 
 	/* Set name of these options */
-	settings[0].setString("Sound: ON");
-	settings[1].setString("Return to Main Menu");
+	settings[0].setString("Sound: ON [SPACE]");
+	settings[1].setString("Back to Main Menu [SPACE]");
 }
 
 CSETTINGS::~CSETTINGS() {
@@ -53,7 +53,7 @@ void CSETTINGS::draw(RenderWindow& window) {
 
 void CSETTINGS::moveUp() {
 	settings[selectedOption].setColor(Color::White);
-	settings[selectedOption].setCharacterSize(settings[selectedOption].getCharacterSize() - 10);
+	settings[selectedOption].setCharacterSize(settings[selectedOption].getCharacterSize() - 2);
 
 	if (!selectedOption)
 		selectedOption = CCONSTANT::NUMBER_OF_SETTING_OPTIONS - 1;
@@ -61,12 +61,12 @@ void CSETTINGS::moveUp() {
 		--selectedOption;
 
 	settings[selectedOption].setColor(CCONSTANT::CHOSEN_OPTION);
-	settings[selectedOption].setCharacterSize(settings[selectedOption].getCharacterSize() + 10);
+	settings[selectedOption].setCharacterSize(settings[selectedOption].getCharacterSize() + 2);
 }
 
 void CSETTINGS::moveDown() {
 	settings[selectedOption].setColor(Color::White);
-	settings[selectedOption].setCharacterSize(settings[selectedOption].getCharacterSize() - 10);
+	settings[selectedOption].setCharacterSize(settings[selectedOption].getCharacterSize() - 2);
 
 	if (selectedOption == CCONSTANT::NUMBER_OF_SETTING_OPTIONS - 1)
 		selectedOption = 0;
@@ -74,13 +74,20 @@ void CSETTINGS::moveDown() {
 		++selectedOption;
 
 	settings[selectedOption].setColor(CCONSTANT::CHOSEN_OPTION);
-	settings[selectedOption].setCharacterSize(settings[selectedOption].getCharacterSize() + 10);
+	settings[selectedOption].setCharacterSize(settings[selectedOption].getCharacterSize() + 2);
 }
 
 int CSETTINGS::getOption() {
 	switch (selectedOption) {
 	case 0:
-		return CCONSTANT::STATE_MENU;
+		if (settings[0].getString() == "Sound: ON [SPACE]") {
+			SoundManager::getInstance()->setIsMute(true);
+			settings[0].setString("Sound: OFF [SPACE]");
+		}
+		else {
+			SoundManager::getInstance()->setIsMute(false);
+			settings[0].setString("Sound: ON [SPACE]");
+		}
 	case 1:
 		return CCONSTANT::STATE_MENU;
 	}

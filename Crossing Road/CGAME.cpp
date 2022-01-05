@@ -53,6 +53,9 @@ int CGAME::state() {
 
 void CGAME::initLevel(int level) {
     /* Delete old data */
+    ofstream fout("game_log/temp_file.dat", ios::out | ios::binary);
+    fout.clear();
+
     for (int i = 0; i < this->lanes.size();i++) {
         delete this->lanes[i];
     }
@@ -67,33 +70,41 @@ void CGAME::initLevel(int level) {
     /* Init new lanes for level */
     int nLanes = 0;
     float speed;
-    for (int i = 0; i < min(level, 5); i++)
-    {
+    bool dir;
+    for (int i = 0; i < min(level, 5) + 1; i++) {
         /* CROAD */
-        for (int i = 0; i < min(level, 2); i++) {
+        for (int j = 0; j < min(level, 5); j++) {
             cout << "CROAD";
             speed = min(10.0, nLanes * 0.5 + 2);
-            if (rand() % 2 == 0)
-                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::LEFT));
-            else
-                lanes.push_back(new CROAD(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::RIGHT));
-            nLanes++;
-        }
-
-        /* CGRASS */
-        for (int i = 0; i < min(level, 3); i++) {
-            cout << "CGRASS";
-            speed = min(10.0, nLanes * 0.5 + 2);
-            if (rand() % 2 == 0)
-                lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::LEFT));
-            else
-                lanes.push_back(new CGRASS(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f), speed, CCONSTANT::RIGHT));
+            Vector2f tmp = Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -200.f - (float)nLanes * 275.f);
+            fout.write((char*)&tmp, sizeof(Vector2f));
+            fout.write((char*)&speed, sizeof(float));
+            fout.write((char*)&dir, sizeof(bool));
+            dir = rand() % 2;
+            if (!dir) {
+                bool t = rand() % 2;
+                if (!t)
+                    lanes.push_back(new CROAD(tmp, speed, CCONSTANT::LEFT));
+                else
+                    lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::LEFT));
+                fout.write((char*)&t, sizeof(bool));
+            }
+            else {
+                bool t = rand() % 2;
+                if (!t)
+                    lanes.push_back(new CROAD(tmp, speed, CCONSTANT::RIGHT));
+                else
+                    lanes.push_back(new CGRASS(tmp, speed, CCONSTANT::RIGHT));
+                fout.write((char*)&t, sizeof(bool));
+            }
             nLanes++;
         }
     }
 
     /* Add finish line */
-   this->finish_line = new CFinishLine(Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -50.f - (float)nLanes++ * 275.f));
+    Vector2f fl = Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f + 50, -50.f - (float)nLanes++ * 275.f);
+    finish_line = new CFinishLine(fl);
+    fout.write((char*)&fl, sizeof(Vector2f));
 }
 
 
@@ -133,6 +144,14 @@ void CGAME::pollEvents() {
             if (event.type == Event::KeyPressed && !Keyboard::isKeyPressed(Keyboard::P))
                 game_state = CCONSTANT::STATE_START;
         }
+        if (game_state == CCONSTANT::STATE_LOAD) {
+            if (Keyboard::isKeyPressed(Keyboard::Space))
+                game_state = CCONSTANT::STATE_MENU;
+        }
+        if (game_state == CCONSTANT::STATE_SAVE) {
+            if (Keyboard::isKeyPressed(Keyboard::Space))
+                game_state = CCONSTANT::STATE_START;
+        }
     }
 }
 
@@ -162,9 +181,14 @@ void CGAME::update() {
     }
     else if (Keyboard::isKeyPressed(Keyboard::S)) {
         /* Save the game to file */
-        //this->game_state = CCONSTANT::STATE_SAVE;
+        if (!showedGameOver) {
+            saveGame();
+            game_state = CCONSTANT::STATE_SAVE;
+        }
         return;
     }
+    else if (Keyboard::isKeyPressed(Keyboard::M))
+        game_state = CCONSTANT::STATE_MENU;
 
     /* Local Moving Keys while playing game */
 
@@ -197,9 +221,63 @@ void CGAME::update() {
     else player.setIsAnimating(false);
    
     if (this->game_state == CCONSTANT::STATE_PAUSE) {
+        int instructionSize = 30;
+
         RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
-        rectangle.setFillColor(Color(60, 70, 50, 200));
+        rectangle.setFillColor(Color(174, 188, 253));
         window.draw(rectangle);
+
+        Font font;
+        if (!font.loadFromFile("./assets/fonts/plaguard.otf"))  throw("Could not load the font");
+
+        Font font2;
+        if (!font2.loadFromFile("./assets/fonts/ChargeVector.ttf"))  throw("Could not load the font");
+
+        Text noti;
+        noti.setFont(font);
+        noti.setCharacterSize(56);
+        noti.setStyle(Text::Bold);
+        noti.setFillColor(Color::White);
+        noti.setString("GAME PAUSED!");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_noti = noti.getLocalBounds();
+        noti.setOrigin(textRect_noti.width / 2, textRect_noti.height / 2);
+        noti.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.30f));
+        window.draw(noti);
+
+        Text backToGame;
+        backToGame.setFont(font2);
+        backToGame.setCharacterSize(instructionSize);
+        backToGame.setFillColor(Color::White);
+        backToGame.setString("Back to game: Arrow keys");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_backToGame = backToGame.getLocalBounds();
+        backToGame.setOrigin(textRect_backToGame.width / 2, textRect_backToGame.height / 2);
+        backToGame.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.55f));
+        window.draw(backToGame);
+
+        Text goToMenu;
+        goToMenu.setFont(font2);
+        goToMenu.setCharacterSize(instructionSize);
+        goToMenu.setFillColor(Color::White);
+        goToMenu.setString("Go to menu: M");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_goToMenu = goToMenu.getLocalBounds();
+        goToMenu.setOrigin(textRect_goToMenu.width / 2, textRect_goToMenu.height / 2);
+        goToMenu.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.65f));
+        window.draw(goToMenu);
+
+        Text text_quit;
+        text_quit.setFont(font2);
+        text_quit.setCharacterSize(instructionSize);
+        text_quit.setFillColor(Color::White);
+        text_quit.setString("Quit game: Q");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_quit = text_quit.getLocalBounds();
+        text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
+        text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.75f));
+        window.draw(text_quit);
+
         window.display();
     }
 
@@ -265,6 +343,7 @@ void CGAME::update() {
 
             
             window.display();
+            clearSavedGame();
             this->showedGameOver = true;
         }
         	    
@@ -329,7 +408,17 @@ void CGAME::update() {
             next_level.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.5f));
             window.draw(next_level);
 
-            
+            Text text_save;
+            text_save.setFont(font2);
+            text_save.setCharacterSize(instructionSize);
+            text_save.setFillColor(Color::White);
+            text_save.setString("Save game: S");
+            /* Set position of text: align center */
+            sf::FloatRect textRect_save = text_save.getLocalBounds();
+            text_save.setOrigin(textRect_save.width / 2, textRect_save.height / 2);
+            text_save.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.6f));
+            window.draw(text_save);
+
             Text text_quit;
             text_quit.setFont(font2);
             text_quit.setCharacterSize(instructionSize);
@@ -338,7 +427,7 @@ void CGAME::update() {
             /* Set position of text: align center */
             sf::FloatRect textRect_quit = text_quit.getLocalBounds();
             text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
-            text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.6f));
+            text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.7f));
             window.draw(text_quit);
 
 
@@ -350,7 +439,7 @@ void CGAME::update() {
         // such as press space to go to next level
         // such as press esc to exit game
         if (Keyboard::isKeyPressed(Keyboard::Space)) {
-            this->initLevel(++this->game_level);
+            this->initLevel(++game_level);
             this->game_state = CCONSTANT::STATE_START;
             this->showedGameOver = false;
             this->player.setPlayerPosition(Vector2f(0.f, 0.f));
@@ -361,7 +450,106 @@ void CGAME::update() {
     }
 
     if (this->game_state == CCONSTANT::STATE_LOAD) {
-        game_state = CCONSTANT::STATE_MENU; //temp state to test
+        if (loadGame()) {
+            game_state = CCONSTANT::STATE_START;
+        }
+        else {
+            int instructionSize = 30;
+
+            RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+            rectangle.setFillColor(Color(174, 188, 253));
+            window.draw(rectangle);
+
+            Font font2;
+            if (!font2.loadFromFile("./assets/fonts/ChargeVector.ttf"))  throw("Could not load the font");
+
+            Text noti;
+            noti.setFont(font2);
+            noti.setCharacterSize(instructionSize + 2);
+            noti.setStyle(Text::Bold);
+            noti.setFillColor(Color::White);
+            noti.setString("Load file cannot be found.");
+            /* Set position of text: align center */
+            sf::FloatRect textRect_noti = noti.getLocalBounds();
+            noti.setOrigin(textRect_noti.width / 2, textRect_noti.height / 2);
+            noti.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.45f));
+            window.draw(noti);
+
+            Text backToMenu;
+            backToMenu.setFont(font2);
+            backToMenu.setCharacterSize(instructionSize);
+            backToMenu.setFillColor(Color::White);
+            backToMenu.setString("Back to menu: Space");
+            /* Set position of text: align center */
+            sf::FloatRect textRect_backToMenu = backToMenu.getLocalBounds();
+            backToMenu.setOrigin(textRect_backToMenu.width / 2, textRect_backToMenu.height / 2);
+            backToMenu.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.55f));
+            window.draw(backToMenu);
+
+            window.display();
+        }
+        return;
+    }
+
+    if (game_state == CCONSTANT::STATE_SAVE) {
+        int instructionSize = 30;
+
+        RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+        rectangle.setFillColor(Color(174, 188, 253));
+        window.draw(rectangle);
+
+        Font font;
+        if (!font.loadFromFile("./assets/fonts/plaguard.otf"))  throw("Could not load the font");
+
+        Font font2;
+        if (!font2.loadFromFile("./assets/fonts/ChargeVector.ttf"))  throw("Could not load the font");
+
+        Text noti;
+        noti.setFont(font);
+        noti.setCharacterSize(56);
+        noti.setStyle(Text::Bold);
+        noti.setFillColor(Color::White);
+        noti.setString("GAME SAVED!");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_noti = noti.getLocalBounds();
+        noti.setOrigin(textRect_noti.width / 2, textRect_noti.height / 2);
+        noti.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.30f));
+        window.draw(noti);
+
+        Text backToGame;
+        backToGame.setFont(font2);
+        backToGame.setCharacterSize(instructionSize);
+        backToGame.setFillColor(Color::White);
+        backToGame.setString("Back to game: Space");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_backToGame = backToGame.getLocalBounds();
+        backToGame.setOrigin(textRect_backToGame.width / 2, textRect_backToGame.height / 2);
+        backToGame.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.55f));
+        window.draw(backToGame);
+
+        Text goToMenu;
+        goToMenu.setFont(font2);
+        goToMenu.setCharacterSize(instructionSize);
+        goToMenu.setFillColor(Color::White);
+        goToMenu.setString("Go to menu: M");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_goToMenu = goToMenu.getLocalBounds();
+        goToMenu.setOrigin(textRect_goToMenu.width / 2, textRect_goToMenu.height / 2);
+        goToMenu.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.65f));
+        window.draw(goToMenu);
+
+        Text text_quit;
+        text_quit.setFont(font2);
+        text_quit.setCharacterSize(instructionSize);
+        text_quit.setFillColor(Color::White);
+        text_quit.setString("Quit game: Q");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_quit = text_quit.getLocalBounds();
+        text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
+        text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.75f));
+        window.draw(text_quit);
+
+        window.display();
         return;
     }
 
@@ -467,31 +655,93 @@ void CGAME::render() {
 
 
 //Load, save game, clear saved game
-void CGAME::loadGame() {
-    initLevel(game_level);
-    Vector2f playerPosition = player.getPlayerPosition();
-    player.setPlayerPosition(playerPosition);
-    return;
-}
-
-bool CGAME::saveGame() {
-    ofstream fout("game_log/game.txt");
-    if (!fout) {
+bool CGAME::loadGame() {
+    ifstream fin("game_log/game.dat", ios::in | ios::binary);
+    if (!fin) {
         cout << "Load file not found. Error." << endl;
         return false;
     }
+    int tmp_lvl;
+    fin.read((char*)&tmp_lvl, 4);
+    if (!tmp_lvl) return false;
+    game_level = tmp_lvl;
+    fin.read((char*)&showedGameCompleted, sizeof(bool));
+    
+    if (showedGameCompleted) {
+        initLevel(++game_level);
+        return true;
+    }
 
-    fout << "Coordinate of player: " << player.getPlayerPosition().x << " " 
-        << player.getPlayerPosition().y << endl;
+    Vector2f pos;
+    fin.read((char*)&pos, sizeof(Vector2f));
+    cout << pos.x << " " << pos.y << endl;
+    player.setPlayerPosition(pos);
 
-    fout << "Current Level: " << game_level << endl;
-    fout << endl << endl;
+    for (int i = 0; i < lanes.size(); i++)
+        delete this->lanes[i];
+
+    if (finish_line) delete finish_line;
+    lanes.clear();
+
+    Vector2f xy;
+    float speed;
+    bool dir;
+    bool type;
+    for (int i = 0; i < min(game_level, 5) + 1; i++) {
+        for (int j = 0; j < min(game_level, 5); j++) {
+            fin.read((char*)&xy, sizeof(Vector2f));
+            fin.read((char*)&speed, sizeof(float));
+            fin.read((char*)&dir, sizeof(bool));
+            fin.read((char*)&type, sizeof(bool));
+
+            if (!dir) {
+                if (!type)
+                    lanes.push_back(new CROAD(xy, speed, CCONSTANT::LEFT));
+                else
+                    lanes.push_back(new CGRASS(xy, speed, CCONSTANT::LEFT));
+            }
+            else {
+                if (!type)
+                    lanes.push_back(new CROAD(xy, speed, CCONSTANT::RIGHT));
+                else
+                    lanes.push_back(new CGRASS(xy, speed, CCONSTANT::RIGHT));
+            }
+        }
+    }
+    
+    Vector2f fl;
+    fin.read((char*)&fl, sizeof(Vector2f));
+    finish_line = new CFinishLine(fl);
+    
+    return true;
+}
+
+bool CGAME::saveGame() {
+    ofstream fout("game_log/game.dat", ios::out | ios::binary);
+    ifstream fin("game_log/temp_file.dat", ios::in | ios::binary);
+    if (!fout | !fin) {
+        cout << "Load file not found. Error." << endl;
+        return false;
+    }
+    fout.write((char*)&game_level, 4);
+    fout.write((char*)&showedGameCompleted, sizeof(bool));
+    Vector2f pos = player.getPlayerPosition();
+    cout << pos.x << " " << pos.y << endl;
+    fout.write((char*)&pos, sizeof(Vector2f));
+    
+    char c;
+    while (!fin.eof()) {
+        c = fin.get();
+        fout.put(c);
+    }
 
     cout << "Save game successfully" << endl;
     return true;
 }
 
 void CGAME::clearSavedGame() {
-    ofstream clear("game_log/game.txt");
-    clear.close();
+    ofstream fout("game_log/game.dat", ios::binary);
+    fout.clear();
+    int tmp = 0;
+    fout.write((char*)&tmp, sizeof(int));
 }

@@ -88,6 +88,7 @@ SoundManager::SoundManager() {
 }
 
 void SoundManager::play_Walking() {
+	if (isMute) return;
 	if (this->clock.getElapsedTime().asSeconds() - this->last_played[0].asSeconds() > CCONSTANT::DELAY_WALKING_SOUND) {
 		this->last_played[0] = this->clock.getElapsedTime();
 		this->sound[0].play();
@@ -95,6 +96,7 @@ void SoundManager::play_Walking() {
 }
 
 void SoundManager::play_GameCompleted() {
+	if (isMute) return;
 	// Play once only for each level
 	// If you want to play again, use reset() method below
 	if (this->last_played[1] == sf::Time()) {
@@ -104,6 +106,7 @@ void SoundManager::play_GameCompleted() {
 }
 
 void SoundManager::play_GameOver() {
+	if (isMute) return;
 	// Play once only for each level
 	// If you want to play again, use reset() method below
 	if (this->last_played[2] == sf::Time()) {
@@ -113,6 +116,7 @@ void SoundManager::play_GameOver() {
 }
 
 void SoundManager::play_Enemy(std::string typeEnemy) {
+	if (isMute) return;
 	/* animal */
 	if (typeEnemy == "reindeer") {
 		// Check if the delta time between two playing is bigger than delay time
@@ -162,7 +166,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 		}
 	}
 	
-	if (typeEnemy == "polarBear") {
+	if (typeEnemy == "polarbear") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
 		if (this->clock.getElapsedTime().asSeconds() - this->last_played[8].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
@@ -174,7 +178,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 		}
 	}
 
-	if (typeEnemy == "siberianDog") {
+	if (typeEnemy == "siberiandog") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
 		if (this->clock.getElapsedTime().asSeconds() - this->last_played[9].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
@@ -186,7 +190,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 		}
 	}
 
-	if (typeEnemy == "snowMan") {
+	if (typeEnemy == "snowman") {
 		// Check if the delta time between two playing is bigger than delay time
 		// to avoid noisy when playing
 		if (this->clock.getElapsedTime().asSeconds() - this->last_played[10].asSeconds() - Rand(1000, 3000) / 1000.0 > CCONSTANT::DELAY_BULL_SOUND) {
@@ -200,6 +204,7 @@ void SoundManager::play_Enemy(std::string typeEnemy) {
 }
 
 void SoundManager::reset() {
+	if (isMute) return;
 	this->clock.restart();
 	for (int i = 0; i < (int)this->last_played.size(); i++) {
 		last_played[i] = sf::Time();
@@ -207,6 +212,10 @@ void SoundManager::reset() {
 }
 
 void SoundManager::play_Background() {
+	if (isMute) {
+		pause_Background();
+		return;
+	}
 	if (!this->isPlayingBackground) {
 		this->isPlayingBackground = true;
 		this->background_music->play();
@@ -229,6 +238,7 @@ void SoundManager::stop_Background() {
 
 
 void SoundManager::play_EnemySound(const string& enemy) {
+	if (isMute) return;
 	int idx = sound_index[enemy];
 	float delay_time = 2.f;
 	if (enemy == "car") {
@@ -247,4 +257,12 @@ void SoundManager::play_EnemySound(const string& enemy) {
 		// Play sound
 		this->sound[idx].play();
 	}
+}
+
+/* For Mute State */
+bool SoundManager::getIsMute() {
+	return this->isMute;
+}
+void SoundManager::setIsMute(bool stateMute) {
+	this->isMute = stateMute;
 }
