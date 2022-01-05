@@ -644,6 +644,12 @@ void CGAME::render() {
         this->game_state = CCONSTANT::STATE_GAME_COMPLETED;
     }
 
+    if (game_level % 3 == 0) {
+        RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+        rectangle.setFillColor(Color(0, 0, 133, 150));
+        window.draw(rectangle);
+    }
+
     /* Print current level */
     Text current_level;
     Font font;
@@ -661,6 +667,8 @@ void CGAME::render() {
     current_level.setOrigin(textRect.width / 2, textRect.height / 2);
     current_level.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, textRect.height / 2));
     window.draw(current_level);
+
+
     /* Display the draw */
     if (game_state != CCONSTANT::STATE_GAME_OVER)
         window.display();
