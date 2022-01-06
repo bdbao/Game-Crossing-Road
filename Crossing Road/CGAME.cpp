@@ -165,6 +165,7 @@ void CGAME::update() {
     /* Global Interact keys through all state of the game*/
     if (Keyboard::isKeyPressed(Keyboard::Q) || Keyboard::isKeyPressed(Keyboard::Escape)) {
         /* Quit the game */
+        if (game_state == CCONSTANT::STATE_MENU) return;
         this->window.close();
         cout << "QUIT by pressing Q" << endl;
         return;
@@ -175,25 +176,22 @@ void CGAME::update() {
         cout << "QUIT by pressing ESC" << endl;
         return;
     }
-    else if (Keyboard::isKeyPressed(Keyboard::L)) {
-        /* Load the game from file */
-        //this->game_state = CCONSTANT::STATE_LOAD;
-        return;
-    }
-    else if (Keyboard::isKeyPressed(Keyboard::S)) {
-        /* Save the game to file */
-        if (!showedGameOver) {
-            saveGame();
-            game_state = CCONSTANT::STATE_SAVE;
-        }
-        return;
-    }
-    else if (Keyboard::isKeyPressed(Keyboard::M))
+    else if (Keyboard::isKeyPressed(Keyboard::M)) {
+        isNewGame = true;
         game_state = CCONSTANT::STATE_MENU;
+    }
 
     /* Local Moving Keys while playing game */
 
     if (this->game_state == CCONSTANT::STATE_START) {
+        if (isNewGame) {
+            initLevel(1);
+            this->player.setPlayerPosition(Vector2f(0.f, 0.f));
+            this->sound_manager->reset();
+            isNewGame = false;
+            return;
+        }
+
         if (Keyboard::isKeyPressed(Keyboard::Up)) {
             cout << "Moving UP by pressing Up or W" << endl;
             this->sound_manager->play_Walking();
@@ -218,15 +216,30 @@ void CGAME::update() {
             player.moveRight();
             player.setIsAnimating(true);
         }
+        else if (Keyboard::isKeyPressed(Keyboard::S)) {
+            if (!showedGameOver) {
+                saveGame();
+                game_state = CCONSTANT::STATE_SAVE;
+            }
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::L)) {
+            /* Load the game from file */
+            initLevel(game_level);
+            this->player.setPlayerPosition(Vector2f(0.f, 0.f));
+            this->sound_manager->reset();
+            isNewGame = false;
+            return;
+        } else player.setIsAnimating(false);
     }
-    else player.setIsAnimating(false);
    
     if (this->game_state == CCONSTANT::STATE_PAUSE) {
         int instructionSize = 30;
 
-        RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
-        rectangle.setFillColor(Color(174, 188, 253));
-        window.draw(rectangle);
+        Sprite backdrop;
+        Texture backdropTexture;
+        backdropTexture.loadFromFile("./assets/graphics/background3.jpg");
+        backdrop.setTexture(backdropTexture);
+        window.draw(backdrop);
 
         Font font;
         if (!font.loadFromFile("./assets/fonts/plaguard.otf"))  throw("Could not load the font");
@@ -250,7 +263,7 @@ void CGAME::update() {
         backToGame.setFont(font2);
         backToGame.setCharacterSize(instructionSize);
         backToGame.setFillColor(Color::White);
-        backToGame.setString("Back to game: Arrow keys");
+        backToGame.setString("Back to game: Arbitrary key");
         /* Set position of text: align center */
         sf::FloatRect textRect_backToGame = backToGame.getLocalBounds();
         backToGame.setOrigin(textRect_backToGame.width / 2, textRect_backToGame.height / 2);
@@ -284,10 +297,9 @@ void CGAME::update() {
 
     /* Game over */
     if (this->game_state == CCONSTANT::STATE_GAME_OVER) {
-        
         /* Print game over and hotkey instruction */
-        if (!this->showedGameOver) {
 
+        if (!this->showedGameOver) {
             int notiSize = 72, instructionSize = 32;
             
             RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
@@ -365,13 +377,13 @@ void CGAME::update() {
     if (this->game_state == CCONSTANT::STATE_GAME_COMPLETED) {
         // Need to draw image of passing level here
         // ...
-        
-        if (!this->showedGameCompleted) {
 
+        if (!this->showedGameCompleted) {
             int notiSize = 56, instructionSize = 32;
 
             RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
-            rectangle.setFillColor(Color(0,0,0,200));
+            rectangle.setFillColor(Color(0, 0, 0, 200));
+
             window.draw(rectangle);
 
             Text level_completed;
@@ -460,20 +472,22 @@ void CGAME::update() {
             RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
             rectangle.setFillColor(Color(174, 188, 253));
             window.draw(rectangle);
-
+            
+            Font font;
+            if (!font.loadFromFile("./assets/fonts/plaguard.otf"))  throw("Could not load the font");
             Font font2;
             if (!font2.loadFromFile("./assets/fonts/ChargeVector.ttf"))  throw("Could not load the font");
 
             Text noti;
-            noti.setFont(font2);
-            noti.setCharacterSize(instructionSize + 2);
+            noti.setFont(font);
+            noti.setCharacterSize(56);
             noti.setStyle(Text::Bold);
             noti.setFillColor(Color::White);
-            noti.setString("Load file cannot be found.");
+            noti.setString("NOT FOUND!");
             /* Set position of text: align center */
             sf::FloatRect textRect_noti = noti.getLocalBounds();
             noti.setOrigin(textRect_noti.width / 2, textRect_noti.height / 2);
-            noti.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.45f));
+            noti.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.30f));
             window.draw(noti);
 
             Text backToMenu;
@@ -592,6 +606,7 @@ void CGAME::render() {
                 if (player.isImpact(e)) {
                     cout << "GAME OVER!\n";
                     this->sound_manager->play_GameOver();
+                    player.gameOver(t->getDirection());
                     this->game_state = CCONSTANT::STATE_GAME_OVER;
                     cout << "Collision with " << e->getEnemyName() << endl;
                 }
@@ -602,7 +617,7 @@ void CGAME::render() {
             }
         }
 
-        /* Play object sound */
+        /* Play object sound *///window.draw(player.getShape());
         //this->sound_manager->play_Enemy(t->getTypeEnemy());
 
         /* Draw traffic light */
@@ -614,7 +629,7 @@ void CGAME::render() {
     window.draw(*this->finish_line->getShape());
 
     /* Draw player */
-    window.draw(player.getShape());
+    window.draw(player.getShape());   
 
     /* Draw snowflakes theme */
     window.setView(window.getDefaultView());
@@ -627,6 +642,12 @@ void CGAME::render() {
     if (this->finish_line->checkCollision(this->player)) {
         this->sound_manager->play_GameCompleted();
         this->game_state = CCONSTANT::STATE_GAME_COMPLETED;
+    }
+
+    if (game_level % 3 == 0) {
+        RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+        rectangle.setFillColor(Color(0, 0, 133, 150));
+        window.draw(rectangle);
     }
 
     /* Print current level */
@@ -647,8 +668,10 @@ void CGAME::render() {
     current_level.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, textRect.height / 2));
     window.draw(current_level);
 
+
     /* Display the draw */
-    window.display();
+    if (game_state != CCONSTANT::STATE_GAME_OVER)
+        window.display();
 
     /* Debug part */
     //cout << this->player.getPlayerPosition().x << " " << this->player.getPlayerPosition().y << endl;
@@ -662,6 +685,8 @@ bool CGAME::loadGame() {
         cout << "Load file not found. Error." << endl;
         return false;
     }
+
+    isNewGame = false;
     int tmp_lvl;
     fin.read((char*)&tmp_lvl, 4);
     if (!tmp_lvl) return false;
@@ -720,7 +745,7 @@ bool CGAME::loadGame() {
 bool CGAME::saveGame() {
     ofstream fout("game_log/game.dat", ios::out | ios::binary);
     ifstream fin("game_log/temp_file.dat", ios::in | ios::binary);
-    if (!fout | !fin) {
+    if (!fout || !fin) {
         cout << "Load file not found. Error." << endl;
         return false;
     }

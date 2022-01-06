@@ -13,8 +13,6 @@
 #include <SFML/Graphics.hpp>
 
 class CROAD : public CLANE {
-	std::string direction;
-
 public:
 	CROAD(sf::Vector2f pos, float speed, std::string direction);
 	~CROAD();

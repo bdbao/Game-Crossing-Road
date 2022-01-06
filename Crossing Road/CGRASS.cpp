@@ -1,11 +1,12 @@
 #include "CGRASS.h"
 
 
-CGRASS::CGRASS(Vector2f pos, float speed, string direction) : CLANE(speed), direction(direction) {
+CGRASS::CGRASS(Vector2f pos, float speed, string direction) : CLANE(speed) {
 	if (!texture.loadFromFile("assets/graphics/grass.jpg")) {
 		cout << "Cannot find grass texture." << endl;
 		return;
 	}
+	this->direction = direction;
 	sprite.setTexture(texture);
 	sprite.setPosition(pos);
 	Vector2u size = texture.getSize();
@@ -29,12 +30,10 @@ void CGRASS::update() {
 	Sprite& lastEnemyShape = enemies.back()->getSprite();
 	if (Rand(1, 100) <= 60) {
 		/* random type of animal */
-		long long randNumAnimal = Rand(1, 8);
-		if (randNumAnimal % 6 == 0) typeEnemy = "bulls";
-		else if (randNumAnimal % 6 == 1) typeEnemy = "penguin";
-		else if (randNumAnimal % 6 == 2) typeEnemy = "polarbear";
-	    else if (randNumAnimal % 6 == 3) typeEnemy = "siberiandog";
-		else if (randNumAnimal % 6 == 4) typeEnemy = "snowman";
+		long long randNumAnimal = Rand(0, 3);
+		if (randNumAnimal % 4 == 0) typeEnemy = "penguin";
+	    else if (randNumAnimal % 4 == 1) typeEnemy = "siberiandog";
+		else if (randNumAnimal % 4 == 2) typeEnemy = "snowman";
 		else typeEnemy = "reindeer";
 		
 		/* random type of penguin */
@@ -55,14 +54,10 @@ void CGRASS::update() {
 				enemies.push_back(new CPENGUIN(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 			else if (typeEnemy == "reindeer")
 				enemies.push_back(new CREINDEER(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
-			else if (typeEnemy == "polarbear")
-				enemies.push_back(new CPOLARBEAR(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 			else if (typeEnemy == "siberiandog")
 				enemies.push_back(new CSIBERIANDOG(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 			else if (typeEnemy == "snowman")
 				enemies.push_back(new CSNOWMAN(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
-			else 
-				enemies.push_back(new CBULL(typeAsset, direction, Vector2f(CCONSTANT::WINDOW_WIDTH + Rand(200, 400), sprite.getPosition().y + 50)));
 		}
 		
 		if (direction == CCONSTANT::RIGHT && lastEnemyShape.getPosition().x >= -200) {
@@ -70,14 +65,10 @@ void CGRASS::update() {
 				enemies.push_back(new CPENGUIN(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
 			else if (typeEnemy == "reindeer")
 				enemies.push_back(new CREINDEER(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
-			else if (typeEnemy == "polarbear")
-				enemies.push_back(new CPOLARBEAR(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
 			else if (typeEnemy == "siberiandog")
 				enemies.push_back(new CSIBERIANDOG(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
 			else if (typeEnemy == "snowman")
 				enemies.push_back(new CSNOWMAN(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
-			else
-				enemies.push_back(new CBULL(typeAsset, direction, Vector2f(-(int)CCONSTANT::WINDOW_WIDTH - Rand(200, 400), sprite.getPosition().y + 50)));
 		}
 
 	}

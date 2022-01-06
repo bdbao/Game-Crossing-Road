@@ -6,11 +6,9 @@
 #include "CENEMY.h"
 #include "CANIMAL.h"
 #include "CCONSTANT.h"
-#include "CBULL.h"
 #include "CPENGUIN.h"
 #include "CSNOWMAN.h"
 #include "CREINDEER.h"
-#include "CPOLARBEAR.h"
 #include "CSIBERIANDOG.h"
 
 #include <vector>
@@ -24,7 +22,6 @@ using namespace std;
 using namespace sf;
 
 class CGRASS : public CLANE {
-	std::string direction;
 public:
 	CGRASS(sf::Vector2f pos, float speed, std::string direction);
 	void update();

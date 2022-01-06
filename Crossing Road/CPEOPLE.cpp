@@ -49,7 +49,8 @@ void CPEOPLE::moveDown() {
 	if (isAnimating) processAnimation(7);
 	else setTextureId(7), animationTimer = 0;
 	shape.setTextureRect(getTextureRect(textureId));
-	shape.move(Vector2f(0, CCONSTANT::UNIT));
+	if (shape.getPosition().y < 350)
+		shape.move(Vector2f(0, CCONSTANT::UNIT));
 }
 
 
@@ -116,13 +117,12 @@ void CPEOPLE::setPlayerPosition(const Vector2f& pos) {
 	this->shape.setPosition(pos);
 }
 
-
-void CPEOPLE::setAfterDead() {
-	//this->shape.rotate(90);
-
-	texture.loadFromFile("./assets/texture/blood.png");
-	this->shape.setTexture(texture);
-
-	sf::IntRect rect(500, 500, 500, 500);
-	this->shape.setTextureRect(rect);
+void CPEOPLE::gameOver(string direction) {
+	if (direction == CCONSTANT::LEFT) {
+		this->shape.setTextureRect(getTextureRect(12));
+	}
+	else {
+		this->shape.setTextureRect(getTextureRect(13));
+	}
+	isAnimating = false;
 }

@@ -33,6 +33,7 @@ class CGAME {
 	std::vector<CLANE*> lanes;
 	int game_level;
 	CFinishLine* finish_line;
+	bool isNewGame = true;
 
 	/* Music */
 	SoundManager* sound_manager;

@@ -1,9 +1,12 @@
 .vs
 Debug
-"Crossing Road/Crossing Road.vcxproj"
 x64
 "Crossing Road/x64"
+
+"Crossing Road/Crossing Road.vcxproj"
 Crossing Road.vcxproj
 "Crossing Road.vcxproj"
 *.vcxproj
 Crossing Road/Crossing Road.vcxproj
+
+"Crossing Road/game_log"

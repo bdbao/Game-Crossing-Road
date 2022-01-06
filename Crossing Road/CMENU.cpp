@@ -22,7 +22,7 @@ CMENU::CMENU() {
 	menu[0].setCharacterSize(menu[0].getCharacterSize() + 10);
 
 	/* Set name of these options */
-	menu[0].setString("Start Game");
+	menu[0].setString("New Game");
 	menu[1].setString("Load Game");
 	menu[2].setString("Settings");
 	menu[3].setString("Quit");
@@ -33,9 +33,14 @@ CMENU::~CMENU() {
 }
 void CMENU::draw(RenderWindow& window) {
 	/* Set background color */
-	RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
-	rectangle.setFillColor(CCONSTANT::BACKGROUND);
-	window.draw(rectangle);
+	int padding = 0;
+	//RectangleShape rectangle(Vector2f(CCONSTANT::WINDOW_WIDTH, CCONSTANT::WINDOW_HEIGHT));
+	//rectangle.setFillColor(CCONSTANT::BACKGROUND);
+	Sprite background;
+	Texture backgroundTexture;
+	backgroundTexture.loadFromFile("./assets/graphics/background3.jpg");
+	background.setTexture(backgroundTexture);
+	window.draw(background);
 
 	/* Display options */
 	for (int i = 0; i < CCONSTANT::NUMBER_OF_OPTIONS; ++i) {
@@ -43,9 +48,9 @@ void CMENU::draw(RenderWindow& window) {
 		menu[i].setOrigin(textRect.left + textRect.width / 2.0f,
 			textRect.top + textRect.height / 2.0f);
 		menu[i].setPosition(Vector2f(window.getSize().x / 2.0f,
-			(window.getSize().y) /
+			(window.getSize().y - padding) /
 			(CCONSTANT::NUMBER_OF_OPTIONS + 1) *
-			(i + 1) + 5));
+			(i + 1) + padding));
 		window.draw(menu[i]);
 	}
 
