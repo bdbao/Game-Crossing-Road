@@ -689,7 +689,6 @@ bool CGAME::loadGame() {
         //puts(outPath);
         //free(outPath);
         cout << path << endl;
-        free(path);
     }
     else if (result == NFD_CANCEL) {
         puts("User pressed cancel.");
