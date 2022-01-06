@@ -13,6 +13,8 @@
 #include "CFinishLine.h"
 #include "CMENU.h"
 
+#include <nfd.h>
+
 #include <vector>
 #include <fstream>
 #include <iostream>

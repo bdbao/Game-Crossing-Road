@@ -680,7 +680,25 @@ void CGAME::render() {
 
 //Load, save game, clear saved game
 bool CGAME::loadGame() {
-    ifstream fin("game_log/game.dat", ios::in | ios::binary);
+    //nfdchar_t* outPath = NULL;
+    char* path = nullptr;
+    nfdresult_t result = NFD_OpenDialog("dat", "game_log", &path);
+
+    if (result == NFD_OKAY) {
+        puts("Success!");
+        //puts(outPath);
+        //free(outPath);
+        cout << path << endl;
+    }
+    else if (result == NFD_CANCEL) {
+        puts("User pressed cancel.");
+        path = (char*)"game_log/game.dat";
+    }
+    else {
+        printf("Error: %s\n", NFD_GetError());
+    }
+
+    ifstream fin(path, ios::in | ios::binary);
     if (!fin) {
         cout << "Load file not found. Error." << endl;
         return false;
@@ -743,7 +761,25 @@ bool CGAME::loadGame() {
 }
 
 bool CGAME::saveGame() {
-    ofstream fout("game_log/game.dat", ios::out | ios::binary);
+    //nfdchar_t* outPath = NULL;
+    char* savePath = nullptr;
+    nfdresult_t result = NFD_SaveDialog("dat", "game_log", &savePath);
+    if (result == NFD_OKAY)
+    {
+        puts("Success!");
+        cout << savePath << endl;
+    }
+    else if (result == NFD_CANCEL)
+    {
+        puts("User pressed cancel.");
+        savePath = (char*)"game_log/game.dat";
+    }
+    else
+    {
+        printf("Error: %s\n", NFD_GetError());
+    }
+
+    ofstream fout(savePath, ios::out | ios::binary);
     ifstream fin("game_log/temp_file.dat", ios::in | ios::binary);
     if (!fout || !fin) {
         cout << "Load file not found. Error." << endl;
