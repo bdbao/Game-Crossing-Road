@@ -680,8 +680,26 @@ void CGAME::render() {
 
 //Load, save game, clear saved game
 bool CGAME::loadGame() {
+    //nfdchar_t* outPath = NULL;
+    char* path = nullptr;
+    nfdresult_t result = NFD_OpenDialog("dat", NULL, &path);
 
-    ifstream fin("game_log/game.dat", ios::in | ios::binary);
+    if (result == NFD_OKAY) {
+        puts("Success!");
+        //puts(outPath);
+        //free(outPath);
+        cout << path << endl;
+        free(path);
+    }
+    else if (result == NFD_CANCEL) {
+        puts("User pressed cancel.");
+        path = (char*)"game_log/game.dat";
+    }
+    else {
+        printf("Error: %s\n", NFD_GetError());
+    }
+
+    ifstream fin(path, ios::in | ios::binary);
     if (!fin) {
         cout << "Load file not found. Error." << endl;
         return false;
