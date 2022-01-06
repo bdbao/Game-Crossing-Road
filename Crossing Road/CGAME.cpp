@@ -682,7 +682,7 @@ void CGAME::render() {
 bool CGAME::loadGame() {
     //nfdchar_t* outPath = NULL;
     char* path = nullptr;
-    nfdresult_t result = NFD_OpenDialog("dat", NULL, &path);
+    nfdresult_t result = NFD_OpenDialog("dat", "game_log", &path);
 
     if (result == NFD_OKAY) {
         puts("Success!");
