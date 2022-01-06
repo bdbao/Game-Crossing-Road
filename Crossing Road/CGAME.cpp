@@ -680,6 +680,7 @@ void CGAME::render() {
 
 //Load, save game, clear saved game
 bool CGAME::loadGame() {
+
     ifstream fin("game_log/game.dat", ios::in | ios::binary);
     if (!fin) {
         cout << "Load file not found. Error." << endl;
