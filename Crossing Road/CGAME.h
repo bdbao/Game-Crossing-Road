@@ -36,13 +36,14 @@ class CGAME {
 	int game_level;
 	CFinishLine* finish_line;
 	bool isNewGame = true;
+	bool isCanceled = false;
 
 	/* Music */
 	SoundManager* sound_manager;
 
 	/* Event manager */
 	int game_state;
-
+	
 	/* Variable to check if show game over once or winning once */
 	bool showedGameOver;
 	bool showedGameCompleted;

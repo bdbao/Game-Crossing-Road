@@ -146,8 +146,10 @@ void CGAME::pollEvents() {
                 game_state = CCONSTANT::STATE_START;
         }
         if (game_state == CCONSTANT::STATE_LOAD) {
-            if (Keyboard::isKeyPressed(Keyboard::Space))
+            if (Keyboard::isKeyPressed(Keyboard::Space)) {
                 game_state = CCONSTANT::STATE_MENU;
+                isCanceled = false;
+            }
         }
         if (game_state == CCONSTANT::STATE_SAVE) {
             if (Keyboard::isKeyPressed(Keyboard::Space))
@@ -680,6 +682,7 @@ void CGAME::render() {
 
 //Load, save game, clear saved game
 bool CGAME::loadGame() {
+    if (isCanceled) return false;
     //nfdchar_t* outPath = NULL;
     char* path = nullptr;
     nfdresult_t result = NFD_OpenDialog("dat", "game_log", &path);
@@ -692,10 +695,13 @@ bool CGAME::loadGame() {
     }
     else if (result == NFD_CANCEL) {
         puts("User pressed cancel.");
-        path = (char*)"game_log/game.dat";
+        isCanceled = true;
+        return false;
     }
     else {
         printf("Error: %s\n", NFD_GetError());
+        isCanceled = true;
+        return false;
     }
 
     ifstream fin(path, ios::in | ios::binary);
