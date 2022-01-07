@@ -236,6 +236,7 @@ void CGAME::update() {
    
     if (this->game_state == CCONSTANT::STATE_PAUSE) {
         int instructionSize = 30;
+        float outline_size = 1.5f;
 
         Sprite backdrop;
         Texture backdropTexture;
@@ -270,7 +271,23 @@ void CGAME::update() {
         sf::FloatRect textRect_backToGame = backToGame.getLocalBounds();
         backToGame.setOrigin(textRect_backToGame.width / 2, textRect_backToGame.height / 2);
         backToGame.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.55f));
+        backToGame.setOutlineColor(sf::Color::Black);
+        backToGame.setOutlineThickness(outline_size);
         window.draw(backToGame);
+
+        Text saveGame;
+        saveGame.setFont(font2);
+        saveGame.setCharacterSize(instructionSize);
+        saveGame.setFillColor(Color::White);
+        saveGame.setString("Save game: S");
+        /* Set position of text: align center */
+        sf::FloatRect textRect_saveGame = saveGame.getLocalBounds();
+        saveGame.setOrigin(textRect_saveGame.width / 2, textRect_saveGame.height / 2);
+        saveGame.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.65f));
+        saveGame.setOutlineColor(sf::Color::Black);
+        saveGame.setOutlineThickness(outline_size);
+        window.draw(saveGame);
+        
 
         Text goToMenu;
         goToMenu.setFont(font2);
@@ -280,7 +297,9 @@ void CGAME::update() {
         /* Set position of text: align center */
         sf::FloatRect textRect_goToMenu = goToMenu.getLocalBounds();
         goToMenu.setOrigin(textRect_goToMenu.width / 2, textRect_goToMenu.height / 2);
-        goToMenu.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.65f));
+        goToMenu.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.75f));
+        goToMenu.setOutlineColor(sf::Color::Black);
+        goToMenu.setOutlineThickness(outline_size);
         window.draw(goToMenu);
 
         Text text_quit;
@@ -291,7 +310,9 @@ void CGAME::update() {
         /* Set position of text: align center */
         sf::FloatRect textRect_quit = text_quit.getLocalBounds();
         text_quit.setOrigin(textRect_quit.width / 2, textRect_quit.height / 2);
-        text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.75f));
+        text_quit.setPosition(sf::Vector2f(CCONSTANT::WINDOW_WIDTH / 2.0f, CCONSTANT::WINDOW_HEIGHT * 0.85f));
+        text_quit.setOutlineColor(sf::Color::Black);
+        text_quit.setOutlineThickness(outline_size);
         window.draw(text_quit);
 
         window.display();
@@ -460,7 +481,14 @@ void CGAME::update() {
             this->player.setPlayerPosition(Vector2f(0.f, 0.f));
             this->sound_manager->reset();
         }
-
+        else if (Keyboard::isKeyPressed(Keyboard::S)) {
+            bool success = saveGame();
+            if (success)
+                game_state = CCONSTANT::STATE_SAVE;
+            this->showedGameCompleted = false;
+            
+            
+        }
         return;
     }
 
@@ -581,7 +609,7 @@ void CGAME::render() {
     window.setView(view);
 
     /* Draw background */
-    //this->background_sprite.setPosition(this->view.getCenter() - Vector2f(550, 350));
+    this->background_sprite.setPosition(this->view.getCenter() + Vector2f(-(int)CCONSTANT::WINDOW_WIDTH / 2.f, -(int)CCONSTANT::WINDOW_HEIGHT * 9));
     window.draw(this->background_sprite);
 
     int player_position_idx = round(((float) player.getPlayerPosition().y + 200) / -275.0);
