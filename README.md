@@ -4,6 +4,9 @@ This project is endorsed by Programming Systems Course (CS202) - VNUHCMUS
 
 Crossy-road game is written in C++ language with the supports of SFML - a powerful engine which provides various components, allows developers incoperate assets outside to build up flexible and dynamic layouts
 
+# Game trailer
+https://www.youtube.com/watch?v=xp6GAbHJ11U
+
 # Short Description
 - Crossy-road is one-player game with colorful and smooth UI
 - Playing game by interacting with the keyboad (4 arrows keyboards: Left, Right, Below, Top) and space for continuing new games when you pass a level
