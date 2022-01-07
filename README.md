@@ -30,3 +30,11 @@ https://www.youtube.com/watch?v=xp6GAbHJ11U
 - Trần Minh Nam
 - Lâm Hiền Toàn
 - Bùi Duy Bảo
+
+# Game guidelines
+- Moving: Arrow Keys
+- Pause game: P
+- Save game: S
+- Load game: L
+- Go to Menu: M
+- Quit game: Q or Esc
